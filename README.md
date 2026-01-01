@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pomegroup Monorepo
 
-## Getting Started
+This repository contains the various projects and components of Pomegroup.
 
-First, run the development server:
+## Project Index
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+| Project Directory | Description | Status | Live URL |
+| :--- | :--- | :--- | :--- |
+| `pomegroup-website/` | **Main Website**. The Next.js 16 public portal. (Formerly root project) | Active | TBD |
+| `pometesters/` | **Pometesters**. Management system for testing feedback loops. | Active | TBD |
+| `IlyaRobloxGame/` | **IlyaRobloxGame**. Roblox game project source (Rojo). | Active | N/A |
+| `roblox/` | **Roblox Library**. Shared Roblox project components. | Active | N/A |
+| `stable-diffusion-webui/` | **SD WebUI**. Local AI generation tools. | Installed | N/A |
+| `pomegroup-studio/` | **Pomegroup Studio**. Alternative/Legacy studio application. | Legacy | https://pomegroup.studio (Likely) |
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Notes
+-   Refer to the `PROJECT_DESC.md` inside each directory for project-specific details.
+-   Common tooling includes Node.js (Next.js), Python (AI tools), and Rojo (Roblox).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Details
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Pometools / Pomegroup Website (`pomegroup-website/`)
+**Status**: Active | **Type**: Next.js 16 Web Application
+This is the main public website or dashboard portal for Pomegroup. It was previously located at the root of the repository.
+-   **Stack**: Next.js 16 (App Router), TypeScript, Tailwind CSS.
 
-## Learn More
+### Pometesters (`pometesters/`)
+**Status**: Active | **Type**: Next.js 16 Web Application
+A management system for testers, likely for beta testing or user feedback loops. Includes admin capabilities and email integration.
+-   **Stack**: Next.js 16, TypeScript, Prisma ORM, Tailwind CSS v4, Nodemailer.
 
-To learn more about Next.js, take a look at the following resources:
+### IlyaRobloxGame (`IlyaRobloxGame/`)
+**Status**: Active | **Type**: Roblox Game Source
+A Roblox game project managed with Rojo.
+-   **Stack**: Rojo 7.7.0. Top-level place file.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Roblox Library (`roblox/`)
+**Status**: Active | **Type**: Roblox Project Source
+Another Roblox project structure, potentially a shared library or a separate game instance.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Stable Diffusion WebUI (`stable-diffusion-webui/`)
+(Removed per user request)
 
-## Deploy on Vercel
+### Pomegroup Studio (Archive) (`pomegroup-studio/`)
+(Removed per user request)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

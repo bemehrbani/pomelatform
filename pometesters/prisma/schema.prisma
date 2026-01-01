@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Tester {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  name            String?
+  role            String   // 'Consultant', 'Manager', 'CEO', 'Strategy', 'Other'
+  token           String   @unique // The magic link token
+  status          String   @default("INVITED") // INVITED, ACTIVE, COMPLETED
+  
+  // Tracking
+  tasksCompleted  String   @default("[]") // JSON string of completed task IDs
+  feedback        String?  // JSON string or relation for feedback
+  
+  invitedAt       DateTime @default(now())
+  activatedAt     DateTime?
+  completedAt     DateTime?
+  lastSeenAt      DateTime?
+  
+  @@index([token])
+}
