@@ -6,10 +6,10 @@ interface ProjectCardProps {
 }
 
 const statusColors: Record<ProjectStatus, string> = {
-    'Active': 'bg-green-500/10 text-green-500 border-green-500/20',
-    'Planning': 'bg-blue-500/10 text-blue-500 border-blue-500/20',
-    'Blocked': 'bg-red-500/10 text-red-500 border-red-500/20',
-    'Completed': 'bg-purple-500/10 text-purple-500 border-purple-500/20',
+    'Active': 'bg-green-100 text-green-700 border-green-200',
+    'Planning': 'bg-blue-100 text-blue-700 border-blue-200',
+    'Blocked': 'bg-red-100 text-red-700 border-red-200',
+    'Completed': 'bg-purple-100 text-purple-700 border-purple-200',
 };
 
 const stageIcons: Record<ProjectStage, React.ReactNode> = {
@@ -25,22 +25,22 @@ const stageIcons: Record<ProjectStage, React.ReactNode> = {
 export function ProjectCard({ project }: ProjectCardProps) {
     // Use the status directly as it matches the type
     const statusKey = project.status;
-    const statusStyle = statusColors[statusKey] || 'bg-gray-500/10 text-gray-500 border-gray-500/20';
+    const statusStyle = statusColors[statusKey] || 'bg-gray-100 text-gray-700 border-gray-200';
 
     return (
-        <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-all hover:bg-white/10 hover:shadow-2xl hover:-translate-y-1">
-            {/* Decorative Gradient Blob */}
-            <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 blur-2xl transition-all group-hover:scale-150" />
+        <div className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all hover:border-indigo-200 hover:shadow-md hover:-translate-y-1">
+            {/* Decorative Gradient Blob (Subtle for light mode) */}
+            <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-gradient-to-br from-indigo-50/50 to-purple-50/50 blur-2xl transition-all group-hover:scale-150" />
 
             <div className="relative z-10 flex flex-col h-full">
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 shadow-inner">
-                            <Folder className="w-5 h-5 text-indigo-400" />
+                        <div className="p-2 rounded-lg bg-gray-50 border border-gray-200 shadow-sm group-hover:bg-white transition-colors">
+                            <Folder className="w-5 h-5 text-indigo-600" />
                         </div>
                         <div>
-                            <h3 className="font-semibold text-lg tracking-tight text-white/90 group-hover:text-white transition-colors">
+                            <h3 className="font-semibold text-lg tracking-tight text-gray-900 group-hover:text-indigo-600 transition-colors">
                                 {project.name}
                             </h3>
                             <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
@@ -58,17 +58,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-muted-foreground mb-6 line-clamp-2 min-h-[40px]">
+                <p className="text-sm text-gray-500 mb-6 line-clamp-2 min-h-[40px]">
                     {project.description}
                 </p>
 
                 {/* Next Step Section */}
-                <div className="mt-auto pt-4 border-t border-white/5">
-                    <p className="text-xs font-medium text-indigo-300 mb-1 flex items-center gap-1">
+                <div className="mt-auto pt-4 border-t border-gray-100">
+                    <p className="text-xs font-medium text-indigo-600 mb-1 flex items-center gap-1">
                         <ArrowRight className="w-3 h-3" />
                         NEXT STEP
                     </p>
-                    <p className="text-sm text-white/80 line-clamp-2">
+                    <p className="text-sm text-gray-700 line-clamp-2 font-medium">
                         {project.nextStep}
                     </p>
                 </div>
@@ -76,7 +76,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 {/* Tags */}
                 <div className="mt-4 flex flex-wrap gap-2">
                     {project.tags.map(tag => (
-                        <span key={tag} className="px-2 py-0.5 rounded text-[10px] bg-white/5 text-white/40 border border-white/5">
+                        <span key={tag} className="px-2 py-0.5 rounded text-[10px] bg-gray-50 text-gray-500 border border-gray-100 font-medium">
                             {tag}
                         </span>
                     ))}
