@@ -1,4 +1,5 @@
 
+// Force update
 export type ProjectStage = 'Concept' | 'MVP' | 'Alpha' | 'Beta' | 'Live' | 'Maintenance' | 'On Hold' | 'Archived';
 export type ProjectStatus = 'Active' | 'Blocked' | 'Completed' | 'Planning';
 export type ProjectType = 'Past' | 'Current' | 'MVP';
