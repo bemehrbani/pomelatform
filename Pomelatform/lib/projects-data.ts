@@ -102,7 +102,7 @@ export const projects: Project[] = [
     status: 'Active',
     url: 'https://byblos.digital',
     logo: 'https://www.google.com/s2/favicons?domain=byblos.digital&sz=128',
-    screenshot: 'https://image.thum.io/get/width/1200/crop/600/https://byblos.digital',
+    screenshot: '/images/byblos-showcase.png',
     path: '/Users/mahdifarimani/Documents/AntiGravity/Pomegroup/Byblos',
     team: defaultTeam,
     tags: ['Next.js', 'Content Aggregation', 'SaaS', 'Tailwind'],
