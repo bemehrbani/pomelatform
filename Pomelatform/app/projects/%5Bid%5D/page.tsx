@@ -26,8 +26,26 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
             {/* Hero Section */}
             <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
-                    <Globe className="w-96 h-96 text-gray-900" />
+                <div className="absolute inset-0 z-0 overflow-hidden">
+                    {project.screenshot ? (
+                        <div className="absolute top-0 right-0 w-2/3 h-full">
+                            <div className="relative w-full h-full">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                    src={project.screenshot}
+                                    alt=""
+                                    className="w-full h-full object-cover object-top opacity-10"
+                                    style={{ maskImage: 'linear-gradient(to right, transparent, black)' }}
+                                />
+                                {/* Gradient overlay for better text contrast */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent" />
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+                            <Globe className="w-96 h-96 text-gray-900" />
+                        </div>
+                    )}
                 </div>
 
                 <div className="relative z-10">
