@@ -1,4 +1,6 @@
 
+'use client';
+
 import { notFound } from 'next/navigation';
 import { projects } from '@/lib/projects-data';
 import { ArrowLeft, ExternalLink, Github, Users, Calendar, Code2, Globe, Activity } from 'lucide-react';
@@ -41,10 +43,18 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                         </span>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">{project.name}</h1>
-                    <p className="text-lg md:text-xl text-gray-600 max-w-3xl leading-relaxed">
-                        {project.fullDescription || project.description}
-                    </p>
+                    <div className="flex items-start gap-4 mb-6">
+                        {project.logo && (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={project.logo} alt="logo" className="w-16 h-16 rounded-xl border border-gray-200 p-2 object-contain bg-white shadow-sm" />
+                        )}
+                        <div>
+                            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">{project.name}</h1>
+                            <p className="text-lg md:text-xl text-gray-600 max-w-3xl leading-relaxed">
+                                {project.fullDescription || project.description}
+                            </p>
+                        </div>
+                    </div>
 
                     <div className="mt-8 flex flex-wrap gap-4">
                         {project.url && (
@@ -73,9 +83,13 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 <div className="lg:col-span-2 space-y-8">
                     {/* Showcase Mockup Placeholder */}
                     <div className="bg-gray-100/50 rounded-2xl border border-gray-200 aspect-video flex items-center justify-center relative overflow-hidden group hover:shadow-md transition-shadow">
-                        {project.showcaseImage ? (
+                        {project.screenshot || project.showcaseImage ? (
                             // eslint-disable-next-line @next/next/no-img-element
-                            <img src={project.showcaseImage} alt={`${project.name} showcase`} className="w-full h-full object-cover" />
+                            <img
+                                src={project.screenshot || project.showcaseImage}
+                                alt={`${project.name} showcase`}
+                                className="w-full h-full object-cover object-top"
+                            />
                         ) : (
                             <div className="text-center p-8">
                                 {project.url ? (

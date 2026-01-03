@@ -25,6 +25,8 @@ export interface Project {
   tags: string[];
   lastUpdated: string;
   showcaseImage?: string;
+  logo?: string;
+  screenshot?: string;
 }
 
 const defaultTeam: TeamMember[] = [
@@ -53,6 +55,8 @@ export const projects: Project[] = [
     stage: 'Live',
     status: 'Active',
     url: 'https://onton.live',
+    logo: 'https://logo.clearbit.com/onton.live',
+    screenshot: 'https://image.thum.io/get/width/1200/crop/600/https://onton.live',
     team: defaultTeam,
     tags: ['Neurosymbolic AI', 'E-commerce', 'Visual Search', 'React'],
     lastUpdated: new Date().toISOString()
@@ -66,6 +70,8 @@ export const projects: Project[] = [
     stage: 'Live',
     status: 'Active',
     url: 'https://executesg.com',
+    logo: 'https://logo.clearbit.com/executesg.com',
+    screenshot: 'https://image.thum.io/get/width/1200/crop/600/https://executesg.com',
     team: defaultTeam,
     tags: ['SaaS', 'AI', 'ESG', 'Compliance', 'CSRD'],
     lastUpdated: new Date().toISOString()
@@ -79,6 +85,7 @@ export const projects: Project[] = [
     stage: 'Live',
     status: 'Active',
     url: 'https://executesg.com',
+    logo: 'https://logo.clearbit.com/executesg.com',
     path: '/Users/mahdifarimani/Documents/AntiGravity/ExecutESG/vsme',
     team: defaultTeam,
     tags: ['Laravel', 'VSME', 'Reporting', 'Legacy'],
@@ -93,6 +100,8 @@ export const projects: Project[] = [
     stage: 'Live',
     status: 'Active',
     url: 'https://byblos.digital',
+    logo: 'https://logo.clearbit.com/byblos.digital',
+    screenshot: 'https://image.thum.io/get/width/1200/crop/600/https://byblos.digital',
     path: '/Users/mahdifarimani/Documents/AntiGravity/Pomegroup/Byblos',
     team: defaultTeam,
     tags: ['Next.js', 'Content Aggregation', 'SaaS', 'Tailwind'],
@@ -107,6 +116,8 @@ export const projects: Project[] = [
     stage: 'Live',
     status: 'Active',
     url: 'https://momis.studio',
+    logo: 'https://logo.clearbit.com/momis.studio',
+    screenshot: 'https://image.thum.io/get/width/1200/crop/600/https://momis.studio',
     team: momisTeam,
     tags: ['Web3', 'TON', 'Telegram', 'GameFi'],
     lastUpdated: new Date().toISOString()
@@ -192,6 +203,8 @@ export const projects: Project[] = [
     stage: 'Archived',
     status: 'Completed',
     url: 'https://bemehrbani.com',
+    logo: 'https://logo.clearbit.com/bemehrbani.com',
+    screenshot: 'https://image.thum.io/get/width/1200/crop/600/https://bemehrbani.com',
     team: charityTeam,
     tags: ['Charity', 'Social Impact', 'Crowdfunding', 'PHP'],
     lastUpdated: '2024-01-01T00:00:00Z'
@@ -205,6 +218,8 @@ export const projects: Project[] = [
     stage: 'Archived',
     status: 'Completed',
     url: 'https://dadpardaz.com',
+    logo: 'https://logo.clearbit.com/dadpardaz.com',
+    screenshot: 'https://image.thum.io/get/width/1200/crop/600/https://dadpardaz.com',
     team: defaultTeam,
     tags: ['LegalTech', 'Marketplace', 'Escrow System'],
     lastUpdated: '2023-01-01T00:00:00Z'
@@ -218,6 +233,8 @@ export const projects: Project[] = [
     stage: 'Archived',
     status: 'Completed',
     url: 'https://hrcando.ir',
+    logo: 'https://logo.clearbit.com/hrcando.ir',
+    screenshot: 'https://image.thum.io/get/width/1200/crop/600/https://hrcando.ir',
     team: defaultTeam,
     tags: ['HR Tech', 'LMS', 'ATS', 'Enterprise'],
     lastUpdated: '2023-06-01T00:00:00Z'
@@ -231,6 +248,8 @@ export const projects: Project[] = [
     stage: 'Archived',
     status: 'Completed',
     url: 'https://tafarda.studio',
+    logo: 'https://logo.clearbit.com/tafarda.studio',
+    screenshot: 'https://image.thum.io/get/width/1200/crop/600/https://tafarda.studio',
     team: defaultTeam,
     tags: ['Venture Studio', 'Branding', 'Investment'],
     lastUpdated: '2022-01-01T00:00:00Z'
@@ -244,6 +263,8 @@ export const projects: Project[] = [
     stage: 'Archived',
     status: 'Completed',
     url: 'https://mehrbaran.org',
+    logo: 'https://logo.clearbit.com/mehrbaran.org',
+    screenshot: 'https://image.thum.io/get/width/1200/crop/600/https://mehrbaran.org',
     team: charityTeam,
     tags: ['Non-Profit', 'Event Management', 'Cultural'],
     lastUpdated: '2022-01-01T00:00:00Z'
@@ -257,6 +278,8 @@ export const projects: Project[] = [
     stage: 'Archived',
     status: 'Completed',
     url: 'https://challenquiz.online',
+    logo: 'https://logo.clearbit.com/challenquiz.online',
+    screenshot: 'https://image.thum.io/get/width/1200/crop/600/https://challenquiz.online',
     team: defaultTeam,
     tags: ['Gaming', 'Quiz', 'Real-time'],
     lastUpdated: '2021-01-01T00:00:00Z'
@@ -270,6 +293,8 @@ export const projects: Project[] = [
     stage: 'Archived',
     status: 'Completed',
     url: 'https://t.me/nlpcontest',
+    logo: 'https://logo.clearbit.com/telegram.org',
+    screenshot: 'https://image.thum.io/get/width/1200/crop/600/https://telegram.org',
     team: defaultTeam,
     tags: ['AI', 'NLP', 'C++', 'Telegram API'],
     lastUpdated: '2020-01-01T00:00:00Z'
