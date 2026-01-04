@@ -10,11 +10,17 @@ import { use } from 'react';
 // Next.js 16/React 19 params handling
 export default function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
-    const project = projects.find(p => p.id === id);
+    const projectData = projects.find(p => p.id === id);
 
-    if (!project) {
+    if (!projectData) {
         notFound();
     }
+
+    // DEBUG: Force update verification
+    const project = {
+        ...projectData,
+        screenshot: projectData.id === 'byblos' ? '/images/byblos-showcase.png' : projectData.screenshot
+    };
 
     return (
         <div className="max-w-5xl mx-auto space-y-8 p-6">
