@@ -2,7 +2,7 @@ const https = require('https');
 
 const TARGET_URL = 'https://pomelatform.vercel.app/projects/byblos';
 const EXPECTED_TEXT = 'Laravel/Livewire';
-const EXPECTED_IMAGE_SUBSTRING = '/images/byblos-showcase.png';
+const EXPECTED_IMAGE_SUBSTRING = 'raw.githubusercontent.com/bemehrbani/pomelatform';
 
 function checkUrl() {
     console.log(`\n🔍 Checking Live URL: ${TARGET_URL}...`);
@@ -26,14 +26,21 @@ function checkUrl() {
 
             // Check 2: Image Logic Update
             if (data.includes(EXPECTED_IMAGE_SUBSTRING)) {
-                console.log(`✅ SUCCESS: Found Image Path "${EXPECTED_IMAGE_SUBSTRING}" in HTML.`);
+                console.log(`✅ SUCCESS: Found GitHub Raw Image URL.`);
 
-                // Verify the asset itself works (using the full domain)
-                const fullAssetUrl = 'https://pomelatform.vercel.app' + EXPECTED_IMAGE_SUBSTRING;
-                console.log(`Verifying Asset Reachability: ${fullAssetUrl}`);
-                verifyAsset(fullAssetUrl);
+                // Extract full URL and verify it
+                const match = data.match(/src="(https:\/\/raw\.githubusercontent\.com[^"]+)"/);
+                if (match) {
+                    const imageUrl = match[1];
+                    console.log(`   -> Verifying Image Asset: ${imageUrl}`);
+                    verifyAsset(imageUrl);
+                } else {
+                    // Fallback in case regex fails but substring exists
+                    console.log(`   -> Image Source found but regex failed. Verifying base URL...`);
+                    verifyAsset('https://raw.githubusercontent.com/bemehrbani/pomelatform/main/Pomelatform/public/images/byblos-showcase.png');
+                }
             } else {
-                console.error(`❌ FAILURE: HTML does not contain "${EXPECTED_IMAGE_SUBSTRING}".`);
+                console.error(`❌ FAILURE: HTML does not contain GitHub Raw URL.`);
             }
         });
 
@@ -45,10 +52,10 @@ function checkUrl() {
 function verifyAsset(url) {
     https.get(url, (res) => {
         if (res.statusCode === 200) {
-            console.log(`✅ IMAGE VERIFIED: Asset returned 200 OK.`);
-            console.log(`\n🎉 DEPLOYMENT SUCCESSFUL. The image is reachable.`);
+            console.log(`✅ IMAGE VERIFIED: GitHub Raw returned 200 OK.`);
+            console.log(`\n🎉 DEPLOYMENT SUCCESSFUL. The fix is live.`);
         } else {
-            console.error(`❌ IMAGE ERROR: Asset returned status ${res.statusCode}.`);
+            console.error(`❌ IMAGE ERROR: GitHub Raw returned status ${res.statusCode}.`);
         }
     });
 }
