@@ -170,10 +170,15 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                         <p className="text-xs text-gray-500 mt-1 uppercase tracking-wide">{project.type} Project</p>
                     </div>
 
+                    {/* DEBUG BANNER */}
+                    <div className="bg-red-500 text-white p-4 text-center font-bold uppercase">
+                        Render Verification: Component is active
+                    </div>
+
                     {/* Tech Stack */}
                     <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
                         <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2">
-                            <Code2 className="w-4 h-4" /> Technology
+                            <Code2 className="w-4 h-4" /> Technology (Verified)
                         </h3>
                         <div className="flex flex-wrap gap-2">
                             {project.tags.map(tag => (
