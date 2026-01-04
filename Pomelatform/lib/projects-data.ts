@@ -102,7 +102,7 @@ export const projects: Project[] = [
     status: 'Active',
     url: 'https://byblos.digital',
     logo: 'https://www.google.com/s2/favicons?domain=byblos.digital&sz=128',
-    screenshot: 'https://raw.githubusercontent.com/bemehrbani/pomelatform/main/Pomelatform/public/images/byblos-showcase.png',
+    screenshot: '/images/byblos-showcase.png',
     path: '/Users/mahdifarimani/Documents/AntiGravity/Pomegroup/Byblos',
     team: defaultTeam,
     tags: ['Laravel/Livewire', 'Content Aggregation', 'SaaS', 'Tailwind'],
