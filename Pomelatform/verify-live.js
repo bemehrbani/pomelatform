@@ -2,7 +2,7 @@ const https = require('https');
 
 const TARGET_URL = 'https://pomelatform.vercel.app/projects/byblos';
 const EXPECTED_TEXT = 'Laravel/Livewire';
-const EXPECTED_IMAGE_SUBSTRING = 'raw.githubusercontent.com/bemehrbani/pomelatform';
+const EXPECTED_IMAGE_SUBSTRING = '/images/byblos-showcase.png';
 
 function checkUrl() {
     console.log(`\n🔍 Checking Live URL: ${TARGET_URL}...`);
@@ -26,17 +26,14 @@ function checkUrl() {
 
             // Check 2: Image Logic Update
             if (data.includes(EXPECTED_IMAGE_SUBSTRING)) {
-                console.log(`✅ SUCCESS: Found GitHub Raw Image URL.`);
+                console.log(`✅ SUCCESS: Found Image Path "${EXPECTED_IMAGE_SUBSTRING}" in HTML.`);
 
-                // Extract full URL and verify it
-                const match = data.match(/src="(https:\/\/raw\.githubusercontent\.com[^"]+)"/);
-                if (match) {
-                    const imageUrl = match[1];
-                    console.log(`   -> Verifying Image Asset: ${imageUrl}`);
-                    verifyAsset(imageUrl);
-                }
+                // Verify the asset itself works (using the full domain)
+                const fullAssetUrl = 'https://pomelatform.vercel.app' + EXPECTED_IMAGE_SUBSTRING;
+                console.log(`Verifying Asset Reachability: ${fullAssetUrl}`);
+                verifyAsset(fullAssetUrl);
             } else {
-                console.error(`❌ FAILURE: Image source still points to Vercel/Thum.io. Deployment not updated.`);
+                console.error(`❌ FAILURE: HTML does not contain "${EXPECTED_IMAGE_SUBSTRING}".`);
             }
         });
 
@@ -48,10 +45,10 @@ function checkUrl() {
 function verifyAsset(url) {
     https.get(url, (res) => {
         if (res.statusCode === 200) {
-            console.log(`✅ IMAGE VERIFIED: GitHub Raw returned 200 OK.`);
-            console.log(`\n🎉 DEPLOYMENT SUCCESSFUL. The fix is live.`);
+            console.log(`✅ IMAGE VERIFIED: Asset returned 200 OK.`);
+            console.log(`\n🎉 DEPLOYMENT SUCCESSFUL. The image is reachable.`);
         } else {
-            console.error(`❌ IMAGE ERROR: GitHub Raw returned status ${res.statusCode}. Check repository permissions.`);
+            console.error(`❌ IMAGE ERROR: Asset returned status ${res.statusCode}.`);
         }
     });
 }
