@@ -8,19 +8,15 @@ import Link from 'next/link';
 import { use } from 'react';
 
 // Next.js 16/React 19 params handling
+export const dynamic = 'force-dynamic';
+
 export default function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
-    const projectData = projects.find(p => p.id === id);
+    const project = projects.find(p => p.id === id);
 
-    if (!projectData) {
+    if (!project) {
         notFound();
     }
-
-    // DEBUG: Force update verification
-    const project = {
-        ...projectData,
-        screenshot: projectData.id === 'byblos' ? '/images/byblos-showcase.png' : projectData.screenshot
-    };
 
     return (
         <div className="max-w-5xl mx-auto space-y-8 p-6">
