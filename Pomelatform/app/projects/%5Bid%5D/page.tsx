@@ -157,6 +157,20 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
                 {/* Sidebar Column */}
                 <div className="space-y-6">
+                    {/* Project Icon Card - Added for Visual Verification */}
+                    <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm flex flex-col items-center text-center">
+                        {project.logo ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={project.logo} alt="Project Logo" className="w-24 h-24 mb-4 object-contain" />
+                        ) : (
+                            <div className="w-24 h-24 mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                                <Code2 className="w-10 h-10 text-gray-400" />
+                            </div>
+                        )}
+                        <h3 className="font-bold text-gray-900">{project.name}</h3>
+                        <p className="text-xs text-gray-500 mt-1 uppercase tracking-wide">{project.type} Project</p>
+                    </div>
+
                     {/* Tech Stack */}
                     <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
                         <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2">
