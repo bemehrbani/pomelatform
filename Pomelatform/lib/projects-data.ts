@@ -105,7 +105,7 @@ export const projects: Project[] = [
     screenshot: '/images/byblos-showcase.png',
     path: '/Users/mahdifarimani/Documents/AntiGravity/Pomegroup/Byblos',
     team: defaultTeam,
-    tags: ['Next.js', 'Content Aggregation', 'SaaS', 'Tailwind'],
+    tags: ['Laravel/Livewire', 'Content Aggregation', 'SaaS', 'Tailwind'],
     lastUpdated: '2025-12-31T21:02:50Z'
   },
   {
