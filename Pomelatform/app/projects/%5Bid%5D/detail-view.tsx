@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { use } from 'react';
 
 // Next.js 16/React 19 params handling
-export const dynamic = 'force-dynamic';
 
 export default function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);

@@ -1,3 +1,5 @@
-// Re-exporting from renamed file to bust Vercel build cache
+// Re-exporting component logic from renamed file
 export { default } from './detail-view';
-export { dynamic } from './detail-view';
+
+// Next.js Route Segment Config must be statically analyzable
+export const dynamic = 'force-dynamic';
