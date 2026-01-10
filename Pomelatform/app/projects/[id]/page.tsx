@@ -118,7 +118,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                                         </div>
                                         <div className="space-y-1">
                                             <p className="text-gray-500 font-medium">Live Preview</p>
-                                            <p className="text-sm text-gray-400">Click the 'Visit' button to see it live</p>
+                                            <p className="text-sm text-gray-400">Click the &apos;Visit&apos; button to see it live</p>
                                         </div>
                                     </div>
                                 ) : (

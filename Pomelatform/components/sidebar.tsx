@@ -9,26 +9,28 @@ import {
     Briefcase,
     LineChart,
     GraduationCap,
-    ShieldCheck
+    ShieldCheck,
+    LogOut
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { signout } from '@/app/login/actions';
+import { User } from '@supabase/supabase-js';
 
-// Mock Roles
+// Mock Mock Roles - in real app this matches DB
 export type Role = 'Partner' | 'Founder' | 'Developer' | 'Investor' | 'Intern' | 'Designer' | 'Domain Expert';
 
-const roles: Role[] = ['Partner', 'Founder', 'Developer', 'Investor', 'Intern', 'Designer', 'Domain Expert'];
-
 // Mock Links Configuration
-const roleLinks: Record<Role, { label: string; href: string; icon: any }[]> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const roleLinks: Record<string, { label: string; href: string; icon: any }[]> = {
     Partner: [
         { label: 'Overview', href: '/dashboard', icon: LayoutDashboard },
         { label: 'Portfolio', href: '/portfolio', icon: Briefcase },
         { label: 'Governance', href: '/governance', icon: ShieldCheck },
     ],
     Founder: [
+        { label: 'Overview', href: '/', icon: LayoutDashboard },
         { label: 'My Studio', href: '/studio', icon: LayoutDashboard },
         { label: 'Team', href: '/team', icon: Users },
         { label: 'Funding', href: '/funding', icon: LineChart },
@@ -56,10 +58,18 @@ const roleLinks: Record<Role, { label: string; href: string; icon: any }[]> = {
     ]
 };
 
-export function Sidebar() {
+interface SidebarProps {
+    user: User | null;
+    role: string | null;
+}
+
+export function Sidebar({ user, role }: SidebarProps) {
     const pathname = usePathname();
-    // Mock State for Role Switching
-    const [currentRole, setCurrentRole] = useState<Role>('Founder');
+
+    // Fallback to 'Founder' links if role not found or null, or maybe empty?
+    // Project plan said "adapts to user state".
+    const currentRoleLinks = (role && roleLinks[role]) ? roleLinks[role] : roleLinks['Founder'];
+    const roleLabel = role || 'No Role';
 
     return (
         <aside className="w-64 border-r bg-card min-h-screen flex flex-col">
@@ -71,20 +81,16 @@ export function Sidebar() {
             </div>
 
             <div className="p-4">
-                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 block">
-                    Mock Mock Role:
-                </label>
-                <select
-                    className="w-full text-sm border rounded p-2 bg-background"
-                    value={currentRole}
-                    onChange={(e) => setCurrentRole(e.target.value as Role)}
-                >
-                    {roles.map(r => <option key={r} value={r}>{r}</option>)}
-                </select>
+                <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                    Current Role
+                </div>
+                <div className="w-full text-sm border rounded p-2 bg-secondary/50 font-medium">
+                    {roleLabel}
+                </div>
             </div>
 
             <nav className="flex-1 p-4 space-y-1">
-                {roleLinks[currentRole].map((link) => {
+                {currentRoleLinks.map((link) => {
                     const Icon = link.icon;
                     const isActive = pathname === link.href;
                     return (
@@ -105,16 +111,29 @@ export function Sidebar() {
                 })}
             </nav>
 
-            <div className="p-4 border-t">
+            <div className="p-4 border-t space-y-4">
                 <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
-                        U
+                    <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold overflow-hidden">
+                        {user?.user_metadata?.avatar_url ? (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img src={user.user_metadata.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                        ) : (
+                            <span>{user?.email?.charAt(0).toUpperCase() || 'U'}</span>
+                        )}
                     </div>
-                    <div className="text-sm">
-                        <p className="font-medium">User Name</p>
-                        <p className="text-xs text-muted-foreground">user@example.com</p>
+                    <div className="text-sm overflow-hidden">
+                        <p className="font-medium truncate">{user?.user_metadata?.full_name || 'User'}</p>
+                        <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
                     </div>
                 </div>
+
+                <button
+                    onClick={() => signout()}
+                    className="flex items-center gap-2 w-full px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                >
+                    <LogOut className="h-4 w-4" />
+                    Sign Out
+                </button>
             </div>
         </aside>
     );

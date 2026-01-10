@@ -1,37 +1,37 @@
-
-import { projects, Project, ProjectType } from '@/lib/projects-data';
+import { projects, Project } from '@/lib/projects-data';
 import { ProjectCard } from '@/components/ui/project-card';
-import { LayoutGrid, AlertCircle, Layers, Zap, History } from 'lucide-react';
+import { AlertCircle, Layers, Zap, History } from 'lucide-react';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const Section = ({ title, icon: Icon, items, description }: { title: string, icon: any, items: Project[], description: string }) => (
+  <div className="space-y-4">
+    <div className="flex items-center gap-2 border-b border-gray-100 pb-2">
+      <Icon className="w-5 h-5 text-gray-400" />
+      <div>
+        <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+        <p className="text-xs text-gray-500">{description}</p>
+      </div>
+      <span className="ml-auto text-xs font-medium bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+        {items.length}
+      </span>
+    </div>
+
+    {items.length > 0 ? (
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {items.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+      </div>
+    ) : (
+      <div className="text-sm text-gray-400 italic py-4">No projects in this category.</div>
+    )}
+  </div>
+);
 
 export default function DashboardPage() {
   const currentProjects = projects.filter(p => p.type === 'Current');
   const mvpProjects = projects.filter(p => p.type === 'MVP');
   const pastProjects = projects.filter(p => p.type === 'Past');
-
-  const Section = ({ title, icon: Icon, items, description }: { title: string, icon: any, items: Project[], description: string }) => (
-    <div className="space-y-4">
-      <div className="flex items-center gap-2 border-b border-gray-100 pb-2">
-        <Icon className="w-5 h-5 text-gray-400" />
-        <div>
-          <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
-          <p className="text-xs text-gray-500">{description}</p>
-        </div>
-        <span className="ml-auto text-xs font-medium bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
-          {items.length}
-        </span>
-      </div>
-
-      {items.length > 0 ? (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {items.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
-      ) : (
-        <div className="text-sm text-gray-400 italic py-4">No projects in this category.</div>
-      )}
-    </div>
-  );
 
   return (
     <div className="space-y-12 p-4 pb-20">
