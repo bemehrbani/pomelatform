@@ -724,29 +724,14 @@
             </div>
           </div>
 
-          <!-- CRM Implementation Options -->
+          <!-- CRM Implementation Details -->
           <div style="margin-bottom: 30px; padding: 20px; background: rgba(59, 130, 246, 0.03); border: 1px solid rgba(59, 130, 246, 0.15); border-radius: 12px;">
             <h4 style="font-family: var(--font-outfit); font-size: 1.1rem; color: #fff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-              📁 Proposing Two Localized CRM Routes:
+              📁 Localized SabarKoti Business CRM:
             </h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
-              For Proposal 2, we will implement one of two distinct CRM routes depending on your business preferences:
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0; line-height: 1.5;">
+              Instead of generic, expensive CRM systems with per-user licensing, we will implement a **proprietary, localized Kanban CRM** built specifically for home service companies. We leverage a high-performance open-source foundation (such as Twenty CRM, built in React/TypeScript) and package it directly inside the SabarKoti platform under your brand. This allows you to manage lead pipelines, tasks, and client histories cleanly with zero ongoing licensing fees.
             </p>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
-              <div style="background: rgba(0, 0, 0, 0.2); padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
-                <h5 style="color: var(--accent-blue); font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; font-family: var(--font-outfit);">Route A: Custom Localized Kanban CRM</h5>
-                <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 0;">
-                  We develop a lightweight, custom-built Kanban CRM dashboard tailored precisely to SabarKoti. Features columns for <b>Leads</b>, <b>Callback Task</b>, <b>Invoiced</b>, and <b>Completed</b>. Zero ongoing software licenses and no clunky menus you don't use.
-                </p>
-              </div>
-              <div style="background: rgba(0, 0, 0, 0.2); padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
-                <h5 style="color: var(--accent-green); font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; font-family: var(--font-outfit);">Route B: Open-Source CRM Integration</h5>
-                <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 0;">
-                  We deploy and integrate a lightweight, growing open-source CRM on your own server. We recommend <b>Twenty CRM</b> (modern React/TypeScript CRM with a beautiful Notion-like board) or <b>EspoCRM</b> (fast PHP-based tool). Gives you complete control of your customer data with zero recurring per-user fees.
-                </p>
-              </div>
-            </div>
           </div>
 
           <!-- Features list -->
@@ -763,7 +748,7 @@
               </div>
               <div class="feature-item">
                 <span class="feature-icon">✓</span>
-                <span>Either Route A (Custom Kanban CRM) or Route B (Open-Source Twenty/EspoCRM setup).</span>
+                <span>Proprietary SabarKoti Localized Kanban CRM (complete client registry & status manager).</span>
               </div>
               <div class="feature-item">
                 <span class="feature-icon">✓</span>
@@ -786,117 +771,23 @@
       </div>
     </section>
 
-    <!-- Signatures -->
-    <section>
-      <h2>Agreement & Execution</h2>
-      <p>By typing your name and applying your signature below, both parties execute the selected project-based proposal:</p>
-      
-      <div class="sign-container">
-        <!-- Pomegroup Signature -->
-        <div class="signature-card">
-          <div class="signature-title">Authorized Representative</div>
-          <div class="signature-name">Mahdi Farimani</div>
-          <div class="signature-role">Co-Founder, Pomegroup.studio</div>
-          
-          <div class="sig-input-wrap">
-            <input type="text" id="sigPomeName" class="signature-input" placeholder="Type name to sign" oninput="updateSignature('pome')">
-          </div>
-          <div id="sigPomePad" class="signature-pad"><i>Waiting...</i></div>
-          <button id="signPomeBtn" class="sign-btn" onclick="signContract('pome')" disabled>Apply Signature</button>
-        </div>
-
-        <!-- Mustafa Sabar Signature -->
-        <div class="signature-card">
-          <div class="signature-title">SabarKoti Representative</div>
-          <div class="signature-name">Mustafa Sabar</div>
-          <div class="signature-role">CEO & Founder, SabarKoti</div>
-          
-          <div class="sig-input-wrap">
-            <input type="text" id="sigSabarName" class="signature-input" placeholder="Type name to sign" oninput="updateSignature('sabar')">
-          </div>
-          <div id="sigSabarPad" class="signature-pad"><i>Waiting...</i></div>
-          <button id="signSabarBtn" class="sign-btn" onclick="signContract('sabar')" disabled>Apply Signature</button>
-        </div>
-      </div>
-
-      <div class="action-bar">
-        <p id="actionStatusText" class="text-muted">Both parties must sign the document to finalize the contract under Proposal 2.</p>
-        <button id="submitContractBtn" class="submit-proposal-btn" onclick="submitContract()" disabled>Execute Project Agreement</button>
-      </div>
+    <!-- Contact Info -->
+    <section style="text-align: center; padding: 50px 40px;">
+      <h2>Next Steps & Contact</h2>
+      <p style="max-width: 600px; margin: 0 auto 24px; color: var(--text-muted);">
+        These project proposals are designed to get your brand online quickly and scale at your own pace.
+        Please review these options and let us know which model fits your launch timeline.
+      </p>
+      <a href="mailto:info@pomegroup.studio" style="display: inline-flex; align-items: center; gap: 8px; background: var(--accent-blue); color: #fff; padding: 14px 36px; border-radius: 10px; font-family: var(--font-outfit); font-weight: 700; text-decoration: none; transition: transform 0.2s; box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+        ✉ Contact Pomegroup.studio
+      </a>
     </section>
   </div>
 
   <script>
-    let selectedProp = 2; // Proposal 2 default
-    let isSignedPome = false;
-    let isSignedSabar = false;
-
     function selectProposal(propNum) {
-      if (isSignedPome || isSignedSabar) return; // Lock selections after signatures
-      
       document.querySelectorAll('.proposal-card').forEach(card => card.classList.remove('active'));
       document.getElementById(`prop-${propNum}`).classList.add('active');
-      
-      selectedProp = propNum;
-      
-      const propText = propNum === 1 ? 'Proposal 1' : 'Proposal 2';
-      document.getElementById('actionStatusText').textContent = `Both parties must sign the document to finalize the contract under ${propText}.`;
-    }
-
-    function updateSignature(party) {
-      const input = document.getElementById(party === 'pome' ? 'sigPomeName' : 'sigSabarName').value;
-      const pad = document.getElementById(party === 'pome' ? 'sigPomePad' : 'sigSabarPad');
-      const btn = document.getElementById(party === 'pome' ? 'signPomeBtn' : 'signSabarBtn');
-      
-      if (input.trim().length > 2) {
-        pad.innerHTML = `<i>${input}</i>`;
-        btn.disabled = false;
-      } else {
-        pad.innerHTML = '<i>Waiting...</i>';
-        btn.disabled = true;
-      }
-    }
-
-    function signContract(party) {
-      const input = document.getElementById(party === 'pome' ? 'sigPomeName' : 'sigSabarName');
-      const btn = document.getElementById(party === 'pome' ? 'signPomeBtn' : 'signSabarBtn');
-      const pad = document.getElementById(party === 'pome' ? 'sigPomePad' : 'sigSabarPad');
-      
-      input.disabled = true;
-      btn.disabled = true;
-      btn.textContent = 'Signed ✓';
-      pad.style.borderColor = 'var(--accent-blue)';
-      
-      if (party === 'pome') {
-        isSignedPome = true;
-      } else {
-        isSignedSabar = true;
-      }
-      
-      checkSignatures();
-    }
-
-    function checkSignatures() {
-      const statusText = document.getElementById('actionStatusText');
-      const submitBtn = document.getElementById('submitContractBtn');
-      const propText = selectedProp === 1 ? 'Proposal 1' : 'Proposal 2';
-      
-      if (isSignedPome && isSignedSabar) {
-        statusText.textContent = `Contract signed by both parties under ${propText}! Click below to execute.`;
-        statusText.style.color = 'var(--accent-green)';
-        submitBtn.disabled = false;
-      } else if (isSignedPome) {
-        statusText.textContent = `Awaiting signature from Mustafa Sabar.`;
-      } else if (isSignedSabar) {
-        statusText.textContent = `Awaiting signature from Pomegroup.studio.`;
-      }
-    }
-
-    function submitContract() {
-      document.getElementById('statusBanner').style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      document.getElementById('submitContractBtn').disabled = true;
-      document.getElementById('submitContractBtn').textContent = 'Executed';
     }
   </script>
 </body>
