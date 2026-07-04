@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project-Based Proposals | Pomegroup.studio to Mustafa Sabar</title>
+  <link rel="icon" href="https://pomegroup.studio/favicon.ico" type="image/x-icon">
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #131a2c;
+      --accent-blue: #3b82f6;
+      --accent-blue-hover: #2563eb;
+      --accent-green: #10b981;
+      --accent-green-hover: #059669;
+      --accent-gold: #f59e0b;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.05);
+      --font-outfit: 'Outfit', sans-serif;
+      --font-inter: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-inter);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-bottom: 100px;
+    }
+
+    /* Background Glow Effects */
+    .glow-1 {
+      position: absolute;
+      top: -200px;
+      left: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-2 {
+      position: absolute;
+      top: 800px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header styling */
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 40px;
+    }
+
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .logo-studio {
+      font-family: var(--font-outfit);
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      text-transform: uppercase;
+    }
+
+    .logo-studio span {
+      color: var(--accent-blue);
+    }
+
+    .proposal-badge {
+      display: inline-block;
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--accent-blue);
+      padding: 6px 16px;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    h1 {
+      font-family: var(--font-outfit);
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 40%, var(--text-muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 12px;
+    }
+
+    .meta-info {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .meta-info span strong {
+      color: var(--text-main);
+    }
+
+    /* Section styling */
+    section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      font-family: var(--font-outfit);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 24px;
+      background-color: var(--accent-blue);
+      border-radius: 99px;
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .highlight-box {
+      background: rgba(59, 130, 246, 0.03);
+      border-left: 4px solid var(--accent-blue);
+      padding: 20px;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 30px;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    /* Proposal Cards Styling */
+    .proposals-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-top: 30px;
+    }
+
+    .proposal-card {
+      background: rgba(255, 255, 255, 0.015);
+      border: 2px solid var(--border-color);
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .proposal-card:hover {
+      border-color: rgba(59, 130, 246, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .proposal-card.active {
+      background: rgba(59, 130, 246, 0.02);
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+    }
+
+    .proposal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .proposal-title-area h3 {
+      font-family: var(--font-outfit);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .proposal-number {
+      background: var(--accent-blue);
+      color: #000;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .proposal-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .proposal-pricing {
+      text-align: right;
+    }
+
+    .price-value {
+      font-family: var(--font-outfit);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent-green);
+    }
+
+    .price-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: -4px;
+    }
+
+    /* Flowchart / Step Progress in Proposals */
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 35px;
+      position: relative;
+    }
+
+    .flow-step {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .proposal-card.active .flow-step {
+      border-color: rgba(59, 130, 246, 0.15);
+    }
+
+    .flow-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .proposal-card.active .flow-badge {
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--accent-blue);
+    }
+
+    .flow-title {
+      font-family: var(--font-outfit);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .flow-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Features List */
+    .feature-list {
+      margin-bottom: 30px;
+    }
+
+    .feature-list h4 {
+      font-family: var(--font-outfit);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .feature-icon {
+      color: var(--accent-green);
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .proposal-select-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 16px;
+      border-radius: 12px;
+      font-family: var(--font-outfit);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .proposal-card.active .proposal-select-btn {
+      background: var(--accent-blue);
+      border-color: var(--accent-blue);
+      color: #000;
+      box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+    }
+
+    .proposal-select-btn:hover {
+      background: var(--text-main);
+      color: #000;
+    }
+
+    /* Digital Signatures Box */
+    .sign-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      margin-top: 30px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 30px;
+    }
+
+    .signature-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px dashed var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .signature-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+
+    .signature-name {
+      font-family: var(--font-outfit);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .signature-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .sig-input-wrap {
+      margin-bottom: 20px;
+    }
+
+    .signature-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      color: #fff;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .signature-input:focus {
+      border-color: var(--accent-blue);
+    }
+
+    .signature-pad {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Great Vibes', cursive, 'Brush Script MT', sans-serif;
+      font-size: 2.2rem;
+      color: var(--accent-blue);
+      background: rgba(0,0,0,0.1);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      transition: all 0.2s ease;
+    }
+
+    .sign-btn {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: var(--accent-blue);
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: var(--font-outfit);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sign-btn:hover {
+      background: var(--accent-blue);
+      color: #000;
+      border-color: var(--accent-blue);
+    }
+
+    .sign-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      background: transparent;
+      border-color: var(--border-color);
+      color: var(--text-muted);
+    }
+
+    /* Actions Bar at the bottom */
+    .action-bar {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .action-bar p {
+      font-size: 0.8rem;
+      margin-bottom: 16px;
+    }
+
+    .submit-proposal-btn {
+      background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-hover) 100%);
+      border: none;
+      color: #fff;
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-family: var(--font-outfit);
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+    }
+
+    .submit-proposal-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 25px rgba(59, 130, 246, 0.3);
+    }
+
+    .submit-proposal-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Status banner */
+    .status-banner {
+      display: none;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid var(--accent-green);
+      color: var(--text-main);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 40px;
+      font-family: var(--font-outfit);
+      font-weight: 600;
+      font-size: 1.1rem;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 2rem;
+      }
+      section {
+        padding: 24px;
+      }
+      .proposal-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .proposal-pricing {
+        text-align: left;
+      }
+      .sign-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+
+  <div class="container">
+    <div id="statusBanner" class="status-banner">
+      ✓ Project Agreement Accepted! The selected configuration has been locked and recorded.
+    </div>
+
+    <header>
+      <div class="logo-container">
+        <div class="logo-studio">Pomegroup<span>.studio</span></div>
+      </div>
+      <div>
+        <span class="proposal-badge">Project-Based Pricing Models</span>
+      </div>
+      <h1>SabarKoti Development Proposals</h1>
+      <p class="subtitle">Simplified service models focusing on customer acquisition, lead routing, and lightweight administration systems.</p>
+      
+      <div class="meta-info">
+        <span>From: <strong>Pomegroup.studio</strong></span>
+        <span>To: <strong>Mustafa Sabar (SabarKoti)</strong></span>
+        <span>Date: <strong>July 4, 2026</strong></span>
+      </div>
+    </header>
+
+    <!-- Project Context -->
+    <section>
+      <h2>Proposal Context</h2>
+      <p>
+        These proposals represent **fixed-price, project-based delivery options**. Unlike our Co-Founder partnership contracts, these structures require **zero equity exchange**.
+      </p>
+      <div class="highlight-box">
+        <p>
+          <strong>Focus:</strong> Getting SabarKoti's web presence online immediately, validating demand, and setting up a lightweight, highly efficient operational funnel without the overhead of maintaining a custom, database-driven platform.
+        </p>
+      </div>
+    </section>
+
+    <!-- Two Options -->
+    <section style="background: transparent; border: none; padding: 0; box-shadow: none;">
+      <div class="proposals-container">
+        
+        <!-- PROPOSAL 1 -->
+        <div class="proposal-card" id="prop-1" onclick="selectProposal(1)">
+          <div class="proposal-header">
+            <div class="proposal-title-area">
+              <h3><span class="proposal-number">1</span> Proposal 1: WhatsApp Triage Funnel</h3>
+              <div class="proposal-desc">Our absolute simplest, fastest workflow. Zero CRM learning curve.</div>
+            </div>
+            <div class="proposal-pricing">
+              <div class="price-value">€1,500</div>
+              <div class="price-label">One-Time Build Fee</div>
+            </div>
+          </div>
+
+          <!-- Flowchart -->
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="flow-badge">1</div>
+              <div class="flow-title">Marketing</div>
+              <div class="flow-desc">Online ads drive localized traffic to the site.</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-badge">2</div>
+              <div class="flow-title">Simple Form</div>
+              <div class="flow-desc">Client fills in address, date, and service type.</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-badge">3</div>
+              <div class="flow-title">WhatsApp Send</div>
+              <div class="flow-desc">Submit formats text and prompts client to send to Sabar staff.</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-badge">4</div>
+              <div class="flow-title">Manual Closure</div>
+              <div class="flow-desc">Sabar staff confirms booking and takes payment on chat.</div>
+            </div>
+          </div>
+
+          <!-- Features list -->
+          <div class="feature-list">
+            <h4>What's Included:</h4>
+            <div class="feature-grid">
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Premium single-page SabarKoti landing website (custom CSS, modern typography).</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Kotitalousvähennys (Tax deduction) calculator widget.</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>WhatsApp Click-to-Chat API integration (prefilled text templates).</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>SEO optimized for Helsinki metro area service keywords.</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="proposal-select-btn" id="btn-1">Select Proposal 1</button>
+        </div>
+
+        <!-- PROPOSAL 2 -->
+        <div class="proposal-card active" id="prop-2" onclick="selectProposal(2)">
+          <div class="proposal-header">
+            <div class="proposal-title-area">
+              <h3><span class="proposal-number">2</span> Proposal 2: CRM & Lead Callback Funnel</h3>
+              <div class="proposal-desc">Automated tracking, structured client database, and callback reminders.</div>
+            </div>
+            <div class="proposal-pricing">
+              <div class="price-value">€2,900</div>
+              <div class="price-label">One-Time Build Fee</div>
+            </div>
+          </div>
+
+          <!-- Flowchart -->
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="flow-badge">1</div>
+              <div class="flow-title">Lead Form</div>
+              <div class="flow-desc">Client fills in details on website.</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-badge">2</div>
+              <div class="flow-title">CRM Auto-Entry</div>
+              <div class="flow-desc">Profile created in a simple, easy-to-use CRM.</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-badge">3</div>
+              <div class="flow-title">Triage & Invoice</div>
+              <div class="flow-desc">Staff calls client, notes specs, and emails payment link.</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-badge">4</div>
+              <div class="flow-title">Record Delivery</div>
+              <div class="flow-desc">Deliver service and record completion comments.</div>
+            </div>
+          </div>
+
+          <!-- Features list -->
+          <div class="feature-list">
+            <h4>What's Included:</h4>
+            <div class="feature-grid">
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Premium single-page SabarKoti landing website (custom CSS, modern typography).</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Kotitalousvähennys (Tax deduction) calculator widget.</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Off-the-shelf Simple CRM setup (HubSpot or Pipedrive integration).</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Automated Callback Task trigger upon lead submission.</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Integrated invoicing client (setup invoice templates with Vero details).</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Client records & post-service review logs.</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="proposal-select-btn" id="btn-2">Select Proposal 2</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Signatures -->
+    <section>
+      <h2>Agreement & Execution</h2>
+      <p>By typing your name and applying your signature below, both parties execute the selected project-based proposal:</p>
+      
+      <div class="sign-container">
+        <!-- Pomegroup Signature -->
+        <div class="signature-card">
+          <div class="signature-title">Authorized Representative</div>
+          <div class="signature-name">Mahdi Farimani</div>
+          <div class="signature-role">Co-Founder, Pomegroup.studio</div>
+          
+          <div class="sig-input-wrap">
+            <input type="text" id="sigPomeName" class="signature-input" placeholder="Type name to sign" oninput="updateSignature('pome')">
+          </div>
+          <div id="sigPomePad" class="signature-pad"><i>Waiting...</i></div>
+          <button id="signPomeBtn" class="sign-btn" onclick="signContract('pome')" disabled>Apply Signature</button>
+        </div>
+
+        <!-- Mustafa Sabar Signature -->
+        <div class="signature-card">
+          <div class="signature-title">SabarKoti Representative</div>
+          <div class="signature-name">Mustafa Sabar</div>
+          <div class="signature-role">CEO & Founder, SabarKoti</div>
+          
+          <div class="sig-input-wrap">
+            <input type="text" id="sigSabarName" class="signature-input" placeholder="Type name to sign" oninput="updateSignature('sabar')">
+          </div>
+          <div id="sigSabarPad" class="signature-pad"><i>Waiting...</i></div>
+          <button id="signSabarBtn" class="sign-btn" onclick="signContract('sabar')" disabled>Apply Signature</button>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <p id="actionStatusText" class="text-muted">Both parties must sign the document to finalize the contract under Proposal 2.</p>
+        <button id="submitContractBtn" class="submit-proposal-btn" onclick="submitContract()" disabled>Execute Project Agreement</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    let selectedProp = 2; // Proposal 2 default
+    let isSignedPome = false;
+    let isSignedSabar = false;
+
+    function selectProposal(propNum) {
+      if (isSignedPome || isSignedSabar) return; // Lock selections after signatures
+      
+      document.querySelectorAll('.proposal-card').forEach(card => card.classList.remove('active'));
+      document.getElementById(`prop-${propNum}`).classList.add('active');
+      
+      selectedProp = propNum;
+      
+      const propText = propNum === 1 ? 'Proposal 1' : 'Proposal 2';
+      document.getElementById('actionStatusText').textContent = `Both parties must sign the document to finalize the contract under ${propText}.`;
+    }
+
+    function updateSignature(party) {
+      const input = document.getElementById(party === 'pome' ? 'sigPomeName' : 'sigSabarName').value;
+      const pad = document.getElementById(party === 'pome' ? 'sigPomePad' : 'sigSabarPad');
+      const btn = document.getElementById(party === 'pome' ? 'signPomeBtn' : 'signSabarBtn');
+      
+      if (input.trim().length > 2) {
+        pad.innerHTML = `<i>${input}</i>`;
+        btn.disabled = false;
+      } else {
+        pad.innerHTML = '<i>Waiting...</i>';
+        btn.disabled = true;
+      }
+    }
+
+    function signContract(party) {
+      const input = document.getElementById(party === 'pome' ? 'sigPomeName' : 'sigSabarName');
+      const btn = document.getElementById(party === 'pome' ? 'signPomeBtn' : 'signSabarBtn');
+      const pad = document.getElementById(party === 'pome' ? 'sigPomePad' : 'sigSabarPad');
+      
+      input.disabled = true;
+      btn.disabled = true;
+      btn.textContent = 'Signed ✓';
+      pad.style.borderColor = 'var(--accent-blue)';
+      
+      if (party === 'pome') {
+        isSignedPome = true;
+      } else {
+        isSignedSabar = true;
+      }
+      
+      checkSignatures();
+    }
+
+    function checkSignatures() {
+      const statusText = document.getElementById('actionStatusText');
+      const submitBtn = document.getElementById('submitContractBtn');
+      const propText = selectedProp === 1 ? 'Proposal 1' : 'Proposal 2';
+      
+      if (isSignedPome && isSignedSabar) {
+        statusText.textContent = `Contract signed by both parties under ${propText}! Click below to execute.`;
+        statusText.style.color = 'var(--accent-green)';
+        submitBtn.disabled = false;
+      } else if (isSignedPome) {
+        statusText.textContent = `Awaiting signature from Mustafa Sabar.`;
+      } else if (isSignedSabar) {
+        statusText.textContent = `Awaiting signature from Pomegroup.studio.`;
+      }
+    }
+
+    function submitContract() {
+      document.getElementById('statusBanner').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('submitContractBtn').disabled = true;
+      document.getElementById('submitContractBtn').textContent = 'Executed';
+    }
+  </script>
+</body>
+</html>
