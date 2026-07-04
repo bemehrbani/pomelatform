@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stakeholder Map & Event Strategy — Embassy of Iran in Finland</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 18mm 22mm; }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page-break { page-break-before: always; }
+    .no-print { display: none; }
+    .initiative, .stakeholder-card { break-inside: avoid; }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: #1A1A2E; background: #fff; line-height: 1.7; font-size: 10.5pt; }
+
+  /* Cover */
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(135deg, #2D2B6B 0%, #1a1940 100%); color: #fff; text-align: center; padding: 60px 40px; position: relative; }
+  .cover-logo { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #F5A623; margin-bottom: 60px; font-weight: 600; }
+  .cover h1 { font-size: 30px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; max-width: 620px; }
+  .cover .subtitle { font-size: 15px; color: rgba(255,255,255,0.7); margin-bottom: 60px; max-width: 520px; line-height: 1.6; }
+  .cover .meta { font-size: 12px; color: rgba(255,255,255,0.5); }
+  .cover .meta strong { color: #F5A623; }
+  .cover .divider { width: 60px; height: 3px; background: #F5A623; margin: 24px auto; border-radius: 2px; }
+  .cover .badge { display: inline-block; background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.4); color: #F5A623; padding: 6px 18px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 40px; letter-spacing: 1px; }
+
+  /* Content */
+  .content { max-width: 720px; margin: 0 auto; padding: 50px 40px; }
+  h2 { font-size: 19px; color: #2D2B6B; margin: 40px 0 14px; font-weight: 700; border-bottom: 2px solid #F5A623; padding-bottom: 8px; }
+  h3 { font-size: 14px; color: #2D2B6B; margin: 26px 0 10px; font-weight: 600; }
+  h4 { font-size: 13px; color: #2D2B6B; margin: 0 0 4px; font-weight: 600; }
+  p { margin-bottom: 12px; }
+  ul, ol { margin: 0 0 14px 20px; }
+  li { margin-bottom: 6px; }
+  a { color: #2D2B6B; text-decoration: underline; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 14px 0 22px; font-size: 10pt; }
+  th { background: #2D2B6B; color: #fff; text-align: left; padding: 9px 12px; font-weight: 600; font-size: 9.5pt; }
+  td { padding: 9px 12px; border-bottom: 1px solid #e5e5e5; vertical-align: top; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+
+  /* Callouts */
+  .callout { background: #FFF8EC; border-left: 4px solid #F5A623; padding: 14px 18px; margin: 18px 0; border-radius: 0 6px 6px 0; font-size: 10pt; }
+  .callout.blue { background: #F0F0FF; border-left-color: #2D2B6B; }
+  .callout.green { background: #F0FFF4; border-left-color: #2D8B4E; }
+  .callout strong { color: #2D2B6B; }
+
+  /* Stakeholder cards */
+  .stakeholder-card { background: #FAFAF8; border: 1px solid #e8e8e8; border-radius: 8px; padding: 16px 20px; margin: 12px 0; }
+  .stakeholder-card .org-name { font-size: 13px; font-weight: 700; color: #2D2B6B; margin-bottom: 2px; }
+  .stakeholder-card .org-type { font-size: 9pt; color: #6B7280; margin-bottom: 8px; }
+  .stakeholder-card .org-url { font-size: 9pt; }
+
+  /* Initiative cards */
+  .initiative { background: #FAFAF8; border: 1px solid #e8e8e8; border-radius: 8px; padding: 18px 22px; margin: 14px 0; }
+  .initiative h4 { font-size: 14px; color: #2D2B6B; margin-bottom: 4px; }
+  .initiative .tags { font-size: 9.5pt; color: #6B7280; margin-bottom: 10px; }
+  .initiative .tags span { background: #e8e4f8; color: #2D2B6B; padding: 2px 8px; border-radius: 10px; font-size: 8.5pt; margin-right: 5px; font-weight: 500; display: inline-block; margin-bottom: 4px; }
+  .initiative .tags span.green { background: #dcfce7; color: #166534; }
+  .initiative .tags span.amber { background: #fef3c7; color: #92400e; }
+
+  /* Priority badges */
+  .priority-high { display: inline-block; background: #fef2f2; color: #991b1b; padding: 2px 8px; border-radius: 10px; font-size: 8.5pt; font-weight: 600; }
+  .priority-med { display: inline-block; background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 10px; font-size: 8.5pt; font-weight: 600; }
+  .priority-low { display: inline-block; background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 10px; font-size: 8.5pt; font-weight: 600; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 40px; color: #6B7280; font-size: 9.5pt; border-top: 1px solid #e5e5e5; margin-top: 40px; }
+  .footer strong { color: #2D2B6B; }
+
+  /* Print button */
+  .print-btn { position: fixed; bottom: 30px; right: 30px; background: #2D2B6B; color: #fff; border: none; padding: 14px 28px; border-radius: 8px; font-family: Inter, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 16px rgba(45,43,107,0.3); z-index: 100; }
+  .print-btn:hover { background: #1a1940; }
+
+  /* TOC */
+  .toc { margin: 20px 0 30px; }
+  .toc a { color: #2D2B6B; text-decoration: none; display: block; padding: 6px 0; border-bottom: 1px dashed #e5e5e5; font-size: 10.5pt; }
+  .toc a:hover { color: #F5A623; }
+  .toc a span { color: #6B7280; float: right; }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">⬇ Save as PDF</button>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="cover-logo">Pomegroup Studio</div>
+  <div class="badge">CONFIDENTIAL — FOR EMBASSY USE</div>
+  <h1>Stakeholder Map &<br>Public Diplomacy Strategy</h1>
+  <div class="divider"></div>
+  <p class="subtitle">A comprehensive mapping of Finnish institutions, organizations, and key people — with actionable event strategies to strengthen Iran's public image in Finland.</p>
+  <div class="meta">
+    <p>Prepared for <strong>H.E. Ambassador Javad Aghazadeh Khoei</strong></p>
+    <p>Embassy of the Islamic Republic of Iran in Helsinki</p>
+    <p style="margin-top: 20px;">Prepared by <strong>Mahdi Farimani</strong></p>
+    <p>Smart Monshi Oy (Pomegroup.studio)</p>
+    <p>May 2026</p>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="content page-break">
+  <h2>Table of Contents</h2>
+  <div class="toc">
+    <a href="#s1">1. Executive Summary <span>3</span></a>
+    <a href="#s2">2. Stakeholder Map: Iranian Diaspora & Community <span>4</span></a>
+    <a href="#s3">3. Stakeholder Map: Academic Institutions <span>5</span></a>
+    <a href="#s4">4. Stakeholder Map: Peace, Dialogue & Mediation NGOs <span>6</span></a>
+    <a href="#s5">5. Stakeholder Map: Public Offices & City Infrastructure <span>7</span></a>
+    <a href="#s6">6. Stakeholder Map: Media & Cultural Venues <span>8</span></a>
+    <a href="#s7">7. Notable Iranian-Finnish Personalities <span>9</span></a>
+    <a href="#s8">8. Event Strategy A: "Persia & Finland" Cultural Salon <span>10</span></a>
+    <a href="#s9">9. Event Strategy B: "Bridge Builders" Dialogue Series <span>11</span></a>
+    <a href="#s10">10. Event Strategy C: "Green Bridge" Sustainability <span>12</span></a>
+    <a href="#s11">11. Event Strategy D: "Persian Business Bridge" <span>13</span></a>
+    <a href="#s12">12. Phased Roadmap & Priority Contacts <span>14</span></a>
+  </div>
+</div>
+
+<!-- SECTION 1: EXECUTIVE SUMMARY -->
+<div class="content page-break" id="s1">
+  <h2>1. Executive Summary</h2>
+
+  <p>This document maps <strong>35+ Finnish organizations, institutions, and individuals</strong> that can serve as strategic partners for the Embassy of the Islamic Republic of Iran in Helsinki. Each stakeholder is categorized by type, relevance, and potential partnership model.</p>
+
+  <p>Based on this mapping, we propose <strong>four complementary event series</strong> — each targeting a different audience and strategic objective:</p>
+
+  <table>
+    <tr><th>Strategy</th><th>Focus</th><th>Primary Audience</th><th>Ambassador Fit</th></tr>
+    <tr><td>🎬 Persia & Finland</td><td>Cinema, music, art</td><td>Finnish public, diaspora</td><td>Good</td></tr>
+    <tr><td>🕊️ Bridge Builders</td><td>Dialogue, international law</td><td>Academics, diplomats, media</td><td><strong>Strongest</strong></td></tr>
+    <tr><td>🌱 Green Bridge</td><td>Climate & sustainability</td><td>Professionals, institutions</td><td><strong>Very strong</strong></td></tr>
+    <tr><td>💼 Business Bridge</td><td>Trade & innovation</td><td>Entrepreneurs, businesses</td><td>Good</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>Strategic principle:</strong> Every event must position Iran as a <em>civilization and partner</em> — not as a geopolitical issue. The goal is to create positive, firsthand experiences that Finnish audiences share organically.
+  </div>
+
+  <h3>Context: Why Now?</h3>
+  <ul>
+    <li>Finland–Iran relations are at a historic low (highest travel advisory, frozen trade, diplomatic friction).</li>
+    <li>The ambassador's stated mandate is to <strong>"expand bilateral relations across various fields."</strong></li>
+    <li>There are <strong>~24,000 Persian speakers</strong> and <strong>~13,600 Iranian-born residents</strong> in Finland — a significant diaspora community.</li>
+    <li>An <strong>"Iranian Culture Festival"</strong> was successfully held at Kino Konepaja in February 2025 — proving there is audience demand.</li>
+    <li>Finland's global leadership in sustainability, education, and peace mediation creates <strong>natural cooperation angles</strong> that transcend politics.</li>
+  </ul>
+</div>
+
+<!-- SECTION 2: DIASPORA -->
+<div class="content page-break" id="s2">
+  <h2>2. Iranian Diaspora & Community Organizations</h2>
+
+  <p>These organizations are the backbone of the Iranian community in Finland. Partnership with them provides immediate reach and community trust.</p>
+
+  <div class="stakeholder-card">
+    <div class="org-name">KOPE ry — Kotoutumisen ja persiankielisten tuki</div>
+    <div class="org-type">NGO — Integration & community support | Helsinki</div>
+    <p>The primary support organization for Persian-speaking communities in Finland. Provides integration guidance, social advisory services, Finnish and Farsi language courses, and community programming.</p>
+    <p><strong>Partnership potential:</strong> Co-host community events, diaspora outreach, Nowruz programming, direct channel to Iranian families.</p>
+    <p class="org-url">🔗 <a href="https://moniheli.fi/jasenyhdistykset/kotoutumisen-ja-persiankielisten-tuki-kope-ry/" target="_blank">moniheli.fi/jasenyhdistykset/kope-ry</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Persian Business Association in Finland (PBAF)</div>
+    <div class="org-type">Business network — Non-profit | Helsinki</div>
+    <p>Professional platform connecting Persian-speaking entrepreneurs with the Finnish business ecosystem. Hosts networking events, market entry support, business consulting, and training programs.</p>
+    <p><strong>Partnership potential:</strong> Co-host business mixers, LinkedIn content partner, trade promotion events, speaker sourcing.</p>
+    <p class="org-url">🔗 <a href="https://pbaf.fi" target="_blank">pbaf.fi</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Moniheli</div>
+    <div class="org-type">Umbrella network — 180+ multicultural associations | Helsinki</div>
+    <p>Finland's largest multicultural network. Supports immigrant integration, equity, and social inclusion. KOPE ry is a member organization.</p>
+    <p><strong>Partnership potential:</strong> Distribution network, event co-promotion, access to broader multicultural community.</p>
+    <p class="org-url">🔗 <a href="https://moniheli.fi" target="_blank">moniheli.fi</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Baran Band</div>
+    <div class="org-type">Music ensemble — Persian & Kurdish music | Helsinki (est. 2013)</div>
+    <p>Performs compositions and arrangements of traditional Persian and Kurdish music. Helsinki-based, active in the Finnish cultural scene.</p>
+    <p><strong>Partnership potential:</strong> Live performances at embassy cultural events, Nowruz, film nights.</p>
+    <p class="org-url">🔗 <a href="https://aineetonkulttuuriperinto.fi" target="_blank">aineetonkulttuuriperinto.fi</a> (Finnish intangible cultural heritage registry)</p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Iranian Student Associations (Aalto, Helsinki, Tampere)</div>
+    <div class="org-type">Student organizations — Universities across Finland</div>
+    <p>Active student groups at major universities. Organize cultural events, music performances, and networking within campus communities.</p>
+    <p><strong>Partnership potential:</strong> Student engagement, campus events, ambassador guest lectures, youth outreach.</p>
+    <p class="org-url">🔗 <a href="https://ayy.fi/en/associations/" target="_blank">ayy.fi/associations</a> (Aalto Student Union directory)</p>
+  </div>
+</div>
+
+<!-- SECTION 3: ACADEMIC -->
+<div class="content page-break" id="s3">
+  <h2>3. Academic Institutions</h2>
+
+  <p>Academic partnerships offer long-term credibility and create a pipeline of informed Finnish professionals who understand Iran beyond the headlines.</p>
+
+  <div class="stakeholder-card">
+    <div class="org-name">University of Helsinki — Middle Eastern Studies</div>
+    <div class="org-type">Academic — Faculty of Humanities | Helsinki</div>
+    <p>Finland's primary academic hub for Middle Eastern studies. Offers Persian language courses, area studies programs within the Bachelor's Programme in Languages and Master's Programme in Area and Cultural Studies. Covers Arabic, Hebrew, Turkish, and Persian.</p>
+    <p><strong>Partnership potential:</strong> Ambassador guest lectures, co-hosted seminars, student visits to embassy, research collaboration.</p>
+    <p class="org-url">🔗 <a href="https://www.helsinki.fi/en/faculty-arts/research/disciplines/middle-eastern-studies" target="_blank">helsinki.fi — Middle Eastern Studies</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">FIME — Finnish Institute in the Middle East</div>
+    <div class="org-type">Research institute — Helsinki + Middle East offices</div>
+    <p>Dedicated research institute studying the region's languages, cultures, religions, and societies. Facilitates academic cooperation between Finland and the Middle East. Provides research grants. Already runs Iran-focused events (e.g., April 2026 event on "Iran's opposition — from revolution to today").</p>
+    <p><strong>Partnership potential:</strong> <strong>Key academic partner.</strong> Co-organize seminars, leverage their event infrastructure, access their researcher network.</p>
+    <p class="org-url">🔗 <a href="https://fime.fi" target="_blank">fime.fi</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Tampere University — MENA Research</div>
+    <div class="org-type">Academic — Research groups | Tampere</div>
+    <p>Hosts MENA-focused research groups and organizes the Finnish Colloquium of Middle East and North African Studies. No standalone Persian program, but active in regional studies research.</p>
+    <p><strong>Partnership potential:</strong> Academic conference participation, research partnerships, satellite events outside Helsinki.</p>
+    <p class="org-url">🔗 <a href="https://www.tuni.fi/en" target="_blank">tuni.fi</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Helsinki Adult Education Centre (Helsingin aikuisopisto)</div>
+    <div class="org-type">Adult education — Language courses | Helsinki</div>
+    <p>Offers Persian language courses from beginner to advanced, introducing students to Persian culture alongside language skills.</p>
+    <p><strong>Partnership potential:</strong> Cross-promote embassy cultural events to Persian language students — a warm, self-selecting audience.</p>
+    <p class="org-url">🔗 <a href="https://helao.fi" target="_blank">helao.fi</a></p>
+  </div>
+</div>
+
+<!-- SECTION 4: PEACE & DIALOGUE NGOs -->
+<div class="content page-break" id="s4">
+  <h2>4. Peace, Dialogue & Mediation NGOs</h2>
+
+  <p>Finland is a global leader in peace mediation. Partnering with these organizations transforms the embassy's positioning from "controversial diplomatic outpost" to "constructive dialogue partner."</p>
+
+  <div class="stakeholder-card">
+    <div class="org-name">CMI — Martti Ahtisaari Peace Foundation</div>
+    <div class="org-type">Peace & conflict resolution — Independent foundation | Helsinki</div>
+    <p>Founded by Nobel Peace Prize laureate and former President Martti Ahtisaari. A global leader in conflict prevention and resolution through informal dialogue and mediation. Active in the Middle East, North Africa, Eurasia, Sub-Saharan Africa, and Asia.</p>
+    <p><strong>Partnership potential:</strong> <strong>Highest-value partner.</strong> A single co-hosted dialogue event with CMI changes the embassy's entire public positioning. The ambassador's international law background aligns perfectly with their mission.</p>
+    <p class="org-url">🔗 <a href="https://cmi.fi" target="_blank">cmi.fi</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Finnish Forum for Mediation (Suomen sovittelufoorumi)</div>
+    <div class="org-type">Mediation advocacy — National organization</div>
+    <p>Promotes mediation at national and international levels. Focuses on creating communication channels and reducing violence for sustainable peace.</p>
+    <p><strong>Partnership potential:</strong> Dialogue-themed events, institutional credibility for embassy programming.</p>
+    <p class="org-url">🔗 <a href="https://sovittelu.com" target="_blank">sovittelu.com</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Network for Religious and Traditional Peacemakers</div>
+    <div class="org-type">International peacebuilding network — Supported by Finn Church Aid | Helsinki</div>
+    <p>Focuses on the role of religious and traditional actors in peacebuilding. Convenes in Helsinki regularly. Supported by Finland's Ministry for Foreign Affairs.</p>
+    <p><strong>Partnership potential:</strong> Interfaith dialogue events, cultural bridge-building, reaching Finnish faith communities.</p>
+    <p class="org-url">🔗 <a href="https://www.peacemakersnetwork.org" target="_blank">peacemakersnetwork.org</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Ad Astra</div>
+    <div class="org-type">Interfaith & intercultural dialogue — Helsinki</div>
+    <p>Focuses on interfaith and intercultural dialogue, antiracism, and promotion of cultural heritage.</p>
+    <p><strong>Partnership potential:</strong> Cultural heritage events, intercultural dialogue programming.</p>
+    <p class="org-url">🔗 <a href="https://www.eifd.eu" target="_blank">eifd.eu</a> (European Institute for Freedom and Dialogue)</p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Global Dignity Finland</div>
+    <div class="org-type">Cross-cultural dialogue — Helsinki</div>
+    <p>Works on diversity and inclusion through workshops and educational initiatives.</p>
+    <p><strong>Partnership potential:</strong> Workshop-style events, school outreach, youth engagement.</p>
+    <p class="org-url">🔗 <a href="https://www.globaldignity.org" target="_blank">globaldignity.org</a></p>
+  </div>
+</div>
+
+<!-- SECTION 5: PUBLIC OFFICES -->
+<div class="content page-break" id="s5">
+  <h2>5. Public Offices & City Infrastructure</h2>
+
+  <p>These are the venues, funding sources, and institutional platforms that give events official weight and public legitimacy.</p>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Cultural Centre Caisa</div>
+    <div class="org-type">Multicultural cultural center — City of Helsinki | Kaisaniemenkatu 8</div>
+    <p>Helsinki's dedicated multicultural arts hub. Hosts exhibitions, performances, events, and workshops for diverse cultural communities. Managed by the City of Helsinki Culture and Leisure Division.</p>
+    <p><strong>Partnership potential:</strong> <strong>Primary venue</strong> for embassy cultural events. Purpose-built for this kind of programming. City endorsement included.</p>
+    <p class="org-url">🔗 <a href="https://caisa.fi" target="_blank">caisa.fi</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">City of Helsinki — Culture and Leisure Division</div>
+    <div class="org-type">Municipal government — Cultural policy & grants</div>
+    <p>Manages Helsinki's cultural centers, museums, and arts initiatives. Distributes approximately <strong>€18 million annually</strong> in cultural grants, including projects enhancing cultural diversity.</p>
+    <p><strong>Partnership potential:</strong> Grant applications for cultural events, venue access, city-level endorsement.</p>
+    <p class="org-url">🔗 <a href="https://www.hel.fi/fi/kulttuuri-ja-vapaa-aika" target="_blank">hel.fi/kulttuuri-ja-vapaa-aika</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Stoa / Malmitalo / Kanneltalo / Vuotalo</div>
+    <div class="org-type">Regional cultural centers — City of Helsinki</div>
+    <p>Cultural centers across Helsinki neighborhoods hosting concerts, theater, film screenings, and exhibitions.</p>
+    <p><strong>Partnership potential:</strong> Satellite venue options to reach audiences outside city center.</p>
+    <p class="org-url">🔗 <a href="https://www.hel.fi/fi/kulttuuri-ja-vapaa-aika/kulttuurikeskukset" target="_blank">hel.fi — Cultural centers</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Finland's Ministry for Foreign Affairs — MENA Strategy</div>
+    <div class="org-type">Government — Development cooperation</div>
+    <p>Coordinates Finland's development cooperation with the MENA region (2021–2024 strategy). Priorities include climate action, sustainable growth, SME support, and a "just green transition." Uses a "Team Finland" approach integrating private sector expertise.</p>
+    <p><strong>Partnership potential:</strong> Institutional backing for sustainability/climate cooperation events. Aligns with ambassador's UNFCCC background.</p>
+    <p class="org-url">🔗 <a href="https://um.fi/development-cooperation-in-the-middle-east-and-northern-africa" target="_blank">um.fi — MENA Development Cooperation</a></p>
+  </div>
+</div>
+
+<!-- SECTION 6: MEDIA & VENUES -->
+<div class="content page-break" id="s6">
+  <h2>6. Media & Cultural Venues</h2>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Kino Konepaja</div>
+    <div class="org-type">Independent art-house cinema & bar | Vallila, Helsinki</div>
+    <p>Intimate cinema hosting screenings, film clubs, and cultural events. Successfully hosted the <strong>"Iranian Culture Festival"</strong> in February 2025 — an all-day event with film screenings (<em>My Favourite Cake</em>, <em>The Seed of the Sacred Fig</em>), panel discussions, and Persian music.</p>
+    <p><strong>Partnership potential:</strong> <strong>Proven partner.</strong> The 2025 event validated audience demand. A recurring "Persian Cinema Night" series is the obvious next step.</p>
+    <p class="org-url">🔗 <a href="https://kinokonepaja.fi" target="_blank">kinokonepaja.fi</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Tampere Film Festival</div>
+    <div class="org-type">International short film festival | Tampere</div>
+    <p>One of Europe's leading short film festivals. Has a long history of featuring Iranian cinema. In 2025, the Tehran International Short Film Festival curated a special program "Pioneers: Iranian Echoes from Tampere" featuring award-winning films from Tampere.</p>
+    <p><strong>Partnership potential:</strong> Official embassy presence at the festival, sponsor an Iranian film program, connect Iranian filmmakers.</p>
+    <p class="org-url">🔗 <a href="https://tamperefilmfestival.fi" target="_blank">tamperefilmfestival.fi</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Helsingin Sanomat / Yle / Helsinki Times</div>
+    <div class="org-type">Major Finnish media outlets</div>
+    <p><strong>Helsingin Sanomat</strong> — Finland's largest newspaper (print + digital).<br>
+    <strong>Yle</strong> — National public broadcaster (TV, radio, digital).<br>
+    <strong>Helsinki Times</strong> — English-language newspaper for international/expat audience.</p>
+    <p><strong>Partnership potential:</strong> Op-ed placement, cultural event coverage, interview opportunities. Currently, the embassy has <strong>zero counter-narrative</strong> in Finnish media.</p>
+    <p class="org-url">🔗 <a href="https://www.hs.fi" target="_blank">hs.fi</a> · <a href="https://yle.fi" target="_blank">yle.fi</a> · <a href="https://www.helsinkitimes.fi" target="_blank">helsinkitimes.fi</a></p>
+  </div>
+
+  <div class="stakeholder-card">
+    <div class="org-name">Savoy Theatre</div>
+    <div class="org-type">International concert hall | Helsinki city center</div>
+    <p>Premium venue for high-profile performances and guest events.</p>
+    <p><strong>Partnership potential:</strong> Major cultural gala events (e.g., annual Nowruz celebration with diplomatic guests).</p>
+    <p class="org-url">🔗 <a href="https://www.savoyteatteri.fi" target="_blank">savoyteatteri.fi</a></p>
+  </div>
+</div>
+
+<!-- SECTION 7: NOTABLE PEOPLE -->
+<div class="content page-break" id="s7">
+  <h2>7. Notable Iranian-Finnish Personalities</h2>
+
+  <p>These individuals have name recognition in Finland and can serve as event hosts, brand ambassadors, or panel participants to bridge Iranian culture with Finnish mainstream audiences.</p>
+
+  <table>
+    <tr><th>Name</th><th>Field</th><th>Potential Role</th></tr>
+    <tr><td><strong>Arman Alizad</strong></td><td>Fashion designer, TV personality</td><td>Event host, brand ambassador for cultural galas</td></tr>
+    <tr><td><strong>Ali Jahangiri</strong></td><td>Comedian, media presenter</td><td>MC for events — reach Finnish mainstream audience</td></tr>
+    <tr><td><strong>Alexis Kouros</strong></td><td>Writer, documentary filmmaker</td><td>Film screenings, panel moderator, storytelling events</td></tr>
+    <tr><td><strong>Makwan Amirkhani</strong></td><td>MMA fighter (international profile)</td><td>Sports diplomacy, youth engagement</td></tr>
+    <tr><td><strong>Evelyn Mora</strong></td><td>Fashion tech entrepreneur</td><td>Business/innovation events, startup showcase</td></tr>
+    <tr><td><strong>Mina Mojtahedi</strong></td><td>Paralympic wheelchair curling</td><td>Sports diplomacy, inclusion & accessibility narrative</td></tr>
+    <tr><td><strong>Tabe Slioor</strong></td><td>Socialite, photojournalist</td><td>Event photography, media visibility</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>Key insight:</strong> These individuals are <em>Finnish celebrities</em> who happen to have Iranian roots. Their involvement transforms an "embassy event" into a "Finnish cultural event" — which is exactly the perception shift needed.
+  </div>
+</div>
+
+<!-- SECTION 8: STRATEGY A -->
+<div class="content page-break" id="s8">
+  <h2>8. Event Strategy A: "Persia & Finland" Cultural Salon</h2>
+
+  <div class="initiative">
+    <div class="tags">
+      <span>Cultural Diplomacy</span>
+      <span class="green">Low Cost</span>
+      <span>Medium Effort</span>
+      <span class="amber">High Impact</span>
+    </div>
+
+    <p><strong>Objective:</strong> Position Iran as a rich civilization through art, cinema, music, and cuisine — creating emotional connections that transcend political narratives.</p>
+
+    <h4>Target Audience</h4>
+    <p>Finnish public, Iranian diaspora, cultural professionals, university students, media.</p>
+
+    <h4>Frequency & Venue</h4>
+    <p>Monthly events rotating between <a href="https://caisa.fi">Cultural Centre Caisa</a> and <a href="https://kinokonepaja.fi">Kino Konepaja</a>.</p>
+
+    <h4>Event Calendar</h4>
+    <table>
+      <tr><th>Event</th><th>Format</th><th>Timing</th><th>Key Partners</th></tr>
+      <tr><td><strong>Persian Cinema Night</strong></td><td>Screening + panel</td><td>Quarterly</td><td>Kino Konepaja, Tampere Film Festival</td></tr>
+      <tr><td><strong>Nowruz Open House</strong></td><td>Open event — music, food, art</td><td>March</td><td>KOPE ry, Baran Band, Caisa</td></tr>
+      <tr><td><strong>Calligraphy & Poetry Workshop</strong></td><td>Interactive workshop</td><td>Ongoing</td><td>Helsinki Adult Education Centre</td></tr>
+      <tr><td><strong>Iranian Music Evening</strong></td><td>Live concert</td><td>2x/year</td><td>Baran Band, Savoy Theatre</td></tr>
+      <tr><td><strong>Persian Cuisine Night</strong></td><td>Food + storytelling</td><td>1x/year</td><td>KOPE ry, diaspora chefs</td></tr>
+      <tr><td><strong>Children's Art Festival</strong></td><td>Art workshop for children</td><td>1x/year</td><td>Annantalo Arts Centre</td></tr>
+    </table>
+
+    <div class="callout green">
+      <strong>Proven concept:</strong> The February 2025 "Iranian Culture Festival" at Kino Konepaja was a success — film screenings, panel discussion, live Persian music. This strategy systematizes what already works.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 9: STRATEGY B -->
+<div class="content page-break" id="s9">
+  <h2>9. Event Strategy B: "Bridge Builders" Dialogue Series</h2>
+
+  <div class="initiative">
+    <div class="tags">
+      <span>Dialogue & Mediation</span>
+      <span class="green">Low Cost</span>
+      <span>Medium Effort</span>
+      <span class="amber">Very High Impact</span>
+    </div>
+
+    <p><strong>Objective:</strong> Position the embassy as a <em>thinking partner</em> for constructive international dialogue — leveraging Finland's global reputation in peace mediation and the ambassador's own expertise in international law.</p>
+
+    <h4>Target Audience</h4>
+    <p>Academics, diplomats, foreign policy community, Finnish media, students of international relations.</p>
+
+    <h4>Frequency & Venue</h4>
+    <p>Quarterly events at <a href="https://cmi.fi">CMI offices</a>, University of Helsinki, or the Embassy.</p>
+
+    <h4>Event Calendar</h4>
+    <table>
+      <tr><th>Event</th><th>Format</th><th>Topic Example</th><th>Key Partners</th></tr>
+      <tr><td><strong>Ambassador's Dialogue</strong></td><td>Roundtable (invite-only, 20–30 people)</td><td>"Iran's Role in International Law — A Finnish Perspective"</td><td>CMI, FIME</td></tr>
+      <tr><td><strong>Academic Seminar</strong></td><td>Seminar + Q&A</td><td>"Water Diplomacy: Iran, the Middle East & Lessons from Finland"</td><td>FIME, University of Helsinki</td></tr>
+      <tr><td><strong>Student Encounter</strong></td><td>Informal Q&A</td><td>Ambassador meets Finnish students of Middle Eastern studies</td><td>University of Helsinki</td></tr>
+      <tr><td><strong>Peace Mediation Forum</strong></td><td>Panel discussion</td><td>"Can Cultural Diplomacy Bridge Political Divides?"</td><td>CMI, Finnish Forum for Mediation</td></tr>
+    </table>
+
+    <div class="callout blue">
+      <strong>Why CMI matters:</strong> The Martti Ahtisaari Peace Foundation is one of the world's most respected mediation organizations. A single co-hosted event gives the embassy instant credibility with Finland's foreign policy community and media. This is the <strong>highest-ROI partnership</strong> in this entire document.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 10: STRATEGY C -->
+<div class="content page-break" id="s10">
+  <h2>10. Event Strategy C: "Green Bridge" — Sustainability & Climate</h2>
+
+  <div class="initiative">
+    <div class="tags">
+      <span>Climate & Sustainability</span>
+      <span class="green">Low Cost</span>
+      <span>Low Effort</span>
+      <span class="amber">High Impact</span>
+    </div>
+
+    <p><strong>Objective:</strong> Leverage Finland's global sustainability leadership and the ambassador's personal expertise in international climate agreements (UNFCCC Compliance Committee, COP delegations) to create a credible, non-political cooperation channel.</p>
+
+    <h4>Target Audience</h4>
+    <p>Sustainability professionals, environmental researchers, institutional partners, Finnish media.</p>
+
+    <h4>Frequency & Venue</h4>
+    <p>2–3 events per year at University of Helsinki, Finnish Environment Institute, or embassy.</p>
+
+    <h4>Event Calendar</h4>
+    <table>
+      <tr><th>Event</th><th>Format</th><th>Topic Example</th><th>Key Partners</th></tr>
+      <tr><td><strong>Climate Dialogue</strong></td><td>Panel discussion</td><td>"Iran's Climate Challenges: What Finland Can Learn and Teach"</td><td>FIME, MFA (MENA desk)</td></tr>
+      <tr><td><strong>Lake Urmia Seminar</strong></td><td>Academic seminar</td><td>"From Lake Urmia to Finnish Water Management — A Shared Crisis"</td><td>University of Helsinki, SYKE</td></tr>
+      <tr><td><strong>Sustainability Exchange</strong></td><td>Workshop</td><td>"Circular Economy Solutions for the Middle East"</td><td>Sitra, Business Finland</td></tr>
+    </table>
+
+    <div class="callout green">
+      <strong>The Lake Urmia story:</strong> Lake Urmia, in the ambassador's home region (West Azerbaijan), is one of the world's most visible environmental crises — a dying lake that was once the largest in the Middle East. Finland's world-class water management expertise creates a powerful, <em>human</em> cooperation narrative that journalists will want to cover.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 11: STRATEGY D -->
+<div class="content page-break" id="s11">
+  <h2>11. Event Strategy D: "Persian Business Bridge"</h2>
+
+  <div class="initiative">
+    <div class="tags">
+      <span>Economic Diplomacy</span>
+      <span class="green">Low Cost</span>
+      <span>Low Effort</span>
+      <span>Medium Impact</span>
+    </div>
+
+    <p><strong>Objective:</strong> Strengthen Iran–Finland economic ties by connecting Persian-speaking entrepreneurs, Finnish businesses, and academic institutions.</p>
+
+    <h4>Target Audience</h4>
+    <p>Entrepreneurs, business professionals, investors, Finnish companies with Middle East interest.</p>
+
+    <h4>Frequency & Venue</h4>
+    <p>2x per year at startup/business venues, Aalto University, or embassy.</p>
+
+    <h4>Event Calendar</h4>
+    <table>
+      <tr><th>Event</th><th>Format</th><th>Details</th><th>Key Partners</th></tr>
+      <tr><td><strong>Finnish-Iranian Business Mixer</strong></td><td>Networking evening</td><td>Connect 50+ entrepreneurs and professionals</td><td>PBAF, Business Finland</td></tr>
+      <tr><td><strong>Startup Showcase</strong></td><td>Pitch event</td><td>Iranian-Finnish founders present to Finnish investors</td><td>PBAF, Aalto Entrepreneurship Society</td></tr>
+      <tr><td><strong>Trade Webinar</strong></td><td>Online/hybrid</td><td>"Finland–Iran Business Landscape: Opportunities & Realities"</td><td>PBAF, Finnish-Iranian Chamber</td></tr>
+    </table>
+
+    <div class="callout">
+      <strong>Content pipeline:</strong> Every business event generates LinkedIn content for the embassy's professional page — speaker quotes, attendee photos, key takeaways. This feeds directly into the LinkedIn strategy proposed in our earlier PR document.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 12: ROADMAP -->
+<div class="content page-break" id="s12">
+  <h2>12. Phased Roadmap & Priority Contacts</h2>
+
+  <h3>Recommended Sequencing</h3>
+  <table>
+    <tr><th>Phase</th><th>Timeline</th><th>Strategy</th><th>First Event</th></tr>
+    <tr><td><strong>Phase 1</strong></td><td>Jun–Sep 2026</td><td>🎬 Persia & Finland</td><td>Persian Cinema Night at Kino Konepaja</td></tr>
+    <tr><td><strong>Phase 1</strong></td><td>Jun–Sep 2026</td><td>🕊️ Bridge Builders</td><td>Ambassador's Dialogue roundtable</td></tr>
+    <tr><td><strong>Phase 2</strong></td><td>Oct–Dec 2026</td><td>🌱 Green Bridge</td><td>Lake Urmia climate seminar</td></tr>
+    <tr><td><strong>Phase 2</strong></td><td>Oct–Dec 2026</td><td>💼 Business Bridge</td><td>Finnish-Iranian Business Mixer with PBAF</td></tr>
+    <tr><td><strong>Ongoing</strong></td><td>Continuous</td><td>📱 Social Media</td><td>Instagram + LinkedIn content from every event</td></tr>
+  </table>
+
+  <h3>Priority Contact List</h3>
+  <table>
+    <tr><th>Priority</th><th>Organization</th><th>Action</th><th>Link</th></tr>
+    <tr>
+      <td><span class="priority-high">P1</span></td>
+      <td><strong>KOPE ry</strong></td>
+      <td>Meet the director — community backbone</td>
+      <td><a href="https://moniheli.fi">moniheli.fi</a></td>
+    </tr>
+    <tr>
+      <td><span class="priority-high">P1</span></td>
+      <td><strong>PBAF</strong></td>
+      <td>Propose co-hosting business mixer</td>
+      <td><a href="https://pbaf.fi">pbaf.fi</a></td>
+    </tr>
+    <tr>
+      <td><span class="priority-high">P1</span></td>
+      <td><strong>Cultural Centre Caisa</strong></td>
+      <td>Book venue for first cultural event</td>
+      <td><a href="https://caisa.fi">caisa.fi</a></td>
+    </tr>
+    <tr>
+      <td><span class="priority-high">P1</span></td>
+      <td><strong>Kino Konepaja</strong></td>
+      <td>Follow up on 2025 festival — propose sequel</td>
+      <td><a href="https://kinokonepaja.fi">kinokonepaja.fi</a></td>
+    </tr>
+    <tr>
+      <td><span class="priority-med">P2</span></td>
+      <td><strong>FIME</strong></td>
+      <td>Propose joint academic seminar</td>
+      <td><a href="https://fime.fi">fime.fi</a></td>
+    </tr>
+    <tr>
+      <td><span class="priority-med">P2</span></td>
+      <td><strong>CMI</strong></td>
+      <td>Explore "Bridge Builders" dialogue partnership</td>
+      <td><a href="https://cmi.fi">cmi.fi</a></td>
+    </tr>
+    <tr>
+      <td><span class="priority-med">P2</span></td>
+      <td><strong>University of Helsinki</strong></td>
+      <td>Guest lecture by the ambassador</td>
+      <td><a href="https://helsinki.fi">helsinki.fi</a></td>
+    </tr>
+    <tr>
+      <td><span class="priority-low">P3</span></td>
+      <td><strong>Arman Alizad / Ali Jahangiri</strong></td>
+      <td>Explore event hosting / public endorsement</td>
+      <td>Social media outreach</td>
+    </tr>
+    <tr>
+      <td><span class="priority-low">P3</span></td>
+      <td><strong>Sitra</strong></td>
+      <td>Explore sustainability/circular economy partnership</td>
+      <td><a href="https://sitra.fi">sitra.fi</a></td>
+    </tr>
+  </table>
+
+  <div class="callout blue">
+    <strong>Our role:</strong> Pomegroup Studio can manage the end-to-end execution of these events — from stakeholder outreach and venue booking to event design, social media coverage, and post-event reporting. We offer flexible engagement: full outsourced management, or advisory support alongside embassy staff.
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>Smart Monshi Oy</strong> — Pomegroup Studio<br>
+  Helsinki, Finland · <a href="https://pomegroup.studio">pomegroup.studio</a><br>
+  admin@pomegroup.studio · +358 41 721 1615
+</div>
+
+</body>
+</html>

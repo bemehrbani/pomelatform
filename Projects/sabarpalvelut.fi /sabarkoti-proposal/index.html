@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partnership & Co-Founder Proposal | Pomegroup.studio to Mustafa Sabar</title>
+  <link rel="icon" href="https://pomegroup.studio/favicon.ico" type="image/x-icon">
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #131a2c;
+      --accent-green: #10b981;
+      --accent-green-hover: #059669;
+      --accent-gold: #f59e0b;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.05);
+      --font-outfit: 'Outfit', sans-serif;
+      --font-inter: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-inter);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-bottom: 100px;
+    }
+
+    /* Background Glow Effects */
+    .glow-1 {
+      position: absolute;
+      top: -200px;
+      left: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-2 {
+      position: absolute;
+      top: 800px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header styling */
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 40px;
+    }
+
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .logo-studio {
+      font-family: var(--font-outfit);
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      text-transform: uppercase;
+    }
+
+    .logo-studio span {
+      color: var(--accent-green);
+    }
+
+    .proposal-badge {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--accent-green);
+      padding: 6px 16px;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    h1 {
+      font-family: var(--font-outfit);
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 40%, var(--text-muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 12px;
+    }
+
+    .meta-info {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .meta-info span strong {
+      color: var(--text-main);
+    }
+
+    /* Section styling */
+    section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      font-family: var(--font-outfit);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 24px;
+      background-color: var(--accent-green);
+      border-radius: 99px;
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .highlight-box {
+      background: rgba(16, 185, 129, 0.03);
+      border-left: 4px solid var(--accent-green);
+      padding: 20px;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 30px;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    /* Service Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .service-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .service-card h3 {
+      font-family: var(--font-outfit);
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .service-card p {
+      font-size: 0.85rem;
+      margin-bottom: 0;
+    }
+
+    /* Options Selection Styling */
+    .options-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .option-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      padding: 30px 24px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .option-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: translateY(-5px);
+    }
+
+    .option-card.active {
+      background: rgba(16, 185, 129, 0.04);
+      border-color: var(--accent-green);
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
+    }
+
+    .option-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      padding: 4px 12px;
+      border-radius: 99px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .option-card.active .option-badge {
+      background: var(--accent-green);
+      color: #000;
+    }
+
+    .option-price {
+      font-family: var(--font-outfit);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .option-term {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+
+    .option-ownership {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 8px;
+      padding: 10px;
+      font-family: var(--font-outfit);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+      margin-bottom: 20px;
+    }
+
+    .option-card.active .option-ownership {
+      background: rgba(245, 158, 11, 0.1);
+    }
+
+    .option-card ul {
+      list-style: none;
+      text-align: left;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .option-card ul li {
+      margin-bottom: 10px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .option-card ul li::before {
+      content: '✓';
+      color: var(--accent-green);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .option-select-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 12px;
+      border-radius: 8px;
+      font-family: var(--font-outfit);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .option-card.active .option-select-btn {
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+      color: #000;
+    }
+
+    .option-select-btn:hover {
+      background: var(--text-main);
+      color: #000;
+    }
+
+    /* Term list styling */
+    .terms-list {
+      display: grid;
+      gap: 20px;
+    }
+
+    .term-item {
+      display: flex;
+      gap: 16px;
+    }
+
+    .term-number {
+      font-family: var(--font-outfit);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--accent-green);
+      background: rgba(16, 185, 129, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .term-content h4 {
+      font-family: var(--font-outfit);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .term-content p {
+      font-size: 0.85rem;
+      margin-bottom: 0;
+    }
+
+    /* Interactive Signatures Box */
+    .sign-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      margin-top: 30px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 30px;
+    }
+
+    .signature-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px dashed var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .signature-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+
+    .signature-name {
+      font-family: var(--font-outfit);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .signature-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .sig-input-wrap {
+      margin-bottom: 20px;
+    }
+
+    .signature-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      color: #fff;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .signature-input:focus {
+      border-color: var(--accent-green);
+    }
+
+    .signature-pad {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Great Vibes', cursive, 'Brush Script MT', sans-serif;
+      font-size: 2.2rem;
+      color: var(--accent-green);
+      background: rgba(0,0,0,0.1);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      transition: all 0.2s ease;
+    }
+
+    .sign-btn {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--accent-green);
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: var(--font-outfit);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sign-btn:hover {
+      background: var(--accent-green);
+      color: #000;
+      border-color: var(--accent-green);
+    }
+
+    .sign-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      background: transparent;
+      border-color: var(--border-color);
+      color: var(--text-muted);
+    }
+
+    /* Actions Bar at the bottom */
+    .action-bar {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .action-bar p {
+      font-size: 0.8rem;
+      margin-bottom: 16px;
+    }
+
+    .submit-proposal-btn {
+      background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-green-hover) 100%);
+      border: none;
+      color: #000;
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-family: var(--font-outfit);
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+    }
+
+    .submit-proposal-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 25px rgba(16, 185, 129, 0.3);
+    }
+
+    .submit-proposal-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Status banner */
+    .status-banner {
+      display: none;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid var(--accent-green);
+      color: var(--text-main);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 40px;
+      font-family: var(--font-outfit);
+      font-weight: 600;
+      font-size: 1.1rem;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 2rem;
+      }
+      section {
+        padding: 24px;
+      }
+      .sign-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+
+  <div class="container">
+    <div id="statusBanner" class="status-banner">
+      ✓ Proposal Accepted & Fully Executed! A confirmation mail with copy of contract has been dispatched.
+    </div>
+
+    <header>
+      <div class="logo-container">
+        <div class="logo-studio">Pomegroup<span>.studio</span></div>
+      </div>
+      <div>
+        <span class="proposal-badge">Venture Partnership Proposal</span>
+      </div>
+      <h1>Co-Founder & Strategic Service Contract</h1>
+      <p class="subtitle">Partnership Agreement for launching <strong>SabarKoti</strong>, the premier digital home services platform in Finland.</p>
+      
+      <div class="meta-info">
+        <span>From: <strong>Pomegroup.studio</strong></span>
+        <span>To: <strong>Mustafa Sabar (Sabar Palvelut)</strong></span>
+        <span>Date: <strong>July 4, 2026</strong></span>
+      </div>
+    </header>
+
+    <!-- Executive Summary -->
+    <section>
+      <h2>Executive Summary</h2>
+      <p>
+        This agreement outlines a co-founder partnership between <strong>Pomegroup.studio</strong> (represented by Abbas Shahsafi / Mahdi Farimani) and <strong>Mustafa Sabar</strong> to develop, launch, and scale <strong>SabarKoti</strong>. 
+      </p>
+      <div class="highlight-box">
+        <p>
+          <strong>The Vision:</strong> Transitioning Sabar Palvelut's service operations into a tech-enabled brand called <strong>SabarKoti</strong>. We will establish complete digital independence by launching a custom booking system, restoring domain administration, and integrating native Finnish household tax deduction (kotitalousvähennys) capabilities.
+        </p>
+      </div>
+      <p>
+        Pomegroup.studio will act as the technical co-founder and strategic digital partner, providing full end-to-end design, database infrastructure, Stripe payment gateways, and client acquisition funnels.
+      </p>
+    </section>
+
+    <!-- Project Deliverables -->
+    <section>
+      <h2>Pomegroup.studio Commitments & Scope</h2>
+      <p>Upon execution of this contract, Pomegroup.studio will build and manage the following core infrastructure for SabarKoti:</p>
+      
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>1. Identity & Rebranding</h3>
+          <p>Full rebranding from Sabar Palvelut to <strong>SabarKoti</strong>, including modern logo marks, typographic scale, and digital visual assets.</p>
+        </div>
+        <div class="service-card">
+          <h3>2. Domain & Email Setup</h3>
+          <p>Registering and configuring the new domain <strong>sabarkoti.fi</strong>. Launching independent business emails (Google Workspace) secure from previous contractors.</p>
+        </div>
+        <div class="service-card">
+          <h3>3. Automated Booking Portal</h3>
+          <p>Deploying the custom online booking funnel (built on Next.js/Supabase/Stripe) featuring the auto-generated tax-deduction receipt engine.</p>
+        </div>
+        <div class="service-card">
+          <h3>4. Operations Dashboard</h3>
+          <p>Building a live management portal for SabarKoti's administrators to schedule assignments and manage staff bookings.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partnership Options (Co-Founder Model) -->
+    <section>
+      <h2>Co-Founder Partnership Options</h2>
+      <p>To align interests and resources, we propose three partnership options. Select the structure that best fits your business model. Pomegroup.studio will receive a monthly fee to cover running server/operational expenses plus an equity stake in SabarKoti:</p>
+      
+      <div class="options-container">
+        <!-- Option 1 -->
+        <div class="option-card" id="opt-1" onclick="selectOption(1)">
+          <div class="option-badge">Option A</div>
+          <div class="option-price">€1,000</div>
+          <div class="option-term">monthly fee</div>
+          <div class="option-ownership">20% Equity Stake</div>
+          <ul>
+            <li>Active venture builder partnership</li>
+            <li>Full tech development & support</li>
+            <li>Higher long-term equity alignment</li>
+            <li>Weekly operations review</li>
+          </ul>
+          <button class="option-select-btn" id="btn-1">Select Option A</button>
+        </div>
+
+        <!-- Option 2 -->
+        <div class="option-card active" id="opt-2" onclick="selectOption(2)">
+          <div class="option-badge">Option B (Recommended)</div>
+          <div class="option-price">€2,000</div>
+          <div class="option-term">monthly fee</div>
+          <div class="option-ownership">10% Equity Stake</div>
+          <ul>
+            <li>Balanced cash & equity mix</li>
+            <li>Full tech development & support</li>
+            <li>Includes basic monthly local SEO campaigns</li>
+            <li>Weekly operations review</li>
+          </ul>
+          <button class="option-select-btn" id="btn-2">Select Option B</button>
+        </div>
+
+        <!-- Option 3 -->
+        <div class="option-card" id="opt-3" onclick="selectOption(3)">
+          <div class="option-badge">Option C</div>
+          <div class="option-price">€5,000</div>
+          <div class="option-term">monthly fee</div>
+          <div class="option-ownership">5% Equity Stake</div>
+          <ul>
+            <li>Minimal equity dilution</li>
+            <li>Full tech development & support</li>
+            <li>Priority development pipeline</li>
+            <li>Custom features on-demand</li>
+          </ul>
+          <button class="option-select-btn" id="btn-3">Select Option C</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Terms & Conditions -->
+    <section>
+      <h2>Key Terms & Conditions</h2>
+      <div class="terms-list">
+        <div class="term-item">
+          <div class="term-number">1</div>
+          <div class="term-content">
+            <h4>Ownership & Intellectual Property</h4>
+            <p>Pomegroup.studio retains intellectual property rights for the custom booking software and platform codebase. SabarKoti receives a perpetual, exclusive license to run its business operations on this code for the duration of the partnership.</p>
+          </div>
+        </div>
+        <div class="term-item">
+          <div class="term-number">2</div>
+          <div class="term-content">
+            <h4>Equity & Profit Share</h4>
+            <p>Equity stakes denote rights to annual profit distributions (dividends) and ownership in the event of an acquisition or business restructuring. This will be officially drafted into a Finnish shareholder agreement (osakassopimus) within 30 days of signing.</p>
+          </div>
+        </div>
+        <div class="term-item">
+          <div class="term-number">3</div>
+          <div class="term-content">
+            <h4>Contract Termination</h4>
+            <p>Either party may terminate this monthly service agreement with a 60-day written notice. Any accrued equity is subject to standard vesting rules to be detailed in the shareholder agreement.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Digital Signatures -->
+    <section>
+      <h2>Agreement & Execution</h2>
+      <p>By typing your name and clicking sign, both parties agree to execute this contract under the selected option:</p>
+      
+      <div class="sign-container">
+        <!-- Pomegroup Signature -->
+        <div class="signature-card">
+          <div class="signature-title">Authorized Representative</div>
+          <div class="signature-name">Abbas Shahsafi</div>
+          <div class="signature-role">Co-Founder, Pomegroup.studio</div>
+          
+          <div class="sig-input-wrap">
+            <input type="text" id="sigPomeName" class="signature-input" placeholder="Type name to sign" oninput="updateSignature('pome')">
+          </div>
+          <div id="sigPomePad" class="signature-pad"><i>Waiting...</i></div>
+          <button id="signPomeBtn" class="sign-btn" onclick="signContract('pome')" disabled>Apply Signature</button>
+        </div>
+
+        <!-- Mustafa Sabar Signature -->
+        <div class="signature-card">
+          <div class="signature-title">SabarKoti Representative</div>
+          <div class="signature-name">Mustafa Sabar</div>
+          <div class="signature-role">CEO & Founder, SabarKoti</div>
+          
+          <div class="sig-input-wrap">
+            <input type="text" id="sigSabarName" class="signature-input" placeholder="Type name to sign" oninput="updateSignature('sabar')">
+          </div>
+          <div id="sigSabarPad" class="signature-pad"><i>Waiting...</i></div>
+          <button id="signSabarBtn" class="sign-btn" onclick="signContract('sabar')" disabled>Apply Signature</button>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <p id="actionStatusText" class="text-muted">Both parties must sign the document to finalize the contract.</p>
+        <button id="submitContractBtn" class="submit-proposal-btn" onclick="submitContract()" disabled>Execute Partnership Agreement</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    let selectedOpt = 2; // Option B default
+    let isSignedPome = false;
+    let isSignedSabar = false;
+
+    function selectOption(optNum) {
+      if (isSignedPome || isSignedSabar) return; // Disable changes after signatures
+      
+      document.querySelectorAll('.option-card').forEach(card => card.classList.remove('active'));
+      document.getElementById(`opt-${optNum}`).classList.add('active');
+      
+      selectedOpt = optNum;
+      
+      const optLetter = optNum === 1 ? 'Option A' : optNum === 2 ? 'Option B' : 'Option C';
+      document.getElementById('actionStatusText').textContent = `Both parties must sign the document to finalize the contract under ${optLetter}.`;
+    }
+
+    function updateSignature(party) {
+      const input = document.getElementById(party === 'pome' ? 'sigPomeName' : 'sigSabarName').value;
+      const pad = document.getElementById(party === 'pome' ? 'sigPomePad' : 'sigSabarPad');
+      const btn = document.getElementById(party === 'pome' ? 'signPomeBtn' : 'signSabarBtn');
+      
+      if (input.trim().length > 2) {
+        pad.innerHTML = `<i>${input}</i>`;
+        btn.disabled = false;
+      } else {
+        pad.innerHTML = '<i>Waiting...</i>';
+        btn.disabled = true;
+      }
+    }
+
+    function signContract(party) {
+      const input = document.getElementById(party === 'pome' ? 'sigPomeName' : 'sigSabarName');
+      const btn = document.getElementById(party === 'pome' ? 'signPomeBtn' : 'signSabarBtn');
+      const pad = document.getElementById(party === 'pome' ? 'sigPomePad' : 'sigSabarPad');
+      
+      input.disabled = true;
+      btn.disabled = true;
+      btn.textContent = 'Signed ✓';
+      pad.style.borderColor = 'var(--accent-green)';
+      
+      if (party === 'pome') {
+        isSignedPome = true;
+      } else {
+        isSignedSabar = true;
+      }
+      
+      checkSignatures();
+    }
+
+    function checkSignatures() {
+      const statusText = document.getElementById('actionStatusText');
+      const submitBtn = document.getElementById('submitContractBtn');
+      const optLetter = selectedOpt === 1 ? 'Option A' : selectedOpt === 2 ? 'Option B' : 'Option C';
+      
+      if (isSignedPome && isSignedSabar) {
+        statusText.textContent = `Contract signed by both parties under ${optLetter}! Click below to execute.`;
+        statusText.style.color = 'var(--accent-green)';
+        submitBtn.disabled = false;
+      } else if (isSignedPome) {
+        statusText.textContent = `Awaiting signature from Mustafa Sabar.`;
+      } else if (isSignedSabar) {
+        statusText.textContent = `Awaiting signature from Pomegroup.studio.`;
+      }
+    }
+
+    function submitContract() {
+      document.getElementById('statusBanner').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('submitContractBtn').disabled = true;
+      document.getElementById('submitContractBtn').textContent = 'Executed';
+    }
+  </script>
+</body>
+</html>

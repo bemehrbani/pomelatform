@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consular Analytics Dashboard — Embassy of Iran, Helsinki</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #040905;
+            --bg-secondary: #0a140d;
+            --bg-card: rgba(11, 26, 17, 0.85);
+            --bg-card-hover: rgba(17, 38, 25, 0.95);
+            --border-card: rgba(212, 175, 55, 0.15);
+            --border-card-hover: rgba(212, 175, 55, 0.35);
+            --accent-gold: #d4af37;
+            --accent-gold-hover: #aa7c11;
+            --accent-gold-glow: rgba(212, 175, 55, 0.2);
+            --text-main: #e8f0ea;
+            --text-sub: #9eaf9f;
+            
+            --tag-ir: #3b82f6;
+            --tag-me: #f97316;
+            --tag-fi: #10b981;
+            --tag-uc: #6b7280;
+            
+            --rating-gold: #ffc107;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+        }
+
+        /* Sidebar Nav Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 290px;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(6, 14, 9, 0.98) 0%, rgba(3, 7, 4, 0.99) 100%);
+            border-right: 1px solid var(--border-card);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .logo-crest {
+            width: 42px;
+            height: 42px;
+            fill: var(--accent-gold);
+            filter: drop-shadow(0 0 5px var(--accent-gold-glow));
+        }
+
+        .logo-text h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+        }
+
+        .logo-text p {
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--text-sub);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1;
+        }
+
+        .sidebar-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-sub);
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .sidebar-btn:hover {
+            color: var(--text-main);
+            background: rgba(212, 175, 55, 0.06);
+            transform: translateX(4px);
+        }
+
+        .sidebar-btn.active {
+            color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            font-weight: 600;
+        }
+
+        .sidebar-btn.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 20%;
+            height: 60%;
+            width: 3px;
+            background-color: var(--accent-gold);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .sidebar-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            font-size: 11px;
+            color: var(--text-sub);
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* Content Layout */
+        .main-content {
+            margin-left: 290px;
+            flex-grow: 1;
+            padding: 40px 50px;
+            min-height: 100vh;
+            background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.04) 0%, transparent 60%);
+        }
+
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header Elements */
+        .content-header {
+            margin-bottom: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header-title h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .header-title p {
+            font-size: 14px;
+            color: var(--text-sub);
+        }
+
+        .header-badge {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--border-card);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Dashboard Overview Grid & Cards */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 24px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--border-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 15px rgba(212, 175, 55, 0.05);
+        }
+
+        .kpi-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 125px;
+        }
+
+        .kpi-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .kpi-label {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .kpi-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 8px 0;
+            line-height: 1;
+        }
+
+        .kpi-trend {
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .trend-up { color: var(--success); }
+        .trend-down { color: var(--danger); }
+        .trend-neutral { color: var(--text-sub); }
+
+        /* Secondary Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .grid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding-bottom: 12px;
+        }
+
+        .grid-header h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* SVG Charts styling */
+        .chart-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        .chart-container-flex {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+        }
+
+        .pie-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex-grow: 1;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12.5px;
+        }
+
+        .legend-label-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .legend-val {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .legend-pct {
+            color: var(--text-sub);
+            font-size: 11px;
+            margin-left: 5px;
+        }
+
+        /* Lists and Checklists */
+        .checklist-item {
+            display: flex;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(212,175,55,0.06);
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-icon {
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .icon-critical {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(239,68,68,0.3);
+        }
+        .icon-warn {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+            border: 1px solid rgba(245,158,11,0.3);
+        }
+
+        .checklist-desc h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .checklist-desc p {
+            font-size: 12px;
+            color: var(--text-sub);
+            line-height: 1.4;
+        }
+
+        /* 18 Month Comparison Table styling */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+            margin-top: 10px;
+        }
+
+        .comparison-table th {
+            text-align: left;
+            padding: 10px 12px;
+            color: var(--text-sub);
+            font-weight: 600;
+            border-bottom: 1px solid rgba(212,175,55,0.15);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(212,175,55,0.06);
+            color: var(--text-main);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover td {
+            background-color: rgba(212, 175, 55, 0.03);
+        }
+
+        /* Review Card Styling */
+        .review-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .review-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            border-color: var(--border-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .rev-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .rev-author h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .rev-meta {
+            font-size: 11px;
+            color: var(--text-sub);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rev-stars {
+            color: var(--rating-gold);
+            font-size: 14px;
+        }
+
+        .badge {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .badge-ir { background-color: rgba(59, 130, 246, 0.15); color: var(--tag-ir); border: 1px solid rgba(59,130,246,0.3); }
+        .badge-me { background-color: rgba(249, 115, 22, 0.15); color: var(--tag-me); border: 1px solid rgba(249,115,22,0.3); }
+        .badge-fi { background-color: rgba(16, 185, 129, 0.15); color: var(--tag-fi); border: 1px solid rgba(16,185,129,0.3); }
+        .badge-uc { background-color: rgba(107, 114, 128, 0.15); color: var(--tag-uc); border: 1px solid rgba(107,114,128,0.3); }
+
+        .rev-body {
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-main);
+            flex-grow: 1;
+            padding: 10px 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 2px solid var(--accent-gold);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .rev-trans {
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-sub);
+            font-style: italic;
+            border-left: 2px dashed rgba(212,175,55,0.4);
+            padding: 10px 12px;
+            background: rgba(212,175,55,0.02);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .rev-context {
+            font-size: 11.5px;
+            color: var(--text-sub);
+            display: flex;
+            gap: 6px;
+            align-items: flex-start;
+        }
+
+        .rev-context span {
+            font-weight: 600;
+            color: var(--accent-gold);
+            flex-shrink: 0;
+        }
+
+        /* Database Tab Styling & Controls */
+        .controls-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-input {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            color: var(--text-main);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px;
+            width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.15);
+        }
+
+        .filter-select {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            color: var(--text-main);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            border-color: var(--accent-gold);
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-sub);
+            background-color: rgba(212,175,55,0.03);
+            border: 1px solid rgba(212,175,55,0.08);
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .checkbox-item input {
+            cursor: pointer;
+            accent-color: var(--accent-gold);
+        }
+
+        /* Main Data Table */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            background-color: var(--bg-card);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        .data-table th {
+            background-color: rgba(6, 14, 9, 0.9);
+            padding: 16px 20px;
+            color: var(--text-sub);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-card);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+
+        .data-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(212,175,55,0.06);
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover td {
+            background-color: rgba(212, 175, 55, 0.02);
+        }
+
+        /* Tabs inside content */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .recommendation-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .rec-tag {
+            color: var(--accent-gold);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .recommendation-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .recommendation-card ul {
+            margin-left: 20px;
+            color: var(--text-sub);
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            line-height: 1.5;
+        }
+
+        .recommendation-card li strong {
+            color: var(--text-main);
+        }
+
+        /* Diplomatic Materials Tab Styling */
+        .materials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .doc-section {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 30px;
+        }
+
+        .doc-section h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(212,175,55,0.15);
+            padding-bottom: 10px;
+        }
+
+        .doc-grid-info {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 12px 20px;
+            font-size: 13.5px;
+            margin-bottom: 20px;
+        }
+
+        .doc-label {
+            font-weight: 600;
+            color: var(--text-sub);
+        }
+
+        .doc-val {
+            color: var(--text-main);
+        }
+
+        .doc-desc {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: var(--text-sub);
+        }
+
+        .doc-desc p {
+            margin-bottom: 12px;
+        }
+
+        .doc-desc ul, .doc-desc ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .doc-desc strong {
+            color: var(--text-main);
+        }
+
+        /* Preformatted Farsi Script box */
+        .script-box {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #d1ffd6;
+            margin: 15px 0;
+            white-space: pre-wrap;
+        }
+
+        /* Tab buttons in Diplomatic Materials */
+        .materials-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(212,175,55,0.1);
+            padding-bottom: 10px;
+        }
+
+        .mat-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 16px;
+            color: var(--text-sub);
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .mat-btn:hover {
+            color: var(--text-main);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .mat-btn.active {
+            color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212,175,55,0.2);
+        }
+
+        /* Email draft container with Copy Option */
+        .email-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .email-header-meta {
+            font-size: 13px;
+            border-bottom: 1px solid rgba(212,175,55,0.1);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .email-header-meta div span {
+            font-weight: 600;
+            color: var(--text-sub);
+            width: 80px;
+            display: inline-block;
+        }
+
+        .email-body-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-main);
+            white-space: pre-wrap;
+        }
+
+        .farsi-email {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Inter', Tahoma, sans-serif;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(212,175,55,0.12);
+            border: 1px solid rgba(212,175,55,0.3);
+            color: var(--accent-gold);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--accent-gold);
+            color: #000;
+        }
+
+        /* Stakeholder table */
+        .stakeholder-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+        }
+
+        .stakeholder-table th {
+            padding: 12px 15px;
+            color: var(--text-sub);
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 10.5px;
+            letter-spacing: 0.05em;
+        }
+
+        .stakeholder-table td {
+            padding: 14px 15px;
+            border-bottom: 1px solid rgba(212,175,55,0.06);
+            color: var(--text-main);
+        }
+
+        .stakeholder-table tr:hover td {
+            background-color: rgba(212,175,55,0.02);
+        }
+
+        /* SVG Visualization components */
+        .kpi-row-chart {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-chart-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .svg-chart-container {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        .empty-state {
+            padding: 40px;
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 14px;
+        }
+        
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 180px;
+            background-color: #0b1a11;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -90px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid var(--border-card);
+            font-size: 11px;
+            line-height: 1.3;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 70px;
+                padding: 30px 10px;
+            }
+            .sidebar-logo {
+                justify-content: center;
+            }
+            .logo-text, .sidebar-btn span, .sidebar-footer {
+                display: none;
+            }
+            .main-content {
+                margin-left: 70px;
+                padding: 30px;
+            }
+            .kpi-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .kpi-row-chart, .dashboard-grid, .review-grid, .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <!-- Diplomatic Emblem SVG -->
+            <svg class="logo-crest" viewBox="0 0 24 24">
+                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4M12,18C8.69,18 6,15.31 6,12C6,10 7,8.25 8.56,7.18L9.84,8.46C8.72,9.19 8,10.5 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12C16,10.5 15.28,9.19 14.16,8.46L15.44,7.18C17,8.25 18,10 18,12C18,15.31 15.31,18 12,18Z"/>
+            </svg>
+            <div class="logo-text">
+                <h1>MFA Finland</h1>
+                <p>Consular Insights V1.1</p>
+            </div>
+        </div>
+
+        <div class="sidebar-menu">
+            <button class="sidebar-btn active" data-tab="tab-overview" onclick="showTab('tab-overview')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                <span>Executive Overview</span>
+            </button>
+            <button class="sidebar-btn" data-tab="tab-recent" onclick="showTab('tab-recent')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>Last 18 Months Focus</span>
+            </button>
+            <button class="sidebar-btn" data-tab="tab-negative" onclick="showTab('tab-negative')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <span>Negative Focus Area</span>
+            </button>
+            <button class="sidebar-btn" data-tab="tab-database" onclick="showTab('tab-database')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                <span>Full Review Database</span>
+            </button>
+            <button class="sidebar-btn" data-tab="tab-strategy" onclick="showTab('tab-strategy')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                <span>Reform Strategy</span>
+            </button>
+
+        </div>
+
+        <div class="sidebar-footer">
+            <p>Pomegroup Strategic Review</p>
+            <p style="font-size: 9px; opacity: 0.6; margin-top: 4px;">Helsinki, Finland • May 2026</p>
+        </div>
+    </div>
+
+    <!-- Main Content Panels -->
+    <div class="main-content">
+        
+        <!-- ==========================================
+             TAB 1: EXECUTIVE OVERVIEW
+             ========================================== -->
+        <div id="tab-overview" class="tab-panel" style="display: block;">
+            <div class="content-header">
+                <div class="header-title">
+                    <h2>Consular Analytics Dashboard</h2>
+                    <p>Consolidated dataset and strategic review for the Embassy of the Islamic Republic of Iran in Helsinki.</p>
+                </div>
+                <div class="header-badge">
+                    <span style="display:inline-block; width:8px; height:8px; background-color:var(--success); border-radius:50%"></span>
+                    Verified Google Maps Source
+                </div>
+            </div>
+
+            <!-- KPI Row -->
+            <div class="kpi-row">
+                <div class="card kpi-card">
+                    <div class="kpi-label">Total Unique Reviews</div>
+                    <div class="kpi-value">42</div>
+                    <div class="kpi-trend trend-neutral">
+                        Cleaned of duplicates
+                    </div>
+                </div>
+                <div class="card kpi-card">
+                    <div class="kpi-label">Average Google Rating</div>
+                    <div class="kpi-value">2.8 <span style="font-size: 18px; color: var(--text-sub);">/ 5.0</span></div>
+                    <div class="kpi-trend trend-down">
+                        <span style="color: var(--rating-gold);">★★☆☆☆</span> (Historical)
+                    </div>
+                </div>
+                <div class="card kpi-card">
+                    <div class="kpi-label">Negative Sentiment Share</div>
+                    <div class="kpi-value">52.4%</div>
+                    <div class="kpi-trend trend-down">
+                        22 Reviews (1★ - 2★)
+                    </div>
+                </div>
+                <div class="card kpi-card">
+                    <div class="kpi-label">Text-Comment Density</div>
+                    <div class="kpi-value">45.2%</div>
+                    <div class="kpi-trend trend-up">
+                        19 Detailed Reviews
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualization Row (Pie Chart and Bar Chart using raw high-quality SVGs) -->
+            <div class="kpi-row-chart">
+                <div class="kpi-chart-card">
+                    <div class="grid-header">
+                        <h3>Demographic Shares (Heuristic Classifier V3)</h3>
+                    </div>
+                    <div class="svg-chart-container">
+                        <div class="chart-container-flex">
+                            <!-- SVG Pie Chart -->
+                            <svg width="150" height="150" viewBox="0 0 32 32" style="transform: rotate(-90deg); border-radius: 50%; filter: drop-shadow(0 0 8px rgba(0,0,0,0.5)); flex-shrink: 0;">
+                                <!-- Total = 42 -->
+                                <!-- IR = 19 (45.2%) -> Stroke-dasharray: 45.2 100 -->
+                                <circle r="16" cx="16" cy="16" fill="transparent" stroke="var(--tag-ir)" stroke-width="32" stroke-dasharray="45.2 100" stroke-dashoffset="0" />
+                                <!-- ME = 11 (26.2%) -> Stroke-dasharray: 26.2 100 -->
+                                <circle r="16" cx="16" cy="16" fill="transparent" stroke="var(--tag-me)" stroke-width="32" stroke-dasharray="26.2 100" stroke-dashoffset="-45.2" />
+                                <!-- FI = 7 (16.7%) -> Stroke-dasharray: 16.7 100 -->
+                                <circle r="16" cx="16" cy="16" fill="transparent" stroke="var(--tag-fi)" stroke-width="32" stroke-dasharray="16.7 100" stroke-dashoffset="-71.4" />
+                                <!-- UC = 5 (11.9%) -> Stroke-dasharray: 11.9 100 -->
+                                <circle r="16" cx="16" cy="16" fill="transparent" stroke="var(--tag-uc)" stroke-width="32" stroke-dasharray="11.9 100" stroke-dashoffset="-88.1" />
+                            </svg>
+                            <div class="pie-legend">
+                                <div class="legend-item">
+                                    <div class="legend-label-box">
+                                        <span class="legend-color-dot" style="background-color: var(--tag-ir);"></span>
+                                        <span>Iranian Diaspora (IR)</span>
+                                    </div>
+                                    <span class="legend-val">19 <span class="legend-pct">(45.2%)</span></span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-label-box">
+                                        <span class="legend-color-dot" style="background-color: var(--tag-me);"></span>
+                                        <span>Middle Eastern / Transit (ME)</span>
+                                    </div>
+                                    <span class="legend-val">11 <span class="legend-pct">(26.2%)</span></span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-label-box">
+                                        <span class="legend-color-dot" style="background-color: var(--tag-fi);"></span>
+                                        <span>Finnish Citizens (FI)</span>
+                                    </div>
+                                    <span class="legend-val">7 <span class="legend-pct">(16.7%)</span></span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-label-box">
+                                        <span class="legend-color-dot" style="background-color: var(--tag-uc);"></span>
+                                        <span>Unclassified / Pseudonym (UC)</span>
+                                    </div>
+                                    <span class="legend-val">5 <span class="legend-pct">(11.9%)</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-chart-card">
+                    <div class="grid-header">
+                        <h3>Rating Scale Distribution</h3>
+                    </div>
+                    <div class="svg-chart-container">
+                        <!-- Custom styled CSS/SVG vertical bar chart -->
+                        <div style="display: flex; justify-content: space-around; align-items: flex-end; width: 100%; height: 150px; padding: 10px 0;">
+                            <!-- 1 Star: 20 -->
+                            <div class="tooltip" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="height: 100px; width: 30px; background-color: var(--danger); border-radius: 4px; box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); position:relative;">
+                                    <div style="position: absolute; bottom: 100%; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 700; margin-bottom: 4px;">20</div>
+                                </div>
+                                <span style="font-size: 11px; font-weight: 600; color: var(--text-sub);">1★</span>
+                                <span class="tooltiptext">20 reviews left a 1-star rating (Consular friction core)</span>
+                            </div>
+                            <!-- 2 Star: 2 -->
+                            <div class="tooltip" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="height: 10px; width: 30px; background-color: #fca5a5; border-radius: 4px; position:relative;">
+                                    <div style="position: absolute; bottom: 100%; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 700; margin-bottom: 4px;">2</div>
+                                </div>
+                                <span style="font-size: 11px; font-weight: 600; color: var(--text-sub);">2★</span>
+                                <span class="tooltiptext">2 reviews left a 2-star rating</span>
+                            </div>
+                            <!-- 3 Star: 1 -->
+                            <div class="tooltip" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="height: 5px; width: 30px; background-color: var(--warning); border-radius: 4px; position:relative;">
+                                    <div style="position: absolute; bottom: 100%; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 700; margin-bottom: 4px;">1</div>
+                                </div>
+                                <span style="font-size: 11px; font-weight: 600; color: var(--text-sub);">3★</span>
+                                <span class="tooltiptext">1 review left a 3-star rating (Neutral)</span>
+                            </div>
+                            <!-- 4 Star: 3 -->
+                            <div class="tooltip" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="height: 15px; width: 30px; background-color: #a7f3d0; border-radius: 4px; position:relative;">
+                                    <div style="position: absolute; bottom: 100%; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 700; margin-bottom: 4px;">3</div>
+                                </div>
+                                <span style="font-size: 11px; font-weight: 600; color: var(--text-sub);">4★</span>
+                                <span class="tooltiptext">3 reviews left a 4-star rating</span>
+                            </div>
+                            <!-- 5 Star: 16 -->
+                            <div class="tooltip" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="height: 80px; width: 30px; background-color: var(--success); border-radius: 4px; box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); position:relative;">
+                                    <div style="position: absolute; bottom: 100%; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 700; margin-bottom: 4px;">16</div>
+                                </div>
+                                <span style="font-size: 11px; font-weight: 600; color: var(--text-sub);">5★</span>
+                                <span class="tooltiptext">16 reviews left a 5-star rating (Highly polarized ecosystem)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Left Column: Critical Action Priorities -->
+                <div class="card">
+                    <div class="grid-header">
+                        <h3>Embassy Digital & Physical Strategic Pain Points</h3>
+                    </div>
+                    <div class="checklist-box">
+                        <div class="checklist-item">
+                            <div class="checklist-icon icon-critical">1</div>
+                            <div class="checklist-desc">
+                                <h4>Premium-Rate Phone Line Barrier (+358 600 417234)</h4>
+                                <p><strong>Status: Catastrophically Negative.</strong> Embassy charges <strong>€4.92/minute</strong>. Callers report disconnected sessions and high phone bills without any answer. This severely damages public reputation and dignity.</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checklist-icon icon-critical">2</div>
+                            <div class="checklist-desc">
+                                <h4>Digital Infrastructure Instability & Portal Loops</h4>
+                                <p><strong>Status: Strongly Negative.</strong> Central visa application portal suffers recurrent server timeouts. Finnish tourists seeking visas get blocked and are forced onto the premium phone line, creating deep frustration.</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checklist-icon icon-warn">3</div>
+                            <div class="checklist-desc">
+                                <h4>Frontend Consular Reception Demeanor</h4>
+                                <p><strong>Status: Strongly Negative.</strong> Receptionists described repeatedly by the diaspora as "dismissive," "arrogant," or "unhelpful." Missing basic customer service etiquette training.</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checklist-icon icon-warn">4</div>
+                            <div class="checklist-desc">
+                                <h4>Waiting Room Temperature Control Neglect</h4>
+                                <p><strong>Status: Negative.</strong> Recent complaints note that the waiting room was "colder than in Finland in winter." Facility neglect directly harms the embassy's institutional image.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Comparative Benchmarking -->
+                <div class="card">
+                    <div class="grid-header">
+                        <h3>Comparative Rating Benchmarks</h3>
+                    </div>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Embassy</th>
+                                <th>Rating</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🇩🇪 Germany</td>
+                                <td><span style="color:var(--rating-gold)">★</span> 3.8</td>
+                                <td>120+</td>
+                            </tr>
+                            <tr>
+                                <td>🇺🇸 USA</td>
+                                <td><span style="color:var(--rating-gold)">★</span> 3.5</td>
+                                <td>200+</td>
+                            </tr>
+                            <tr>
+                                <td>🇫🇷 France</td>
+                                <td><span style="color:var(--rating-gold)">★</span> 3.2</td>
+                                <td>85+</td>
+                            </tr>
+                            <tr>
+                                <td>🇹🇷 Turkey</td>
+                                <td><span style="color:var(--rating-gold)">★</span> 3.1</td>
+                                <td>110+</td>
+                            </tr>
+                            <tr style="background-color: rgba(212, 175, 55, 0.08); font-weight: 700; border: 1px solid var(--border-card);">
+                                <td style="color: var(--accent-gold);">🇮🇷 Iran (Helsinki)</td>
+                                <td style="color: var(--accent-gold);"><span style="color:var(--rating-gold)">★</span> 2.8</td>
+                                <td>42</td>
+                            </tr>
+                            <tr>
+                                <td>🇷🇺 Russia</td>
+                                <td><span style="color:var(--rating-gold)">★</span> 2.5</td>
+                                <td>150+</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="font-size: 11px; color: var(--text-sub); margin-top: 15px; line-height: 1.4;">
+                        <em>Strategic Note:</em> Because the review pool is small (42 total), even a modest campaign to encourage satisfied passport renewal visitors to leave positive ratings could lift the average to 3.5+ inside 6 months.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             TAB 2: LAST 18 MONTHS ANALYSIS
+             ========================================== -->
+        <div id="tab-recent" class="tab-panel">
+            <div class="content-header">
+                <div class="header-title">
+                    <h2>Special Focus: Last 18 Months</h2>
+                    <p>Analysis of reviews posted between November 2024 and May 2026 to measure recent consular management performance.</p>
+                </div>
+                <div class="header-badge" style="color: var(--warning); border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.05);">
+                    <span style="display:inline-block; width:8px; height:8px; background-color:var(--warning); border-radius:50%"></span>
+                    Recent Performance Drop
+                </div>
+            </div>
+
+            <!-- Comparison Statistics -->
+            <div class="card" style="margin-bottom: 30px;">
+                <div class="grid-header">
+                    <h3>Recent Consular Dashboard vs. Historical Baseline</h3>
+                </div>
+                <table class="comparison-table" style="font-size: 13.5px;">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Recent (Last 18 Months)</th>
+                            <th>Historical (Pre-Nov 2024)</th>
+                            <th>Recent Trend Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Total Review Volume</strong></td>
+                            <td style="font-weight:700;">4 reviews</td>
+                            <td>38 reviews</td>
+                            <td class="trend-down">📉 Volumetrically low</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Average Rating</strong></td>
+                            <td style="font-weight:700; color: var(--danger);">2.5 / 5.0 stars</td>
+                            <td>2.8 / 5.0 stars</td>
+                            <td class="trend-down">📉 Decreasing (-0.3 stars)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Negative Review Share (1★-2★)</strong></td>
+                            <td style="font-weight:700;">2 (50.0%)</td>
+                            <td>20 (52.6%)</td>
+                            <td style="color: var(--danger); font-weight: 600;">🔴 Highly polarized</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neutral Review Share (3★)</strong></td>
+                            <td style="font-weight:700;">1 (25.0%)</td>
+                            <td>0 (0.0%)</td>
+                            <td class="trend-neutral">🟡 Minor presence</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Positive Review Share (4★-5★)</strong></td>
+                            <td style="font-weight:700;">1 (25.0%)</td>
+                            <td>18 (47.4%)</td>
+                            <td class="trend-down">📉 Decreasing significantly</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Qualitative Census of Recent Reviews -->
+            <div class="grid-header">
+                <h3>Census of Every Review from the Last 18 Months</h3>
+            </div>
+            
+            <div class="review-grid">
+                <!-- Noor Abduladheem -->
+                <div class="review-card">
+                    <div class="rev-header">
+                        <div class="rev-author">
+                            <h4>Noor Abduladheem</h4>
+                            <div class="rev-meta">
+                                <span class="rev-stars">★☆☆☆☆</span>
+                                <span>•</span>
+                                <span>November 2025</span>
+                                <span>•</span>
+                                <span class="badge badge-me">Middle Eastern / Transit</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rev-body">
+                        "Haluaisin hakea viisumia Iraniin. Kävin siellä kaksi kertaa ja soitin sinne (puhelu maksaa minuutin verran 4,90!). Minulle koko ajan sanottiin ”Hae viisumi tämän osoitteen avulla”. Vaikka selitin heille monta kerta, että heidän sivustossa on vika tai se on vaan tosi monimutkainen..."
+                    </div>
+                    <div class="rev-trans">
+                        "I would like to apply for a visa to Iran. I went there twice and called there (the call costs 4.90 per minute!). I was told all the time 'Apply for a visa using this address'. Even though I explained to them many times that there is a bug in their site or it is just really complicated. The employee talked to me very poorly. Very bad service. SHAME ON IRAN EMBASSY😡."
+                    </div>
+                    <div class="rev-context">
+                        <span>Consular Impact:</span> Complainant highlights the €4.90/minute phone bill, broken central website portal, and dismissive staff treatment.
+                    </div>
+                </div>
+
+                <!-- Shahabodin Kazemi -->
+                <div class="review-card">
+                    <div class="rev-header">
+                        <div class="rev-author">
+                            <h4>Shahabodin Kazemi (Shähab)</h4>
+                            <div class="rev-meta">
+                                <span class="rev-stars">★☆☆☆☆</span>
+                                <span>•</span>
+                                <span>May 2025</span>
+                                <span>•</span>
+                                <span class="badge badge-ir">Iranian Diaspora</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rev-body">
+                        "Siellä oli kylmä, kylmempää kuin Suomessa talvella!"
+                    </div>
+                    <div class="rev-trans">
+                        "It was cold there, colder than in Finland in winter!"
+                    </div>
+                    <div class="rev-context">
+                        <span>Consular Impact:</span> Details facility neglect, specifically pointing out that the physical consular waiting room was freezing cold.
+                    </div>
+                </div>
+
+                <!-- Sayed Omed Alishah -->
+                <div class="review-card">
+                    <div class="rev-header">
+                        <div class="rev-author">
+                            <h4>Sayed Omed Alishah</h4>
+                            <div class="rev-meta">
+                                <span class="rev-stars">★★★★★</span>
+                                <span>•</span>
+                                <span>March 2026</span>
+                                <span>•</span>
+                                <span class="badge badge-ir">Iranian Diaspora / Afghan</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rev-body" style="font-style: italic; color: var(--text-sub);">
+                        [Rating Only Review — No comment text left]
+                    </div>
+                    <div class="rev-context">
+                        <span>Consular Impact:</span> Represents a simple transaction that went smoothly (e.g. standard signature stamp) without requiring complex phone communication or support.
+                    </div>
+                </div>
+
+                <!-- Ramin Raminy -->
+                <div class="review-card">
+                    <div class="rev-header">
+                        <div class="rev-author">
+                            <h4>Ramin Raminy</h4>
+                            <div class="rev-meta">
+                                <span class="rev-stars">★★★☆☆</span>
+                                <span>•</span>
+                                <span>June 2025</span>
+                                <span>•</span>
+                                <span class="badge badge-ir">Iranian Diaspora</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rev-body" style="font-style: italic; color: var(--text-sub);">
+                        [Rating Only Review — No comment text left]
+                    </div>
+                    <div class="rev-context">
+                        <span>Consular Impact:</span> Indicative of a mediocre, slow experience characterized by bureaucratic inertia but lacking active hostility.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             TAB 3: NEGATIVE FEEDBACK FOCUS
+             ========================================== -->
+        <div id="tab-negative" class="tab-panel">
+            <div class="content-header">
+                <div class="header-title">
+                    <h2>Consular Pain Focus Area</h2>
+                    <p>Deep-dive analysis of the 22 negative reviews (1★ and 2★) left by embassy visitors.</p>
+                </div>
+                <div class="header-badge" style="color: var(--danger); border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.05);">
+                    <span style="display:inline-block; width:8px; height:8px; background-color:var(--danger); border-radius:50%"></span>
+                    Critical Reputation Risk
+                </div>
+            </div>
+
+            <!-- Negative feedback demographic breakdown -->
+            <div class="kpi-row" style="margin-bottom: 30px;">
+                <div class="card kpi-card" style="border-left: 4px solid var(--tag-ir);">
+                    <div class="kpi-label">Iranian Diaspora Negatives</div>
+                    <div class="kpi-value">8 <span style="font-size: 16px; color: var(--text-sub);">reviews</span></div>
+                    <div class="kpi-trend trend-down">36.4% of total complaints</div>
+                </div>
+                <div class="card kpi-card" style="border-left: 4px solid var(--tag-me);">
+                    <div class="kpi-label">Middle Eastern Negatives</div>
+                    <div class="kpi-value">8 <span style="font-size: 16px; color: var(--text-sub);">reviews</span></div>
+                    <div class="kpi-trend trend-down">36.4% of total complaints</div>
+                </div>
+                <div class="card kpi-card" style="border-left: 4px solid var(--tag-fi);">
+                    <div class="kpi-label">Finnish Citizen Negatives</div>
+                    <div class="kpi-value">5 <span style="font-size: 16px; color: var(--text-sub);">reviews</span></div>
+                    <div class="kpi-trend trend-down">22.7% of total complaints</div>
+                </div>
+                <div class="card kpi-card" style="border-left: 4px solid var(--tag-uc);">
+                    <div class="kpi-label">Unclassified Negatives</div>
+                    <div class="kpi-value">1 <span style="font-size: 16px; color: var(--text-sub);">review</span></div>
+                    <div class="kpi-trend trend-down">4.5% of total complaints</div>
+                </div>
+            </div>
+
+            <!-- Core Insight and Theme Focus -->
+            <div class="card" style="margin-bottom: 30px;">
+                <div class="grid-header">
+                    <h3>Demographic Insights on Friction</h3>
+                </div>
+                <div class="doc-desc">
+                    <p><strong>Diaspora & Transit Applicants Experience 72.8% of Friction:</strong> The massive majority of complaints originate from Iranian citizens living in Finland (Diaspora) and regional Middle Eastern applicants applying for documents. They are frustrated by <strong>bureaucratic neglect, slow document processing (sijainti vs passi), and arrogant/töykeä reception staff</strong>.</p>
+                    <p><strong>Finnish Citizens Complain Exclusively About Visas (22.7%):</strong> Finnish tourists and academics complain about the <strong>broken digital visa portal, unresponsive email support, and the extremely high €4.92/min phone billing</strong> just to verify if their passports/visas are stamped and ready.</p>
+                </div>
+            </div>
+
+            <!-- Negative Reviews Catalog (With Text) -->
+            <div class="grid-header">
+                <h3>Catalog of Detailed Written Complaints (14 Reviews)</h3>
+            </div>
+            
+            <div class="review-grid" id="negative-text-reviews-container">
+                <!-- Dynamically populated or statically inserted for speed and layout -->
+            </div>
+        </div>
+
+        <!-- ==========================================
+             TAB 4: FULL REVIEW DATABASE
+             ========================================== -->
+        <div id="tab-database" class="tab-panel">
+            <div class="content-header">
+                <div class="header-title">
+                    <h2>Full Review Database Catalog</h2>
+                    <p>Complete searchable and filterable database of all 42 unique reviews, date-mapped with nationality heuristics.</p>
+                </div>
+            </div>
+
+            <!-- Search and Filter Controls -->
+            <div class="controls-row">
+                <input type="text" id="db-search" class="search-input" placeholder="Search by name, date, comment..." oninput="filterDatabase()">
+                
+                <select id="db-filter-nationality" class="filter-select" onchange="filterDatabase()">
+                    <option value="ALL">All Demographics</option>
+                    <option value="IR">Iranian Diaspora (IR)</option>
+                    <option value="ME">Middle Eastern / Transit (ME)</option>
+                    <option value="FI">Finnish Citizen (FI)</option>
+                    <option value="UC">Unclassified (UC)</option>
+                </select>
+
+                <div class="checkbox-group">
+                    <span style="font-weight: 600; color: var(--accent-gold);">Ratings:</span>
+                    <label class="checkbox-item"><input type="checkbox" class="rating-filter-cb" value="5" checked onchange="filterDatabase()"> 5★</label>
+                    <label class="checkbox-item"><input type="checkbox" class="rating-filter-cb" value="4" checked onchange="filterDatabase()"> 4★</label>
+                    <label class="checkbox-item"><input type="checkbox" class="rating-filter-cb" value="3" checked onchange="filterDatabase()"> 3★</label>
+                    <label class="checkbox-item"><input type="checkbox" class="rating-filter-cb" value="2" checked onchange="filterDatabase()"> 2★</label>
+                    <label class="checkbox-item"><input type="checkbox" class="rating-filter-cb" value="1" checked onchange="filterDatabase()"> 1★</label>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="table-container">
+                <table class="data-table" id="reviews-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 180px;">Reviewer</th>
+                            <th style="width: 100px;">Rating</th>
+                            <th style="width: 130px;">Guessed Nationality</th>
+                            <th style="width: 140px;">Estimated Date</th>
+                            <th>Comment & Translation</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reviews-table-body">
+                        <!-- Rendered by JavaScript dynamically -->
+                    </tbody>
+                </table>
+                <div id="db-empty-state" class="empty-state" style="display: none;">
+                    No reviews match the selected filters.
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             TAB 5: REFORM STRATEGY
+             ========================================== -->
+        <div id="tab-strategy" class="tab-panel">
+            <div class="content-header">
+                <div class="header-title">
+                    <h2>Consular Service Modernization Reform Strategy</h2>
+                    <p>Immediate, low-cost operational changes to fix the four primary areas of visitor friction.</p>
+                </div>
+            </div>
+
+            <div class="strategy-grid">
+                <!-- Strategy 1 -->
+                <div class="recommendation-card">
+                    <span class="rec-tag">Priority 1 • High Impact</span>
+                    <h3>Dismantling the Phone Line Barrier</h3>
+                    <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;"><strong>The Challenge:</strong> The €4.92/min premium number is perceived as exploitative. Disconnections trigger extreme public hostility.</p>
+                    <ul>
+                        <li><strong>Action A:</strong> Introduce <strong>standard-rate calling hours</strong> (e.g., 13:00 - 15:00 daily) for general inquiries, using a standard Helsinki number.</li>
+                        <li><strong>Action B:</strong> Deploy a <strong>free digital chat support channel</strong> (Telegram, WhatsApp Business, or secure email ticketing) with a guaranteed 48-hour response SLA.</li>
+                        <li><strong>Dignity Lift:</strong> Completely removes the financial barrier to accessing public consular information.</li>
+                    </ul>
+                </div>
+
+                <!-- Strategy 2 -->
+                <div class="recommendation-card">
+                    <span class="rec-tag">Priority 2 • Low Cost</span>
+                    <h3>Deploying Standalone Digital Portal</h3>
+                    <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;"><strong>The Challenge:</strong> The central MFA portal suffers server errors and loops, blocking Finnish tourists and diaspora members alike.</p>
+                    <ul>
+                        <li><strong>Action A:</strong> Build and host a lightweight, localized <strong>embassy helper landing page</strong> (e.g., helsinki.mfa.ir or a beautiful static sub-page).</li>
+                        <li><strong>Action B:</strong> Publish a comprehensive, clear, step-by-step <strong>Visa & Consular FAQ</strong> in English, Farsi, and Finnish, allowing visitors to download documents directly and bypassing central portals for initial checks.</li>
+                        <li><strong>Dignity Lift:</strong> Replaces portal frustration with transparent guidance.</li>
+                    </ul>
+                </div>
+
+                <!-- Strategy 3 -->
+                <div class="recommendation-card">
+                    <span class="rec-tag">Priority 3 • Behavioral</span>
+                    <h3>Consular Staff Service Guidelines</h3>
+                    <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;"><strong>The Challenge:</strong> Frequent complaints about dismissive, rude, or arrogant frontend personnel.</p>
+                    <ul>
+                        <li><strong>Action A:</strong> Establish mandatory <strong>Frontend Service Protocols</strong> (standard greetings, mandatory ticket queuing, transparent status updates).</li>
+                        <li><strong>Action B:</strong> Install a physical <strong>Consular Suggestion & Feedback Box</strong> directly in the waiting area, letting visitors voice concerns anonymously instead of posting to Google Maps.</li>
+                        <li><strong>Dignity Lift:</strong> Cultivates a respectful, citizen-first service culture.</li>
+                    </ul>
+                </div>
+
+                <!-- Strategy 4 -->
+                <div class="recommendation-card">
+                    <span class="rec-tag">Priority 4 • Environmental</span>
+                    <h3>Waiting Room Climate Management</h3>
+                    <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;"><strong>The Challenge:</strong> Severe complaints about freezing waiting room temperatures ("colder than Finland in winter").</p>
+                    <ul>
+                        <li><strong>Action A:</strong> Commission an immediate <strong>heating and window insulation audit</strong> of the public consular building.</li>
+                        <li><strong>Action B:</strong> Install auxiliary space heaters and ensure heating units are turned on early in autumn/winter, guaranteeing a warm, respectful hospitality environment.</li>
+                        <li><strong>Dignity Lift:</strong> Establishes a warm, dignified, and welcoming physical presence.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <!-- Embedded Scripts for interactivity -->
+    <script>
+        // Full raw reviews database - 42 unique reviews
+        const reviews = [
+            { id: "1", name: "Noor Abduladheem", rating: 1, date: "6 kuukautta sitten", period: "November 2025", demo: "ME", demoLabel: "Middle Eastern / Transit", text: "Haluaisin hakea viisumia Iraniin. Kävin siellä kaksi kertaa ja soitin sinne (puhelu maksaa minuutin verran 4,90!). Minulle koko ajan sanottiin ”Hae viisumi tämän osoitteen avulla”. Vaikka selitin heille monta kerta, että heidän sivustossa on vika tai se on vaan tosi monimutkainen. Kysyin ammattilaiselta ja lentoasemalta ja selitin tämä kaikki heille (työntekijälle). Arvatkaa mitä! He eivät edes tarkistanut heidän sivusto eivät mitenkään auttanut meitä. Iranin suurlähetys on turha Suomessa. Työntekijä on puhunut minun kanssa tosi huonosti. Erittäin huono palvelu. SHAME ON IRAN EMBASSY😡.", trans: "I would like to apply for a visa to Iran. I went there twice and called there (the call costs 4.90 per minute!). I was told all the time 'Apply for a visa using this address'. Even though I explained to them many times that there is a bug in their site or it is just really complicated. I asked a professional and the airport and explained all this to them (the employee). Guess what! They didn't even check their site and didn't help us in any way. The Iranian embassy is useless in Finland. The employee talked to me very poorly. Very bad service. SHAME ON IRAN EMBASSY😡." },
+            { id: "2", name: "Isäntä", rating: 1, date: "2 vuotta sitten", period: "Mid 2023 – Mid 2024", demo: "FI", demoLabel: "Finnish Citizen", text: "Aivan surkeaa palvelua ja osaamaton henkilökunta. Jos joudut menemään paikan päälle huomaat mitä odottaminen ja osaamattomuus tarkoittaa. Jos laitat sähköpostia voit olla varma että kysymykseesi ei jakseta vastata kunnolla. Sattumaa vai totalitaristisen valtion byrokratiaa? Enpä tiedä.", trans: "Absolutely miserable service and incompetent staff. If you have to go in person, you will notice what waiting and incompetence mean. If you send an email, you can be sure that they will not bother to answer your question properly. Coincidence or the bureaucracy of a totalitarian state? I don't know." },
+            { id: "3", name: "Ristorante Rugantino", rating: 1, date: "2 vuotta sitten", period: "Mid 2023 – Mid 2024", demo: "FI", demoLabel: "Finnish Citizen", text: "Huono palvelu ja sohva perunat työssä\nJotka eivät tiedä mitään palvelusta ei jaksa edes vasta kysymyksin p.", trans: "Poor service and couch potatoes at work who know nothing about service and don't even bother to answer questions." },
+            { id: "4", name: "Halau Moradi", rating: 1, date: "3 vuotta sitten", period: "Mid 2022 – Mid 2023", demo: "IR", demoLabel: "Iranian Diaspora", text: "Erittäin epäystävällinen asiakaspalvelua mies( hyvin ylimielinen) äitini tuli kauka hoitamaan passi kuntoon.", trans: "Very unfriendly customer service man (very arrogant). My mother came from far away to get her passport sorted out." },
+            { id: "5", name: "Reban Reben", rating: 1, date: "4 vuotta sitten", period: "Mid 2021 – Mid 2022", demo: "ME", demoLabel: "Middle Eastern / Transit", text: "Eivät vastaa , vaikea asioida", trans: "They do not answer, difficult to do business with." },
+            { id: "6", name: "Bashiramani amani", rating: 1, date: "2 vuotta sitten", period: "Mid 2023 – Mid 2024", demo: "IR", demoLabel: "Iranian Diaspora", text: "Heidän verkkosivuillaan sanotaan, että viisumihakemuslomake on suljettu joidenkin ihmisten keinottelun vuoksi ja että veloitamme suurlähetystössä 20 euroa lomakkeen täyttämisestä. Myöhemmin menin suurlähetystöön, ja he sanoivat, että minun pitäisi ensin täyttää lomake. Valitettavasti heidän työnsä on erittäin hidasta.", trans: "Their website says the visa application form is closed due to speculation by some people and that we charge 20 euros at the embassy to fill out the form. Later I went to the embassy, and they said I should fill out the form first. Unfortunately, their work is very slow." },
+            { id: "7", name: "سلام سرود", rating: 1, date: "4 vuotta sitten", period: "Mid 2021 – Mid 2022", demo: "IR", demoLabel: "Iranian Diaspora", text: "Heidän toimintatapansa on epäselvä. He ottavat viisumihakemuksia vastaan ​​aina kun haluavat. He eivät tee sitä aina kun eivät voi. Jos hakemukset hylätään, he eivät edes kerro hylkäyksen syytä, jotta voit hakea uudelleen ja ottaa rahasi.", trans: "Their way of operating is unclear. They take visa applications whenever they want. They don't do it whenever they can't. If applications are rejected, they don't even tell the reason for the rejection, so you have to apply again and they take your money." },
+            { id: "8", name: "Joona Alestalo", rating: 1, date: "3 vuotta sitten", period: "Mid 2022 – Mid 2023", demo: "FI", demoLabel: "Finnish Citizen", text: "Epäystävällinen palvelu, monimutkaiset ja epätarkat web-sivut, hidas viestintä. Tuntuu, että he eivät edes yritä.", trans: "Unfriendly service, complicated and inaccurate web pages, slow communication. It feels like they aren't even trying." },
+            { id: "9", name: "Mohammadali Ewazali", rating: 1, date: "6 vuotta sitten", period: "Mid 2019 – Mid 2020", demo: "IR", demoLabel: "Iranian Diaspora", text: "1.7.2019-26.7.2019 Emme ole saaneet mitään tietoa siitä, myönnetäänkö meille viisumi tai Suomen passi☹️", trans: "1.7.2019-26.7.2019 We have not received any information on whether we will be granted a visa or a Finnish passport ☹️" },
+            { id: "10", name: "Shahabodin Kazemi (Shähab)", rating: 1, date: "vuosi sitten", period: "Mid 2024 – Mid 2025", demo: "IR", demoLabel: "Iranian Diaspora", text: "Siellä oli kylmä, kylmempää kuin Suomessa talvella!", trans: "It was cold there, colder than in Finland in winter!" },
+            { id: "11", name: "Mohsen Zahedi", rating: 1, date: "3 vuotta sitten", period: "Mid 2022 – Mid 2023", demo: "IR", demoLabel: "Iranian Diaspora", text: "Erittäin töykeä asiakaspalvelu, he eivät edes vastaa kysymykseen ja yrittävät saada lisää rahaa ihmisiltä.", trans: "Very rude customer service, they don't even answer questions and try to get more money from people." },
+            { id: "12", name: "Mohammed Hasan", rating: 2, date: "7 vuotta sitten", period: "Mid 2018 – Mid 2019", demo: "ME", demoLabel: "Middle Eastern / Transit", text: "Suurlähetystön sijainti on hyvä, mutta viisumin saamisessa Iraniin on ongelmia.", trans: "The location of the embassy is good, but there are problems with getting a visa to Iran." },
+            { id: "13", name: "Luca Gentile (Cyclorbit)", rating: 2, date: "6 vuotta sitten", period: "Mid 2019 – Mid 2020", demo: "FI", demoLabel: "Finnish Citizen", text: "Eivät vastaa sähköposteihin", trans: "They do not answer emails." },
+            { id: "14", name: "Gb Gb", rating: 1, date: "7 vuotta sitten", period: "Mid 2018 – Mid 2019", demo: "UC", demoLabel: "Unclassified", text: "Todella huonoja palveluita 👎🏻👎🏻👎🏻 …", trans: "Really bad services 👎🏻👎🏻👎🏻 …" },
+            { id: "15", name: "Hussein", rating: 1, date: "2 vuotta sitten", period: "Mid 2023 – Mid 2024", demo: "ME", demoLabel: "Middle Eastern / Transit", text: "", trans: "" },
+            { id: "16", name: "Azhin Mustafa", rating: 1, date: "2 vuotta sitten", period: "Mid 2023 – Mid 2024", demo: "ME", demoLabel: "Middle Eastern / Transit", text: "", trans: "" },
+            { id: "17", name: "Marjan Sa", rating: 1, date: "3 vuotta sitten", period: "Mid 2022 – Mid 2023", demo: "IR", demoLabel: "Iranian Diaspora", text: "", trans: "" },
+            { id: "18", name: "Markku Koskinen", rating: 1, date: "3 vuotta sitten", period: "Mid 2022 – Mid 2023", demo: "FI", demoLabel: "Finnish Citizen", text: "", trans: "" },
+            { id: "19", name: "Abbas K. Rizi", rating: 1, date: "4 vuotta sitten", period: "Mid 2021 – Mid 2022", demo: "IR", demoLabel: "Iranian Diaspora", text: "", trans: "" },
+            { id: "20", name: "hussein Alazawe", rating: 1, date: "4 vuotta sitten", period: "Mid 2021 – Mid 2022", demo: "ME", demoLabel: "Middle Eastern / Transit", text: "", trans: "" },
+            { id: "21", name: "Shorsh Nuri", rating: 1, date: "5 vuotta sitten", period: "Mid 2020 – Mid 2021", demo: "ME", demoLabel: "Middle Eastern / Transit", text: "", trans: "" },
+            { id: "22", name: "hamza mohamd", rating: 1, date: "6 vuotta sitten", period: "Mid 2019 – Mid 2020", demo: "ME", demoLabel: "Middle Eastern / Transit", text: "", trans: "" },
+            { id: "23", name: "Andreas", rating: 5, date: "2 vuotta sitten", period: "Mid 2023 – Mid 2024", demo: "FI", demoLabel: "Finnish Citizen", text: "Kävin suurlähetystössä ja minua ei pidätetty!", trans: "I visited the embassy and was not arrested!" },
+            { id: "24", name: "HuomennaHuomenna", rating: 5, date: "4 vuotta sitten", period: "Mid 2021 – Mid 2022", demo: "FI", demoLabel: "Finnish Citizen", text: "Nopea ja asiallinen palvelu", trans: "Fast and professional service." },
+            { id: "25", name: "Sharifeh Hashemi", rating: 5, date: "7 vuotta sitten", period: "Mid 2018 – Mid 2019", demo: "IR", demoLabel: "Iranian Diaspora", text: "Kiitos.", trans: "Thank you." },
+            { id: "26", name: "MM Mahdi", rating: 5, date: "7 vuotta sitten", period: "Mid 2018 – Mid 2019", demo: "IR", demoLabel: "Iranian Diaspora", text: "Hyvä", trans: "Good" },
+            { id: "27", name: "Amin Maghsoudi", rating: 5, date: "5 vuotta sitten", period: "Mid 2020 – Mid 2021", demo: "IR", demoLabel: "Iranian Diaspora", text: "Kätevä....", trans: "Convenient...." },
+            { id: "28", name: "Sayed Omed Alishah", rating: 5, date: "2 kuukautta sitten", period: "March 2026", demo: "IR", demoLabel: "Iranian Diaspora", text: "", trans: "" },
+            { id: "29", name: "Ramin Raminy", rating: 3, date: "11 kuukautta sitten", period: "June 2025", demo: "IR", demoLabel: "Iranian Diaspora", text: "", trans: "" },
+            { id: "30", name: "abbas Mosavi", rating: 5, date: "2 vuotta sitten", period: "Mid 2023 – Mid 2024", demo: "IR", demoLabel: "Iranian Diaspora", text: "", trans: "" },
+            { id: "31", name: "Anna", rating: 4, date: "2 vuotta sitten", period: "Mid 2023 – Mid 2024", demo: "UC", demoLabel: "Unclassified", text: "", trans: "" },
+            { id: "32", name: "Alireza Bayat", rating: 5, date: "3 vuotta sitten", period: "Mid 2022 – Mid 2023", demo: "IR", demoLabel: "Iranian Diaspora", text: "", trans: "" },
+            { id: "33", name: "hadiseh Heydari", rating: 4, date: "4 vuotta sitten", period: "Mid 2021 – Mid 2022", demo: "IR", demoLabel: "Iranian Diaspora", text: "", trans: "" },
+            { id: "34", name: "Afi Esi", rating: 5, date: "4 vuotta sitten", period: "Mid 2021 – Mid 2022", demo: "UC", demoLabel: "Unclassified", text: "", trans: "" },
+            { id: "35", name: "Aso Rebin", rating: 5, date: "5 vuotta sitten", period: "Mid 2020 – Mid 2021", demo: "ME", demoLabel: "Middle Eastern / Transit", text: "", trans: "" },
+            { id: "36", name: "hamid hosseyni", rating: 5, date: "5 vuotta sitten", period: "Mid 2020 – Mid 2021", demo: "IR", demoLabel: "Iranian Diaspora", text: "", trans: "" },
+            { id: "37", name: "Ali Alhasan", rating: 5, date: "6 vuotta sitten", period: "Mid 2019 – Mid 2020", demo: "ME", demoLabel: "Middle Eastern / Transit", text: "", trans: "" },
+            { id: "38", name: "Ali Alsudani", rating: 5, date: "7 vuotta sitten", period: "Mid 2018 – Mid 2019", demo: "ME", demoLabel: "Middle Eastern / Transit", text: "", trans: "" },
+            { id: "39", name: "Armin Alaei", rating: 4, date: "7 vuotta sitten", period: "Mid 2018 – Mid 2019", demo: "IR", demoLabel: "Iranian Diaspora", text: "", trans: "" },
+            { id: "40", name: "High Ggg", rating: 4, date: "7 vuotta sitten", period: "Mid 2018 – Mid 2019", demo: "UC", demoLabel: "Unclassified", text: "", trans: "" },
+            { id: "41", name: "Karim", rating: 5, date: "8 vuotta sitten", period: "Mid 2017 – Mid 2018", demo: "UC", demoLabel: "Unclassified", text: "", trans: "" }
+        ];
+
+        // Global Tab Navigation
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+            document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabId).style.display = 'block';
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            
+            // Re-render tabular lists in case of filters
+            if (tabId === 'tab-database') {
+                renderDatabaseTable(reviews);
+            }
+        }
+
+
+
+        // Render written complaints to the focus area
+        function renderNegativeFocus() {
+            const container = document.getElementById('negative-text-reviews-container');
+            container.innerHTML = '';
+            
+            // Filter 1-star & 2-star reviews with text comments
+            const negativesWithText = reviews.filter(r => r.rating <= 2 && r.text);
+            
+            negativesWithText.forEach((r, idx) => {
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                card.innerHTML = `
+                    <div class="rev-header">
+                        <div class="rev-author">
+                            <h4>[NEG-${idx + 1}] ${r.name}</h4>
+                            <div class="rev-meta">
+                                <span class="rev-stars">${'★'.repeat(r.rating) + '☆'.repeat(5-r.rating)}</span>
+                                <span>•</span>
+                                <span>${r.period}</span>
+                                <span>•</span>
+                                <span class="badge badge-${r.demo.toLowerCase()}">${r.demoLabel}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rev-body">"${r.text}"</div>
+                    <div class="rev-trans">"${r.trans}"</div>
+                    <div class="rev-context">
+                        <span>Analysis Hint:</span> Category-matched heuristic outlines ${r.demoLabel} processing difficulties.
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Database filters and rendering
+        function renderDatabaseTable(data) {
+            const tbody = document.getElementById('reviews-table-body');
+            tbody.innerHTML = '';
+            
+            if (data.length === 0) {
+                document.getElementById('db-empty-state').style.display = 'block';
+                return;
+            }
+            document.getElementById('db-empty-state').style.display = 'none';
+
+            data.forEach(r => {
+                const tr = document.createElement('tr');
+                
+                // Stars String
+                const starsString = '<span style="color:var(--rating-gold);">' + '★'.repeat(r.rating) + '</span>' + '<span style="color:var(--text-sub); opacity: 0.3;">' + '☆'.repeat(5 - r.rating) + '</span>';
+                
+                // Demographic Tag
+                const demoBadge = `<span class="badge badge-${r.demo.toLowerCase()}">${r.demo}</span>`;
+
+                // Render Original and Translation side-by-side or format rating-only nicely
+                let textBody = '';
+                if (r.text) {
+                    textBody = `
+                        <div style="font-weight: 500; margin-bottom: 8px; font-size:12.5px;">${r.text}</div>
+                        <div style="color: var(--text-sub); font-style: italic; border-top: 1px dashed rgba(212,175,55,0.1); padding-top: 8px; font-size:12px;"><strong>Translation:</strong> ${r.trans}</div>
+                    `;
+                } else {
+                    textBody = `<span style="color: var(--text-sub); font-style: italic; font-size:11.5px;">Rating Only Review (No written comment left by user)</span>`;
+                }
+
+                tr.innerHTML = `
+                    <td style="font-weight: 600; color: var(--text-main); font-size: 13.5px;">${r.name}</td>
+                    <td>${starsString}</td>
+                    <td>${demoBadge} <span style="font-size:10px; display:block; color:var(--text-sub); margin-top:2px;">${r.demoLabel}</span></td>
+                    <td style="font-weight: 500;">${r.period}</td>
+                    <td>${textBody}</td>
+                `;
+                
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterDatabase() {
+            const searchVal = document.getElementById('db-search').value.toLowerCase();
+            const demoVal = document.getElementById('db-filter-nationality').value;
+            
+            // Get selected ratings
+            const selectedRatings = Array.from(document.querySelectorAll('.rating-filter-cb:checked')).map(cb => parseInt(cb.value));
+
+            const filtered = reviews.filter(r => {
+                // Search condition
+                const matchesSearch = r.name.toLowerCase().includes(searchVal) || 
+                                      r.text.toLowerCase().includes(searchVal) || 
+                                      r.trans.toLowerCase().includes(searchVal) || 
+                                      r.period.toLowerCase().includes(searchVal);
+                
+                // Nationality condition
+                const matchesDemo = (demoVal === 'ALL') || (r.demo === demoVal);
+                
+                // Rating condition
+                const matchesRating = selectedRatings.includes(r.rating);
+
+                return matchesSearch && matchesDemo && matchesRating;
+            });
+
+            renderDatabaseTable(filtered);
+        }
+
+        // Initialize page
+        window.addEventListener('DOMContentLoaded', () => {
+            renderNegativeFocus();
+            renderDatabaseTable(reviews);
+        });
+    </script>
+</body>
