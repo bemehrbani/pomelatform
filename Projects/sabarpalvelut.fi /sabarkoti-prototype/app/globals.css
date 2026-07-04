@@ -1,0 +1,118 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@theme {
+  --color-green-50:  #f2f9e8;
+  --color-green-100: #e3f2cc;
+  --color-green-200: #c7e59a;
+  --color-green-400: #8eca3e;
+  --color-green-500: #76b82a;
+  --color-green-600: #5e9321;
+  --color-green-700: #476e19;
+  --color-dark:      #32373c;
+  --font-sans: Inter, system-ui, sans-serif;
+}
+
+/* ── Base ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: Inter, system-ui, sans-serif;
+  background: #f8f9fa;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Components ───────────────────────────────── */
+@layer components {
+
+  .btn-primary {
+    background: #32373c;
+    color: white;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    transition: background 0.18s;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-primary:hover { background: #76b82a; }
+
+  .btn-green {
+    background: #76b82a;
+    color: white;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    transition: background 0.18s;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-green:hover { background: #5e9321; }
+
+  .btn-outline {
+    background: transparent;
+    color: #32373c;
+    padding: 9px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    transition: all 0.18s;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    border: 2px solid #32373c;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-outline:hover { background: #32373c; color: white; }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+  }
+
+  .input {
+    width: 100%;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    padding: 11px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    color: #1a1a1a;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    background: white;
+  }
+  .input:focus {
+    border-color: #76b82a;
+    box-shadow: 0 0 0 3px rgba(118,184,42,0.15);
+  }
+
+  .badge-green  { display:inline-flex;align-items:center;background:#e8f5d6;color:#3d6e10;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700; }
+  .badge-blue   { display:inline-flex;align-items:center;background:#dbeafe;color:#1d4ed8;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700; }
+  .badge-yellow { display:inline-flex;align-items:center;background:#fef3c7;color:#92400e;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700; }
+  .badge-gray   { display:inline-flex;align-items:center;background:#f3f4f6;color:#6b7280;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700; }
+
+  .page-wrap { max-width: 1024px; margin: 0 auto; padding: 32px 20px; }
+  .page-wrap-sm { max-width: 680px; margin: 0 auto; padding: 32px 20px; }
+}

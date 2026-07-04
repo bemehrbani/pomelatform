@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SabarKoti — Product Walkthrough</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f4f5f7;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 240px; height: 100vh;
+    background: #1e2227;
+    overflow-y: auto;
+    z-index: 100;
+    padding: 0 0 40px;
+  }
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    padding: 22px 20px 18px;
+    border-bottom: 1px solid #2e3440;
+    text-decoration: none;
+  }
+  .sidebar-logo-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: #76b82a;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: white; font-weight: 800;
+  }
+  .sidebar-logo span {
+    color: white; font-weight: 700; font-size: 18px; letter-spacing: -0.5px;
+  }
+  .sidebar-section {
+    padding: 18px 20px 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    color: #5a6270; text-transform: uppercase;
+  }
+  .sidebar a {
+    display: block;
+    padding: 7px 20px;
+    font-size: 13px; color: #9ca3af;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .sidebar a:hover { color: #e5e7eb; background: #262b33; }
+  .sidebar a.active { color: #76b82a; border-left-color: #76b82a; background: #1b2819; }
+
+  /* ── Main ── */
+  .main {
+    margin-left: 240px;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    background: #32373c;
+    padding: 48px 56px 40px;
+    color: white;
+  }
+  .page-header .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(118,184,42,0.2); color: #a8d96b;
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 12px; font-weight: 600; margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-size: 36px; font-weight: 800; letter-spacing: -1px;
+    margin-bottom: 10px; line-height: 1.1;
+  }
+  .page-header p {
+    font-size: 16px; color: #9ca3af; max-width: 600px;
+  }
+  .header-meta {
+    display: flex; gap: 24px; margin-top: 24px;
+  }
+  .header-meta-item {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .header-meta-item .label { font-size: 11px; color: #6b7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .header-meta-item .value { font-size: 14px; color: #e5e7eb; font-weight: 600; }
+
+  /* ── Content ── */
+  .content {
+    padding: 48px 56px;
+    max-width: 1100px;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 72px;
+    scroll-margin-top: 24px;
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e5e7eb;
+  }
+  .section-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #76b82a; color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 22px; font-weight: 700; color: #32373c;
+  }
+  .section-header .section-tag {
+    margin-left: auto;
+    background: #e8f5d6; color: #3d6e10;
+    padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 700;
+  }
+
+  /* ── Screen card ── */
+  .screen-card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .screen-card-header {
+    padding: 16px 22px;
+    border-bottom: 1px solid #f3f4f6;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .screen-card-header h3 { font-size: 15px; font-weight: 700; color: #32373c; }
+  .screen-card-header .route {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px; color: #76b82a;
+    background: #f0f7e6; padding: 3px 9px; border-radius: 5px;
+  }
+  .screen-card img {
+    width: 100%; display: block;
+    border-top: 1px solid #f0f0f0;
+  }
+  .screen-card-body {
+    padding: 18px 22px;
+  }
+
+  /* ── Step list ── */
+  .step-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 20px;
+  }
+  .step-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 14px; color: #374151;
+  }
+  .step-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: #32373c; color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* ── Key features ── */
+  .features-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    margin-top: 16px;
+  }
+  .feature-chip {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 14px; border-radius: 10px;
+    background: #f8f9fa; border: 1px solid #e9ecef;
+    font-size: 13px; color: #374151;
+  }
+  .feature-chip .icon { font-size: 16px; flex-shrink: 0; }
+
+  /* ── Two-column screenshot ── */
+  .two-col {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    margin-bottom: 28px;
+  }
+  .two-col .screen-card { margin-bottom: 0; }
+
+  /* ── Three-column screenshot ── */
+  .three-col {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+    margin-bottom: 28px;
+  }
+  .three-col .screen-card { margin-bottom: 0; }
+
+  /* ── Flow diagram ── */
+  .flow {
+    display: flex; align-items: center; gap: 0;
+    background: white; border: 1px solid #e9ecef;
+    border-radius: 14px; padding: 20px 24px;
+    margin-bottom: 28px; flex-wrap: wrap; gap: 4px;
+  }
+  .flow-step {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 6px; padding: 10px 16px; border-radius: 10px;
+    background: #f8f9fa; border: 1px solid #e9ecef;
+    font-size: 12px; font-weight: 600; color: #374151;
+    text-align: center; min-width: 90px;
+  }
+  .flow-step .icon { font-size: 20px; }
+  .flow-arrow {
+    font-size: 18px; color: #9ca3af; padding: 0 4px; flex-shrink: 0;
+  }
+  .flow-step.highlight { background: #e8f5d6; border-color: #76b82a; color: #3d6e10; }
+
+  /* ── Info box ── */
+  .info-box {
+    display: flex; gap: 12px; padding: 16px 18px;
+    border-radius: 10px; margin-bottom: 20px;
+    font-size: 13px; line-height: 1.6;
+  }
+  .info-box.green { background: #e8f5d6; color: #3d6e10; border: 1px solid #c7e59a; }
+  .info-box.blue { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+  .info-box.yellow { background: #fefce8; color: #854d0e; border: 1px solid #fde68a; }
+  .info-box-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── Summary table ── */
+  .summary-table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+    background: white; border-radius: 12px; overflow: hidden;
+    border: 1px solid #e9ecef; margin-bottom: 28px;
+  }
+  .summary-table th {
+    background: #f8f9fa; padding: 10px 16px;
+    text-align: left; font-size: 11px; font-weight: 700;
+    color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;
+    border-bottom: 1px solid #e9ecef;
+  }
+  .summary-table td {
+    padding: 11px 16px; border-bottom: 1px solid #f3f4f6;
+    color: #374151;
+  }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table .green { color: #3d6e10; font-weight: 600; }
+  .summary-table .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 20px;
+    font-size: 11px; font-weight: 700;
+  }
+  .tag-green { background: #e8f5d6; color: #3d6e10; }
+  .tag-blue { background: #dbeafe; color: #1d4ed8; }
+  .tag-yellow { background: #fef3c7; color: #92400e; }
+  .tag-gray { background: #f3f4f6; color: #6b7280; }
+
+  /* ── Mobile row ── */
+  .mobile-row {
+    display: grid; grid-template-columns: repeat(3, 280px); gap: 24px;
+    margin-bottom: 28px; overflow-x: auto;
+  }
+  .mobile-frame {
+    background: white; border-radius: 14px;
+    border: 1px solid #e9ecef; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .mobile-frame-header {
+    padding: 12px 16px; border-bottom: 1px solid #f3f4f6;
+    font-size: 13px; font-weight: 700; color: #32373c;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .mobile-frame img { width: 100%; display: block; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .sidebar { width: 200px; }
+    .main { margin-left: 200px; }
+    .content { padding: 32px 28px; }
+    .two-col { grid-template-columns: 1fr; }
+    .three-col { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar">
+  <a class="sidebar-logo" href="#">
+    <div class="sidebar-logo-icon">H</div>
+    <span>sabarkoti</span>
+  </a>
+
+  <div class="sidebar-section">Overview</div>
+  <a href="#overview" class="active">Product Overview</a>
+  <a href="#flows">User Flows</a>
+
+  <div class="sidebar-section">Customer Journey</div>
+  <a href="#home">Homepage</a>
+  <a href="#browse">Browse Professionals</a>
+  <a href="#profile">Provider Profile</a>
+  <a href="#booking">Booking Wizard</a>
+  <a href="#confirmed">Booking Confirmed</a>
+  <a href="#mybookings">My Bookings</a>
+  <a href="#receipts">Tax Receipts</a>
+
+  <div class="sidebar-section">Provider Journey</div>
+  <a href="#apply">Join as Pro</a>
+  <a href="#dashboard">Provider Dashboard</a>
+  <a href="#pbookings">Manage Bookings</a>
+  <a href="#availability">Availability Calendar</a>
+  <a href="#earnings">Earnings & Payouts</a>
+
+  <div class="sidebar-section">Mobile</div>
+  <a href="#mobile">Mobile Experience</a>
+</nav>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="tag">🏠 UI Prototype · sabarkoti.pomegroup.studio</div>
+    <h1>SabarKoti Product Walkthrough</h1>
+    <p>Complete screen-by-screen guide to the SabarKoti marketplace — home services with automatic kotitalousvähennys tax receipts built in.</p>
+    <div class="header-meta">
+      <div class="header-meta-item">
+        <span class="label">Live URL</span>
+        <span class="value">sabarkoti.pomegroup.studio</span>
+      </div>
+      <div class="header-meta-item">
+        <span class="label">Screens</span>
+        <span class="value">12 screens</span>
+      </div>
+      <div class="header-meta-item">
+        <span class="label">Version</span>
+        <span class="value">Prototype v1 — Feb 2026</span>
+      </div>
+      <div class="header-meta-item">
+        <span class="label">Market</span>
+        <span class="value">Helsinki metro, Finland</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- ── OVERVIEW ── -->
+    <div class="section" id="overview">
+      <div class="section-header">
+        <div class="section-num">→</div>
+        <h2>Product Overview</h2>
+        <span class="section-tag">Context</span>
+      </div>
+
+      <div class="info-box green">
+        <span class="info-box-icon">💡</span>
+        <div>
+          <strong>The core insight:</strong> Finnish households can deduct 45% of home service labor costs from their taxes (kotitalousvähennys) — saving up to €2,250/year per person. Most never claim it because the paperwork is painful and finding a registered provider is hard. SabarKoti solves both problems in one platform.
+        </div>
+      </div>
+
+      <table class="summary-table">
+        <thead>
+          <tr><th>Dimension</th><th>Details</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>What it is</strong></td><td>Two-sided marketplace for home services (cleaning, handyman, laundry, moving) in Helsinki metro</td></tr>
+          <tr><td><strong>Key differentiator</strong></td><td>Every booking auto-generates a kotitalousvähennys-compliant tax receipt — no paperwork for the customer</td></tr>
+          <tr><td><strong>Provider requirement</strong></td><td>Must have valid Finnish Y-tunnus (business ID). Required for the tax deduction to be legally valid.</td></tr>
+          <tr><td><strong>Business model</strong></td><td>20% platform commission on each booking. Provider receives 80% of labor cost.</td></tr>
+          <tr><td><strong>Payment</strong></td><td>Card-only at booking via Stripe. Funds held until job completion, then released.</td></tr>
+          <tr><td><strong>Booking model</strong></td><td>Fixed hourly rate. Customer picks hours + time slot. No bidding or quotes.</td></tr>
+          <tr><td><strong>Tax deduction</strong></td><td>45% of labor cost — shown as estimate during booking, locked on receipt after completion</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── FLOWS ── -->
+    <div class="section" id="flows">
+      <div class="section-header">
+        <div class="section-num">→</div>
+        <h2>User Flows at a Glance</h2>
+      </div>
+
+      <p style="font-size:13px;color:#6b7280;margin-bottom:16px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Customer Flow</p>
+      <div class="flow">
+        <div class="flow-step"><span class="icon">🏠</span>Homepage</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="icon">🔍</span>Browse Pros</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="icon">👤</span>View Profile</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step highlight"><span class="icon">📅</span>Book & Pay</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="icon">✅</span>Confirmed</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="icon">🔨</span>Job Done</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step highlight"><span class="icon">📄</span>Tax Receipt</div>
+      </div>
+
+      <p style="font-size:13px;color:#6b7280;margin-bottom:16px;margin-top:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Provider Flow</p>
+      <div class="flow">
+        <div class="flow-step"><span class="icon">📝</span>Apply / Onboard</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="icon">🛡️</span>Admin Review</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step highlight"><span class="icon">🟢</span>Go Live</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="icon">🔔</span>Get Booking</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="icon">✔️</span>Accept (2h)</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="icon">🏁</span>Complete Job</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step highlight"><span class="icon">💶</span>Get Paid</div>
+      </div>
+    </div>
+
+    <!-- ────────────────────────────────
+         CUSTOMER JOURNEY
+    ──────────────────────────────── -->
+
+    <!-- HOME -->
+    <div class="section" id="home">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <h2>Homepage</h2>
+        <span class="section-tag">Customer</span>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-header">
+          <h3>Home — Tax Deduction Hero</h3>
+          <span class="route">/</span>
+        </div>
+        <img src="screenshots/desktop-home.png" alt="SabarKoti homepage">
+        <div class="screen-card-body">
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div>Hero headline immediately communicates the tax deduction benefit: <em>"Home services you can trust — with tax deduction built in"</em></div></li>
+            <li><div class="step-num">2</div><div>Service category dropdown + postcode input. One click to <strong>Find Pros</strong>.</div></li>
+            <li><div class="step-num">3</div><div>Trust stats bar: 120+ cleanings, 98% on-time, 95% satisfaction, 45% max deduction.</div></li>
+            <li><div class="step-num">4</div><div><strong>Tax calculator</strong> — interactive slider showing real euros saved. Moves with hours selected. Converts an abstract tax concept into a concrete saving.</div></li>
+            <li><div class="step-num">5</div><div>Services grid shows available categories: Cleaning, Handyman, Laundry, Moving, Carpet Cleaning.</div></li>
+            <li><div class="step-num">6</div><div>Provider CTA section at bottom: "Are you a home service professional? Apply to join →"</div></li>
+          </ul>
+          <div class="features-grid">
+            <div class="feature-chip"><span class="icon">💰</span><div>Tax deduction calculator — shows €€ saved in real time as user adjusts service hours</div></div>
+            <div class="feature-chip"><span class="icon">🔒</span><div>Trust signals front and center — verified pros, on-time rate, satisfaction score</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BROWSE -->
+    <div class="section" id="browse">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <h2>Browse Professionals</h2>
+        <span class="section-tag">Customer</span>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-header">
+          <h3>Provider List — Verified Pros in Helsinki</h3>
+          <span class="route">/providers</span>
+        </div>
+        <img src="screenshots/desktop-providers.png" alt="Providers list">
+        <div class="screen-card-body">
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div>Category filter chips at top: All / Cleaning / Handyman / Laundry / Moving. One click to narrow results.</div></li>
+            <li><div class="step-num">2</div><div>Sort dropdown: Top rated / Price low–high / Price high–low / Fastest response.</div></li>
+            <li><div class="step-num">3</div><div>Each provider card shows: profile photo, name, category badges, star rating + review count, response time, hourly rate, and availability status.</div></li>
+            <li><div class="step-num">4</div><div>Green dot on photo = available this week. Makes it immediately clear who can be booked now.</div></li>
+            <li><div class="step-num">5</div><div>New providers get a "New" badge. No reviews yet is handled gracefully.</div></li>
+          </ul>
+          <div class="info-box blue">
+            <span class="info-box-icon">ℹ️</span>
+            <div>Only providers with <strong>verified_status = approved</strong> and a valid Y-tunnus appear here. This is what makes the tax receipt legally valid for the customer.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="section" id="profile">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <h2>Provider Profile</h2>
+        <span class="section-tag">Customer</span>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-header">
+          <h3>Provider Profile — Aino Mäkinen</h3>
+          <span class="route">/providers/:id</span>
+        </div>
+        <img src="screenshots/desktop-provider-profile.png" alt="Provider profile">
+        <div class="screen-card-body">
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div>Large profile photo, name, category badge, star rating, response time at a glance.</div></li>
+            <li><div class="step-num">2</div><div>Trust badges below bio: <strong>Y-tunnus verified</strong> · ID verified · Stripe payouts enabled. Customer knows this provider is legitimate.</div></li>
+            <li><div class="step-num">3</div><div><strong>Availability calendar</strong> — 7-day grid showing available (✓) and unavailable slots at a glance.</div></li>
+            <li><div class="step-num">4</div><div>Reviews section: name, star rating, date, and comment for each review.</div></li>
+            <li><div class="step-num">5</div><div>Sticky booking card on the right: hourly rate, effective cost after tax deduction, green tax tip, <strong>Book now</strong> CTA.</div></li>
+          </ul>
+          <div class="features-grid">
+            <div class="feature-chip"><span class="icon">🛡️</span><div>Y-tunnus verified badge — assures customer the tax receipt will be legally valid</div></div>
+            <div class="feature-chip"><span class="icon">📅</span><div>Live availability calendar — no booking a provider who isn't free</div></div>
+            <div class="feature-chip"><span class="icon">💡</span><div>"Effective cost" shown — €25/hr becomes ~€14/hr after the 45% tax deduction</div></div>
+            <div class="feature-chip"><span class="icon">⭐</span><div>Real reviews from verified customers only (one review per completed booking)</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOKING -->
+    <div class="section" id="booking">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <h2>Booking Wizard</h2>
+        <span class="section-tag">Customer</span>
+      </div>
+
+      <div class="info-box green">
+        <span class="info-box-icon">📌</span>
+        <div>4-step wizard: <strong>Date & Time → Address → Review → Pay</strong>. Progress is shown at the top. Continue button is disabled until required fields are filled.</div>
+      </div>
+
+      <div class="two-col">
+        <div class="screen-card">
+          <div class="screen-card-header">
+            <h3>Step 1 — Date & Time</h3>
+            <span class="route">step 1 / 4</span>
+          </div>
+          <img src="screenshots/desktop-booking-step1.png" alt="Booking step 1 - date and time">
+          <div class="screen-card-body">
+            <ul class="step-list">
+              <li><div class="step-num">1</div><div>Provider mini-header at top — confirms who you're booking.</div></li>
+              <li><div class="step-num">2</div><div>5-day date selector. Tap to select a date.</div></li>
+              <li><div class="step-num">3</div><div>Time slot grid (2-column). Only shows slots provider marked available.</div></li>
+              <li><div class="step-num">4</div><div>Duration selector: 2h / 3h / 4h / 5h. Updates price in real time.</div></li>
+            </ul>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-card-header">
+            <h3>Step 1 — Date Selected State</h3>
+            <span class="route">interaction</span>
+          </div>
+          <img src="screenshots/interaction-date-selected.png" alt="Date selected interaction">
+          <div class="screen-card-body">
+            <ul class="step-list">
+              <li><div class="step-num">1</div><div>Selected date highlights in green (Mon 24 Feb).</div></li>
+              <li><div class="step-num">2</div><div>Once both date + slot are chosen, a confirmation summary appears: "✓ Mon 24 Feb · 09:00–11:00 · 2 hours · €50"</div></li>
+              <li><div class="step-num">3</div><div>Continue button becomes active only after both date and slot are selected.</div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONFIRMED -->
+    <div class="section" id="confirmed">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <h2>Booking Confirmed</h2>
+        <span class="section-tag">Customer</span>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-header">
+          <h3>Booking Confirmed — Post-Payment</h3>
+          <span class="route">/booking-confirmed</span>
+        </div>
+        <img src="screenshots/desktop-booking-confirmed.png" alt="Booking confirmed">
+        <div class="screen-card-body">
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div>Green checkmark circle — clear visual confirmation the booking was accepted.</div></li>
+            <li><div class="step-num">2</div><div>Provider name + 2-hour confirmation window: <em>"Aino will confirm within 2 hours — you'll get an email once confirmed."</em></div></li>
+            <li><div class="step-num">3</div><div>Booking summary: service, date/time, address, amount charged, and the tax deduction saving shown in green.</div></li>
+            <li><div class="step-num">4</div><div><strong>Tax receipt notice</strong> — reassures customer the receipt will arrive automatically after the job. No action needed.</div></li>
+            <li><div class="step-num">5</div><div>Two CTAs: "View my bookings" and "Book another service".</div></li>
+          </ul>
+          <div class="info-box yellow">
+            <span class="info-box-icon">⚠️</span>
+            <div>Payment is <strong>authorized but not captured</strong> at this point. The card is only charged when the provider confirms the booking. If the provider declines or doesn't respond within 2 hours, no charge occurs.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MY BOOKINGS -->
+    <div class="section" id="mybookings">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <h2>My Bookings</h2>
+        <span class="section-tag">Customer</span>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-header">
+          <h3>My Bookings — Upcoming & Past</h3>
+          <span class="route">/dashboard/bookings</span>
+        </div>
+        <img src="screenshots/desktop-customer-bookings.png" alt="Customer bookings">
+        <div class="screen-card-body">
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div>Tab switcher: Upcoming (1) / Past (2). Clean pill-style tabs.</div></li>
+            <li><div class="step-num">2</div><div>Each booking card: provider photo, name, category, date/time, address, status badge, price.</div></li>
+            <li><div class="step-num">3</div><div>Status badge — Confirmed (green), Awaiting confirmation (yellow), Completed (gray).</div></li>
+            <li><div class="step-num">4</div><div>Action buttons per booking status: Cancel (upcoming) / Leave Review / Download Receipt / Rebook (past).</div></li>
+            <li><div class="step-num">5</div><div>Green reminder bar at bottom: "Free cancellation up to 24 hours before your job starts."</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAX RECEIPTS -->
+    <div class="section" id="receipts">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <h2>Tax Receipts</h2>
+        <span class="section-tag">Customer · Core Feature</span>
+      </div>
+
+      <div class="info-box green">
+        <span class="info-box-icon">⭐</span>
+        <div>This is SabarKoti's core product moat. No competitor auto-generates these receipts. Customers can claim kotitalousvähennys at vero.fi using exactly the information shown here.</div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-header">
+          <h3>Tax Receipts — Annual Summary + Per-Booking PDFs</h3>
+          <span class="route">/dashboard/receipts</span>
+        </div>
+        <img src="screenshots/desktop-tax-receipts.png" alt="Tax receipts">
+        <div class="screen-card-body">
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div><strong>Annual total</strong> prominently displayed: "2026 Total Deductible Amount — €100.35". One number the customer needs for their tax return.</div></li>
+            <li><div class="step-num">2</div><div>How-to-claim instructions: "Log in to vero.fi → Tax return → Deductions → Kotitalousvähennys." Actionable, no guesswork.</div></li>
+            <li><div class="step-num">3</div><div>Per-receipt breakdown: provider name + Y-tunnus, service type, date, labor cost, deductible amount (green), total paid.</div></li>
+            <li><div class="step-num">4</div><div><strong>Download PDF</strong> button on each receipt. PDF is legally compliant with Finnish tax authority (Verohallinto) requirements.</div></li>
+          </ul>
+          <table class="summary-table">
+            <thead><tr><th>Receipt Field</th><th>Required by Finnish Tax Law</th></tr></thead>
+            <tbody>
+              <tr><td>Provider Y-tunnus</td><td><span class="tag tag-green">Required</span></td></tr>
+              <tr><td>Provider registered business name</td><td><span class="tag tag-green">Required</span></td></tr>
+              <tr><td>Service date</td><td><span class="tag tag-green">Required</span></td></tr>
+              <tr><td>Customer's service address</td><td><span class="tag tag-green">Required</span></td></tr>
+              <tr><td>Labor cost (hours × rate)</td><td><span class="tag tag-green">Required</span></td></tr>
+              <tr><td>Deductible amount (45% of labor)</td><td><span class="tag tag-blue">Calculated</span></td></tr>
+              <tr><td>SabarKoti's Y-tunnus</td><td><span class="tag tag-green">Required</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ────────────────────────────────
+         PROVIDER JOURNEY
+    ──────────────────────────────── -->
+
+    <!-- APPLY -->
+    <div class="section" id="apply">
+      <div class="section-header">
+        <div class="section-num">8</div>
+        <h2>Join as a Professional</h2>
+        <span class="section-tag">Provider</span>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-header">
+          <h3>Provider Onboarding — 5-Step Application</h3>
+          <span class="route">/provider/apply</span>
+        </div>
+        <img src="screenshots/desktop-provider-apply.png" alt="Provider apply">
+        <div class="screen-card-body">
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div><strong>Step 1 — Basic Info:</strong> Name, email, phone, bio.</div></li>
+            <li><div class="step-num">2</div><div><strong>Step 2 — Services:</strong> Select categories (cleaning, handyman, etc.) and set hourly rate.</div></li>
+            <li><div class="step-num">3</div><div><strong>Step 3 — Y-tunnus & ID:</strong> Finnish business ID + government ID upload. <em>Required — no Y-tunnus = not listed.</em></div></li>
+            <li><div class="step-num">4</div><div><strong>Step 4 — Bank Account:</strong> Finnish IBAN for Stripe Connect payouts.</div></li>
+            <li><div class="step-num">5</div><div><strong>Step 5 — Photo & Submit:</strong> Profile photo upload + submit for admin review.</div></li>
+          </ul>
+          <div class="info-box yellow">
+            <span class="info-box-icon">⏱️</span>
+            <div>After submission, admin reviews within 24 hours. Provider is notified by email on approval or rejection. If rejected, a reason is given and resubmission is allowed.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROVIDER DASHBOARD -->
+    <div class="section" id="dashboard">
+      <div class="section-header">
+        <div class="section-num">9</div>
+        <h2>Provider Dashboard</h2>
+        <span class="section-tag">Provider</span>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-header">
+          <h3>Provider Dashboard — Home Base</h3>
+          <span class="route">/provider/dashboard</span>
+        </div>
+        <img src="screenshots/desktop-provider-dashboard.png" alt="Provider dashboard">
+        <div class="screen-card-body">
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div>Greeting + rating + "Active & listed" status badge at a glance.</div></li>
+            <li><div class="step-num">2</div><div>Three stat cards: This week's net earnings (€100), Pending requests (1), Upcoming jobs (1).</div></li>
+            <li><div class="step-num">3</div><div><strong>Pending requests</strong> — shown with urgency timer: "Respond within 1h 42m". Shows: service type, duration, date, earnings, and customer's neighborhood (address hidden until accepted).</div></li>
+            <li><div class="step-num">4</div><div>Green <strong>Accept</strong> and outlined <strong>Decline</strong> buttons — clear visual hierarchy.</div></li>
+            <li><div class="step-num">5</div><div>Upcoming jobs list: service, date/time, customer name (first name + initial), earnings, Confirmed badge.</div></li>
+            <li><div class="step-num">6</div><div>Quick links grid: Manage availability / View all bookings / Earnings & payouts / Edit profile.</div></li>
+          </ul>
+          <div class="info-box blue">
+            <span class="info-box-icon">🔐</span>
+            <div>Customer's full address is revealed only <strong>after the provider accepts</strong> the booking. Before acceptance, only the neighborhood (e.g. "Kallio, Helsinki") is shown.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROVIDER BOOKINGS -->
+    <div class="section" id="pbookings">
+      <div class="section-header">
+        <div class="section-num">10</div>
+        <h2>Manage Bookings</h2>
+        <span class="section-tag">Provider</span>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-header">
+          <h3>Provider Bookings — Pending / Upcoming / Past</h3>
+          <span class="route">/provider/bookings</span>
+        </div>
+        <img src="screenshots/desktop-provider-bookings.png" alt="Provider bookings">
+        <div class="screen-card-body">
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div>Three-tab view: Pending / Upcoming / Past.</div></li>
+            <li><div class="step-num">2</div><div>Pending tab shows response timer countdown. Accept reveals full address; Decline cancels without charge.</div></li>
+            <li><div class="step-num">3</div><div>Upcoming tab shows confirmed jobs with customer contact details and navigation link.</div></li>
+            <li><div class="step-num">4</div><div>Past tab shows completed/cancelled jobs with earnings and receipt status.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- AVAILABILITY -->
+    <div class="section" id="availability">
+      <div class="section-header">
+        <div class="section-num">11</div>
+        <h2>Availability Calendar</h2>
+        <span class="section-tag">Provider</span>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-header">
+          <h3>Availability Calendar — Weekly Grid</h3>
+          <span class="route">/provider/availability</span>
+        </div>
+        <img src="screenshots/desktop-provider-availability.png" alt="Provider availability">
+        <div class="screen-card-body">
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div>7-day grid × 6 time slots (09:00–21:00 in 2-hour blocks).</div></li>
+            <li><div class="step-num">2</div><div><strong>Green (✓)</strong> = available — customers can book this slot.</div></li>
+            <li><div class="step-num">3</div><div><strong>Blue (🔒)</strong> = already booked — locked, cannot be toggled.</div></li>
+            <li><div class="step-num">4</div><div><strong>Gray (–)</strong> = blocked by provider — customers cannot see or book this slot.</div></li>
+            <li><div class="step-num">5</div><div>Click any free slot to toggle available ↔ blocked.</div></li>
+            <li><div class="step-num">6</div><div>"Copy this week → next week" button to save time.</div></li>
+          </ul>
+          <div class="info-box green">
+            <span class="info-box-icon">⚡</span>
+            <div>Changes are saved automatically. Customers see updated availability in real time. The booked slot on Monday (13:00–15:00) cannot be changed — it's locked by an active booking.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EARNINGS -->
+    <div class="section" id="earnings">
+      <div class="section-header">
+        <div class="section-num">12</div>
+        <h2>Earnings & Payouts</h2>
+        <span class="section-tag">Provider</span>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-header">
+          <h3>Earnings & Payouts — Weekly Breakdown</h3>
+          <span class="route">/provider/earnings</span>
+        </div>
+        <img src="screenshots/desktop-provider-earnings.png" alt="Provider earnings">
+        <div class="screen-card-body">
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div>Three earnings cards: This week (€100 net), Last week (€160 net), All time (€1,872 net).</div></li>
+            <li><div class="step-num">2</div><div>Next payout card: amount, date (every Monday), "Scheduled" badge.</div></li>
+            <li><div class="step-num">3</div><div><strong>Commission breakdown</strong>: Gross booking value (€75) → Platform commission 20% (−€15) → Net earnings (€60). Fully transparent.</div></li>
+            <li><div class="step-num">4</div><div>Payout history: date, amount, "Paid" status badges, bank transfer to Finnish IBAN.</div></li>
+          </ul>
+          <div class="features-grid">
+            <div class="feature-chip"><span class="icon">📅</span><div>Weekly payouts, every Monday for prior week's completed jobs</div></div>
+            <div class="feature-chip"><span class="icon">🏦</span><div>Stripe Connect → Finnish IBAN. No manual invoicing required.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MOBILE ── -->
+    <div class="section" id="mobile">
+      <div class="section-header">
+        <div class="section-num">→</div>
+        <h2>Mobile Experience</h2>
+        <span class="section-tag">iPhone · 390px</span>
+      </div>
+
+      <div class="info-box blue">
+        <span class="info-box-icon">📱</span>
+        <div>SabarKoti is mobile-first — the majority of home service bookings happen on a phone. The platform is a responsive web app (no native app required at MVP). All key flows work on 390px viewport.</div>
+      </div>
+
+      <div class="mobile-row">
+        <div class="mobile-frame">
+          <div class="mobile-frame-header">
+            <span>Homepage</span>
+            <span style="font-size:11px;color:#9ca3af;">/</span>
+          </div>
+          <img src="screenshots/mobile-home.png" alt="Mobile home">
+        </div>
+        <div class="mobile-frame">
+          <div class="mobile-frame-header">
+            <span>Browse Pros</span>
+            <span style="font-size:11px;color:#9ca3af;">/providers</span>
+          </div>
+          <img src="screenshots/mobile-providers.png" alt="Mobile providers">
+        </div>
+        <div class="mobile-frame">
+          <div class="mobile-frame-header">
+            <span>Booking Flow</span>
+            <span style="font-size:11px;color:#9ca3af;">/book</span>
+          </div>
+          <img src="screenshots/mobile-booking-flow.png" alt="Mobile booking flow">
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SUMMARY ── -->
+    <div class="section" id="summary">
+      <div class="section-header">
+        <div class="section-num">→</div>
+        <h2>Screen Index</h2>
+      </div>
+
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Screen</th>
+            <th>Route</th>
+            <th>User</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Homepage + Tax Calculator</td><td><code>/</code></td><td>Customer</td><td><span class="tag tag-green">Live</span></td></tr>
+          <tr><td>2</td><td>Browse Professionals</td><td><code>/providers</code></td><td>Customer</td><td><span class="tag tag-green">Live</span></td></tr>
+          <tr><td>3</td><td>Provider Profile</td><td><code>/providers/:id</code></td><td>Customer</td><td><span class="tag tag-green">Live</span></td></tr>
+          <tr><td>4</td><td>Booking Wizard (4 steps)</td><td><code>/providers/:id/book</code></td><td>Customer</td><td><span class="tag tag-green">Live</span></td></tr>
+          <tr><td>5</td><td>Booking Confirmed</td><td><code>/booking-confirmed</code></td><td>Customer</td><td><span class="tag tag-green">Live</span></td></tr>
+          <tr><td>6</td><td>My Bookings</td><td><code>/dashboard/bookings</code></td><td>Customer</td><td><span class="tag tag-green">Live</span></td></tr>
+          <tr><td>7</td><td>Tax Receipts</td><td><code>/dashboard/receipts</code></td><td>Customer</td><td><span class="tag tag-green">Live</span></td></tr>
+          <tr><td>8</td><td>Join as Professional</td><td><code>/provider/apply</code></td><td>Provider</td><td><span class="tag tag-green">Live</span></td></tr>
+          <tr><td>9</td><td>Provider Dashboard</td><td><code>/provider/dashboard</code></td><td>Provider</td><td><span class="tag tag-green">Live</span></td></tr>
+          <tr><td>10</td><td>Manage Bookings</td><td><code>/provider/bookings</code></td><td>Provider</td><td><span class="tag tag-green">Live</span></td></tr>
+          <tr><td>11</td><td>Availability Calendar</td><td><code>/provider/availability</code></td><td>Provider</td><td><span class="tag tag-green">Live</span></td></tr>
+          <tr><td>12</td><td>Earnings & Payouts</td><td><code>/provider/earnings</code></td><td>Provider</td><td><span class="tag tag-green">Live</span></td></tr>
+        </tbody>
+      </table>
+
+      <div style="text-align:center;padding:40px 0 20px;color:#9ca3af;font-size:12px;">
+        sabarkoti.pomegroup.studio · UI Prototype v1 · February 2026 · Built by Mahdi Farimani
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Highlight active sidebar link on scroll
+  const sections = document.querySelectorAll('.section[id]');
+  const navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
