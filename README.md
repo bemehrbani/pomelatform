@@ -1,46 +1,67 @@
-# Pomegroup Monorepo
+# Pomegroup Studio — HQ Control Plane
 
-This repository contains the various projects and components of Pomegroup.
+> **Autonomous Venture Builder Studio & Multi-Project Workspace**  
+> **Company:** Smart Monshi Oy (Trade Name: Pomegroup Studio)  
+> **Domicile:** Helsinki, Finland (Business ID: `3370210-5`)  
+> **Website:** [https://pomegroup.studio](https://pomegroup.studio)
 
-## Project Index
+---
 
-| Project Directory | Description | Status | Live URL |
-| :--- | :--- | :--- | :--- |
-| `pomegroup-website/` | **Main Website**. The Next.js 16 public portal. (Formerly root project) | Active | TBD |
-| `pometesters/` | **Pometesters**. Management system for testing feedback loops. | Active | TBD |
-| `IlyaRobloxGame/` | **IlyaRobloxGame**. Roblox game project source (Rojo). | Active | N/A |
-| `roblox/` | **Roblox Library**. Shared Roblox project components. | Active | N/A |
-| `stable-diffusion-webui/` | **SD WebUI**. Local AI generation tools. | Installed | N/A |
-| `pomegroup-studio/` | **Pomegroup Studio**. Alternative/Legacy studio application. | Legacy | https://pomegroup.studio (Likely) |
+## Master Context Layer
 
-## Notes
--   Refer to the `PROJECT_DESC.md` inside each directory for project-specific details.
--   Common tooling includes Node.js (Next.js), Python (AI tools), and Rojo (Roblox).
+For the canonical single source of truth on company identity, venture builder commercial mechanics, active ventures, paying retainer accounts, tech stacks, and Finnish regulatory playbooks, consult [`context/`](context/):
 
-## Project Details
+| Document | Purpose |
+| :--- | :--- |
+| **[`context/INDEX.md`](context/INDEX.md)** | Sitemap & AI Agent Quick-Start Guide |
+| **[`context/00_COMPANY_PROFILE.md`](context/00_COMPANY_PROFILE.md)** | Legal identity, Y-tunnus, origin story, founder track record (incl. exited ventures) |
+| **[`context/01_BUSINESS_MODEL.md`](context/01_BUSINESS_MODEL.md)** | "Second Co-Founder as a Service", equity + CaaS retainer mechanics |
+| **[`context/02_PORTFOLIO_DIRECTORY.md`](context/02_PORTFOLIO_DIRECTORY.md)** | Active ventures, paying retainer customers (`rhinograph`), upsell targets, and archived/exited portfolio |
+| **[`context/03_TECH_STACK_ARCHITECTURE.md`](context/03_TECH_STACK_ARCHITECTURE.md)** | Canonical tech stacks (Next.js 16, Cloudflare, Telegram Bots, Python) |
+| **[`context/04_OPERATIONAL_PLAYBOOKS.md`](context/04_OPERATIONAL_PLAYBOOKS.md)** | AI agent workflows, HQ Git separation rules, and Finnish PRH/Vero compliance |
+| **[`context/05_BUSINESS_FINLAND_SPRINT_KB.md`](context/05_BUSINESS_FINLAND_SPRINT_KB.md)** | Business Finland Sprint Funding grant rules, budgeting, and compliance |
 
-### Pometools / Pomegroup Website (`pomegroup-website/`)
-**Status**: Active | **Type**: Next.js 16 Web Application
-This is the main public website or dashboard portal for Pomegroup. It was previously located at the root of the repository.
--   **Stack**: Next.js 16 (App Router), TypeScript, Tailwind CSS.
+---
 
-### Pometesters (`pometesters/`)
-**Status**: Active | **Type**: Next.js 16 Web Application
-A management system for testers, likely for beta testing or user feedback loops. Includes admin capabilities and email integration.
--   **Stack**: Next.js 16, TypeScript, Prisma ORM, Tailwind CSS v4, Nodemailer.
+## Workspace Architecture
 
-### IlyaRobloxGame (`IlyaRobloxGame/`)
-**Status**: Active | **Type**: Roblox Game Source
-A Roblox game project managed with Rojo.
--   **Stack**: Rojo 7.7.0. Top-level place file.
+The root Git repository (`bemehrbani/pomelatform.git`) acts strictly as a lightweight **HQ Control Plane**, tracking only `context/`, `scripts/`, `README.md`, `CLAUDE.md`, and `.gitignore`. All project folders, the studio website, private partner evaluations, and cold archives are excluded via blanket `.gitignore` rules and maintain their own independent `.git` histories.
 
-### Roblox Library (`roblox/`)
-**Status**: Active | **Type**: Roblox Project Source
-Another Roblox project structure, potentially a shared library or a separate game instance.
+```text
+Pomegroup/                           # Tracked in HQ Git (< 1 MB)
+├── context/                         # Tracked: Studio single source of truth
+├── scripts/                         # Tracked: Studio utilities (hermes_client.py)
+├── pomegroup-website/               # Excluded (Own Git: PomeGroup/pomegroup-website)
+├── co-founders-pool/                # Excluded (Private partner/founder evaluations)
+├── internship_program/              # Excluded (Active growth internship workspace)
+├── Projects/                        # Excluded — Active ventures & paying clients only (13)
+│   ├── FelixGuide/                  #   AI Dental Operating System (€200k Pre-Seed, A-Permit)
+│   ├── rhinograph/                  #   Active paying CaaS retainer client (PRH/Vero SLA — upsell target)
+│   ├── Aril/                        #   AI-native Digital Sales Rooms (DSR) platform
+│   ├── PlantFactory/                #   Grafted Seedlings Plant Factory ($2M investor data room)
+│   ├── Expertshub/                  #   Metallurgy & materials science AI marketplace
+│   ├── Headhunting/                 #   Hipped technical recruitment & endorsement operations
+│   ├── Advenshare/                  #   Full-stack Laravel + web application
+│   ├── DrZeinabFarimani/            #   Official clinical portal (drzfarimani.com)
+│   ├── MojtabaNiknam/               #   Strategic partner & VSME/FelixGuide architecture specs
+│   ├── PFP/                         #   People for Peace & Justice ry platform (peopleforpeace.live)
+│   ├── Makan_Ry/                    #   Makan ry trilingual NGO portal & PRH governance
+│   ├── appnewsir/                   #   Automated news aggregation & analysis service
+│   └── ... (private legal)          #   Confidential workspaces excluded from public docs
+└── archive/                         # Excluded — Exited & inactive (>2m) projects (archive/Projects/)
+```
 
-### Stable Diffusion WebUI (`stable-diffusion-webui/`)
-(Removed per user request)
+---
 
-### Pomegroup Studio (Archive) (`pomegroup-studio/`)
-(Removed per user request)
+## Quick Commands
 
+### Main Website (`pomegroup-website/`)
+```bash
+cd pomegroup-website
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # Production build verification
+```
+
+### Active Projects (`Projects/<project-name>/`)
+Each active codebase manages its own Git repository and dependencies independently. Refer to the `README.md`, `AGENTS.md`, or `CLAUDE.md` inside the target project directory.

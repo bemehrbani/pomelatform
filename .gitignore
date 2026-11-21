@@ -1,4 +1,18 @@
-suomivalidator/
-Projects/Nehzat Zakria/
-roblox/
+# Independent Repositories, Client Workspaces & Archives
+Projects/
 pomegroup-website/
+archive/
+Backups/
+internship_program/
+co-founders-pool/
+loop-engineering/
+
+# OS, Editor, Secrets & Runtime State
+.DS_Store
+.netlify/
+.env
+.env.*
+!.env.example
+.hermes_last_id
+__pycache__/
+*.pyc
